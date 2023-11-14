@@ -1,7 +1,11 @@
-import "./App.css";
+import GoogleSignInPage from "./pages/GoogleSignINPage";
 
 function App() {
-	return <></>;
+	return (
+		<>
+			<GoogleSignInPage />;
+		</>
+	);
 }
 
 export default App;
