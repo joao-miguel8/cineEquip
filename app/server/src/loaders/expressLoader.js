@@ -1,15 +1,17 @@
-const express = require("express");
 const cors = require("cors");
-const bodyParser = require("express").json;
 const routes = require("../api/routes/index");
 
 function expressLoader(app) {
 	app.use(cors());
-	// Middleware parses requests to JSOn
-	app.use(bodyParser());
 
-	// Routes
-	app.use("/api", routes);
+	// --PASSPORT INITIALIZATION--
+	// maintain persistent login sessions.
+
+	// --ROUTES INITIALIZATION--
+	app.use(routes);
+	app.use((err, req, res, next) => {
+		console.error(err.stack);
+	});
 
 	console.log("Express Running");
 	return app;

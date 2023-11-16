@@ -17,12 +17,12 @@ module.exports = {
 	theme: {
 		fontSize: fontSizes,
 		fontFamily: {
-			sans: ["Karla", "sans-serif"],
+			karla: ["Karla", "sans-serif"],
 		},
 
 		extend: {
 			colors: {
-				primary: "#FFBA5E",
+				primary: "#D9E1F0",
 				textDark: "#28395F",
 			},
 		},

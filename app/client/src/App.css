@@ -1,3 +1,7 @@
 @tailwind base;
+/* apply font styling globally */
+body {
+	@apply font-karla;
+}
 @tailwind components;
 @tailwind utilities;

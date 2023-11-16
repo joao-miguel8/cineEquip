@@ -8,8 +8,8 @@ async function appLoader() {
 		const app = express();
 		// Loaders
 		await DBLoader();
-		serverLoader(app);
 		expressLoader(app);
+		serverLoader(app);
 	} catch (error) {
 		console.error(`Error loading AppLoader ${error}`);
 	}

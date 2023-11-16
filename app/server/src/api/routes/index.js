@@ -4,7 +4,11 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/test", (req, res) => {
-	res.json({ test: "THIS IS A TEST ROUTE" });
+	res.send({ test: "TEST TEST TEST TEST" });
+});
+
+router.get("/test2", (req, res) => {
+	res.send([{ test: "TEST TEST TEST TEST" }, { test: "TEST TEST TEST TEST" }, { test: "TEST TEST TEST TEST" }, { test: "TEST TEST TEST TEST" }]);
 });
 
 module.exports = router;
