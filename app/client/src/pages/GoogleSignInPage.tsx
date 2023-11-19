@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import signInImg from "../assets/googleSignInHero.svg";
+import { useEffect } from "react";
 
 function GoogleSignInPage() {
 	useEffect(() => {

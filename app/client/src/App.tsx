@@ -1,12 +1,11 @@
-// import GoogleSignInPage from "./pages/GoogleSignInPage";
-import Home from "./pages/Home";
+import AppRouter from "./router/AppRouter";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
 	return (
-		<>
-			{/* <GoogleSignInPage /> */}
-			<Home />
-		</>
+		<BrowserRouter>
+			<AppRouter />
+		</BrowserRouter>
 	);
 }
 
