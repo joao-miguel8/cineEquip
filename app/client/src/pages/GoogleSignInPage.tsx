@@ -2,10 +2,6 @@ import signInImg from "../assets/googleSignInHero.svg";
 import { useEffect } from "react";
 
 function GoogleSignInPage() {
-	useEffect(() => {
-		document.body.classList.add("bg-primary");
-	}, []);
-
 	return (
 		<div className="pb-20 w-full ">
 			<header className="px-6 py-10 h-14 flex items-center justify-between">

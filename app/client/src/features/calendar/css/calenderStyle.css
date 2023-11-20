@@ -26,6 +26,7 @@
 .rbc-off-range-bg {
 	background: white !important;
 }
+
 .rbc-off-range {
 	color: #818c99 !important;
 }
@@ -47,7 +48,7 @@
 .rbc-header {
 	display: flex;
 	align-items: center;
-	background: #f9faff;
+	background: #d3d2f770;
 	height: 1.6rem;
 	font-weight: bold;
 }
