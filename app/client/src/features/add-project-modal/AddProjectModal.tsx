@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
+import { useProjectStore } from "../../zustand-store/projectStore";
 
 const AddProjectModal = ({ toggleDispatch }: { toggleDispatch: () => void }) => {
 	const [titleInput, useTitleInput] = useState<string>("");
+	const addNewProject = useProjectStore(state => state.addNewProject);
 
 	useDisableBodyScroll();
+
+	const handleAddNewProject = () => {
+		const newProject = { title: titleInput };
+		addNewProject(newProject);
+	};
 
 	return (
 		//  --Main Container--
@@ -32,7 +39,14 @@ const AddProjectModal = ({ toggleDispatch }: { toggleDispatch: () => void }) => 
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">
 					{/* --Create Project Btn-- */}
-					<button className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">Create Project</button>
+					<button
+						onClick={() => {
+							handleAddNewProject();
+							toggleDispatch("IS_OFF");
+						}}
+						className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
+						Create Project
+					</button>
 					{/* --Close Btn-- */}
 					<button onClick={() => toggleDispatch("IS_OFF")} className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
 						Close

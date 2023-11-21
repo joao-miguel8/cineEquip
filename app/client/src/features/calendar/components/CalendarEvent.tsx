@@ -1,6 +1,7 @@
 import type { CalenderType } from "../types/CalenderEventType";
 // event, title, start, end;
 function CalendarEvent({ event }: CalenderType) {
+	console.log(event);
 	const startDate = event.start?.toString().split("GMT")[0];
 	const endDate = event.end?.toString().split("GMT")[0];
 	console.log(event);

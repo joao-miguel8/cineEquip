@@ -1,23 +1,15 @@
-import { IoAdd } from "react-icons/io5";
 import SearchBar from "../components/searchbar/Searchbar";
-import ProjectCard from "../features/project-card/ProjectCard";
 import Header from "../components/header/Header";
-import { useEffect, useState } from "react";
+import ProjectCard from "../features/project-card/ProjectCard";
 import AddProjectModal from "../features/add-project-modal/AddProjectModal";
 import useToggle from "../hooks/useToggle";
+import { IoAdd } from "react-icons/io5";
 import classNames from "classnames";
+import { useProjectStore } from "../zustand-store/projectStore";
 
 function ProjectsPage() {
-	// Mock Projects Data
-	const projects = [
-		{ name: "this project has a very very long name", scene: [], gear: [] },
-		{ name: "project02", scene: [], gear: [] },
-		{ name: "project02", scene: [], gear: [] },
-		{ name: "project03", scene: [], gear: [] },
-		{ name: "project04", scene: [], gear: [] },
-		{ name: "project05", scene: [], gear: [] },
-	];
-	const [projectsList, setProjectsList] = useState(projects);
+	const projectsList = useProjectStore(state => state.projects);
+	console.dir(projectsList);
 
 	const toggleModal = useToggle();
 	const { isToggled, isOn, isOff, dispatch } = toggleModal;
@@ -47,8 +39,8 @@ function ProjectsPage() {
 			{isOn ? <AddProjectModal toggleDispatch={dispatch} /> : null}
 			{/* --Project List Container-- */}
 			<div className="px-4 mx-auto pb-20 flex justify-center gap-12 flex-wrap">
-				{projectsList.map(project => {
-					return <ProjectCard title={project.name} />;
+				{projectsList.map((project, index) => {
+					return <ProjectCard key={index} title={project.title} />;
 				})}
 			</div>
 			{/* --Add Project Button-- */}
