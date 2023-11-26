@@ -1,4 +1,4 @@
-import CollectionCard from "../components/collection-card/CollectionCard";
+import CollectionCard from "../components/common/collection-card/CollectionCard";
 import projectCollection from "../assets/projectCollection.svg";
 import kitsCollection from "../assets/kitsCollection.svg";
 import gearCollection from "../assets/gearCollection.svg";

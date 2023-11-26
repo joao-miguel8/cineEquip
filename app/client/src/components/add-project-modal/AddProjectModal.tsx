@@ -3,15 +3,19 @@ import { IoMdClose } from "react-icons/io";
 import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
 import { useProjectStore } from "../../zustand-store/projectStore";
 
-const AddProjectModal = ({ toggleDispatch }: { toggleDispatch: () => void }) => {
-	const [titleInput, useTitleInput] = useState<string>("");
+const AddProjectModal = ({ toggleDispatch }) => {
+	const [titleInput, setTitleInput] = useState<string>("");
+
+	// Zustand global store
+	const projectsList = useProjectStore(state => state.projects);
 	const addNewProject = useProjectStore(state => state.addNewProject);
 
 	useDisableBodyScroll();
 
 	const handleAddNewProject = () => {
 		const newProject = { title: titleInput };
-		addNewProject(newProject);
+		// Check projectList for existing project names if any null, if not add project
+		projectsList.some(proj => proj.title === titleInput) ? null : addNewProject(newProject);
 	};
 
 	return (
@@ -28,13 +32,13 @@ const AddProjectModal = ({ toggleDispatch }: { toggleDispatch: () => void }) => 
 						Create a title for your project
 					</h4>
 					{/* --Close Btn-- */}
-					<button onClick={() => toggleDispatch("IS_OFF")}>
+					<button aria-label="close create a new project modal" onClick={() => toggleDispatch("IS_OFF")}>
 						<IoMdClose size={"1.7rem"} className={"hover:text-primary duration-150"} />
 					</button>
 				</div>
 				{/* --Modal Body-- */}
-				<div aria-label="give your project a name" className="mt-4">
-					<input value={titleInput} onChange={e => useTitleInput(e.target.value)} type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
+				<div aria-label="add a project name to create your project" className="mt-4">
+					<input value={titleInput} onChange={e => setTitleInput(e.target.value)} type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
 				</div>
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">
@@ -44,11 +48,12 @@ const AddProjectModal = ({ toggleDispatch }: { toggleDispatch: () => void }) => 
 							handleAddNewProject();
 							toggleDispatch("IS_OFF");
 						}}
+						aria-label="add new project"
 						className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
 						Create Project
 					</button>
 					{/* --Close Btn-- */}
-					<button onClick={() => toggleDispatch("IS_OFF")} className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
+					<button onClick={() => toggleDispatch("IS_OFF")} aria-label="close add new project modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
 						Close
 					</button>
 				</div>

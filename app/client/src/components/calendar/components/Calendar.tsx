@@ -5,7 +5,7 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import { useCallback, useState } from "react";
 
 import "../css/calenderStyle.css";
-import CalendarEvent from "../components/CalendarEvent";
+import CalendarEvent from "./CalendarEvent";
 
 // import { CalenderType } from "../types/CalenderEventType";
 

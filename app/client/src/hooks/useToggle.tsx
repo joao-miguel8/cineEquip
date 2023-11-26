@@ -23,13 +23,13 @@ const toggleStates: ToggleStateType = {
 	isOff: true,
 };
 
-const actionTypes = {
+const reducerAction = {
 	TOGGLE: "TOGGLE",
 	IS_ON: "TURN_ON",
 	IS_OFF: "TURN_OFF",
-};
+} as const;
 
-const reducer = (state: ToggleStateType, action: keyof typeof actionTypes): ToggleStateType => {
+const reducer = (state: ToggleStateType, action: keyof typeof reducerAction): ToggleStateType => {
 	switch (action) {
 		case "TOGGLE":
 			return {
