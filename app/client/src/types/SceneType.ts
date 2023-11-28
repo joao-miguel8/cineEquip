@@ -1,7 +1,6 @@
 import { KitType } from "./KitType";
 
 export type SceneType = {
-	id: number;
 	name: string;
 	description: string;
 	kitList?: KitType[] | [];

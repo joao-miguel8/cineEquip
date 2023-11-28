@@ -1,7 +1,6 @@
 import type { GearType } from "./GearType";
 
 export type KitType = {
-	id: number;
 	name: string;
 	description?: string;
 	gearList: GearType[] | [];
