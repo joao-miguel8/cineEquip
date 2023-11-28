@@ -7,16 +7,14 @@ const AddProjectModal = ({ toggleDispatch }) => {
 	const [titleInput, setTitleInput] = useState<string>("");
 
 	// Zustand global store
-	const projectsList = useProjectStore(state => state.projects);
 	const addNewProject = useProjectStore(state => state.addNewProject);
-
-	useDisableBodyScroll();
-
-	const handleAddNewProject = () => {
-		const newProject = { title: titleInput };
-		// Check projectList for existing project names if any null, if not add project
-		projectsList.some(proj => proj.title === titleInput) ? null : addNewProject(newProject);
+	// create new project with title property added
+	const handleCreateNewProject = async () => {
+		await addNewProject({ title: titleInput });
 	};
+
+	// remove body scroll when modal opens
+	useDisableBodyScroll();
 
 	return (
 		//  --Main Container--
@@ -45,7 +43,7 @@ const AddProjectModal = ({ toggleDispatch }) => {
 					{/* --Create Project Btn-- */}
 					<button
 						onClick={() => {
-							handleAddNewProject();
+							handleCreateNewProject();
 							toggleDispatch("IS_OFF");
 						}}
 						aria-label="add new project"
