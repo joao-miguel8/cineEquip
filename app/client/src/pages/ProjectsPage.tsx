@@ -6,14 +6,33 @@ import useToggle from "../hooks/useToggle";
 import { useProjectStore } from "../zustand-store/projectStore";
 import { IoAdd } from "react-icons/io5";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function ProjectsPage() {
 	const projectsList = useProjectStore(state => state.projects);
+	const fetchProjects = useProjectStore(state => state.fetchAllProjects);
+
 	const [isSelectModeActive, setIsSelectModeActive] = useState(false);
 
 	const toggleModal = useToggle();
 	const { isToggled, isOn: isAddProjectModalOpen, isOff, dispatch } = toggleModal;
+
+	// fetch project from Zustand Store/ MonoDB DB
+	async function getProjectData() {
+		await fetchProjects();
+	}
+
+	// rerender when a new project is created
+	useEffect(() => {
+		const renderProjectData = async () => {
+			try {
+				await getProjectData();
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		renderProjectData();
+	}, [fetchProjects]);
 
 	// Only allow select project btn to be toggled if projectsList has more than 1 project
 	const toggleSelectBtn = () => projectsList.length >= 1 && setIsSelectModeActive(prevState => !prevState);
@@ -35,7 +54,7 @@ function ProjectsPage() {
 							}}
 							aria-label="toggle button to select your projects"
 							type="button"
-							className={classNames("mb-2 p-2 sm:px-5 sm:py-2.5 text-12 md:text-14 text-gray-900 font-medium rounded-lg dark:text-white", projectsList.length === 0 ? "bg-gray-400 cursor-not-allowed" : "bg-gray-700 dark:hover:bg-primary", isSelectModeActive ? "bg-primary" : null)}>
+							className={classNames("mb-2 p-2 sm:px-5 sm:py-2.5 text-12 md:text-14 text-gray-900 font-medium rounded-lg dark:text-white", projectsList?.length === 0 ? "bg-gray-400 cursor-not-allowed" : "bg-gray-700 dark:hover:bg-primary", isSelectModeActive ? "bg-primary" : null)}>
 							Select projects
 						</button>
 					</div>
@@ -46,7 +65,7 @@ function ProjectsPage() {
 			{/* --Project List Container-- */}
 			<div className="px-4 mx-auto pb-20 flex justify-center gap-12 flex-wrap">
 				{projectsList?.map((project, index) => {
-					return <ProjectCard key={index} index={index} title={project.title} isSelectModeActive={isSelectModeActive} setIsSelectModeActive={setIsSelectModeActive} />;
+					return <ProjectCard key={index} index={index} title={project?.title} isSelectModeActive={isSelectModeActive} setIsSelectModeActive={setIsSelectModeActive} />;
 				})}
 			</div>
 			{/* --Add Project Button-- */}
