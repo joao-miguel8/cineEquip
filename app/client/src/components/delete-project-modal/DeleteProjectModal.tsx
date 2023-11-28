@@ -6,13 +6,14 @@ import { useProjectStore } from "../../zustand-store/projectStore";
 function DeleteProjectModal({ index, title, toggleDispatch, handleIsSelectModeActive }: { index: number; title: string; toggleDispatch: (action: string) => void; handleIsSelectModeActive: (selectModeActive: boolean) => void }) {
 	const [deleteTitleInput, setDeleteTitleInput] = useState<string>("");
 	const deleteProject = useProjectStore(state => state.deleteSelectedProject);
+	const projectsList = useProjectStore(state => state.projects);
 
 	const handleDeleteProject = () => {
 		// if input matches project title, then delete project
-		if (deleteTitleInput === title) {
-			deleteProject(index);
-			handleIsSelectModeActive(false);
-			toggleDispatch("IS_OFF");
+		const projectToDelete = projectsList.find(proj => proj.title === deleteTitleInput);
+		if (projectToDelete) {
+			const projectId = projectToDelete._id;
+			deleteProject(projectId);
 		}
 	};
 
@@ -50,7 +51,13 @@ function DeleteProjectModal({ index, title, toggleDispatch, handleIsSelectModeAc
 				</div>
 				{/* --delete Project Btn-- */}
 				<div aria-label="delete your project button" className="flex w-full justify-end">
-					<button onClick={() => handleDeleteProject()} className="mt-4 p-2 text-white bg-[#F25554] rounded-lg font-medium hover:text-white hover:bg-red-600">
+					<button
+						onClick={() => {
+							handleDeleteProject();
+							handleIsSelectModeActive(false);
+							toggleDispatch("IS_OFF");
+						}}
+						className="mt-4 p-2 text-white bg-[#F25554] rounded-lg font-medium hover:text-white hover:bg-red-600">
 						Delete Project
 					</button>
 				</div>
