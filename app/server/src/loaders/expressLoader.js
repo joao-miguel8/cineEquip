@@ -1,11 +1,10 @@
 const cors = require("cors");
 const routes = require("../api/routes/index");
+const express = require("express");
 
 function expressLoader(app) {
 	app.use(cors());
-
-	// --PASSPORT INITIALIZATION--
-	// maintain persistent login sessions.
+	app.use(express.json());
 
 	// --ROUTES INITIALIZATION--
 	app.use(routes);
