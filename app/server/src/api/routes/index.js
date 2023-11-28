@@ -1,14 +1,17 @@
 const express = require("express");
-
+const { createNewProject } = require("../controllers/projects/CreateNewProjectController");
+const { fetchAllProjects } = require("../controllers/projects/FetchAllProjectsController");
+const { DeleteProject } = require("../controllers/projects/DeleteProjectController");
 // // initiate backend routes
 const router = express.Router();
 
 router.get("/test", (req, res) => {
-	res.send({ test: "TEST TEST TEST TEST" });
+	res.send({ test: "This is a Test Route" });
 });
 
-router.get("/test2", (req, res) => {
-	res.send([{ test: "TEST TEST TEST TEST" }, { test: "TEST TEST TEST TEST" }, { test: "TEST TEST TEST TEST" }, { test: "TEST TEST TEST TEST" }]);
-});
+// Create a new project
+router.post("/createNewProject", createNewProject);
+router.delete("/deleteProject/:projectId", DeleteProject);
+router.get("/fetchAllProjects", fetchAllProjects);
 
 module.exports = router;
