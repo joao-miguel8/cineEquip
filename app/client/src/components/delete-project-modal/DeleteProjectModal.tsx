@@ -2,17 +2,27 @@ import classNames from "classnames";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useProjectStore } from "../../zustand-store/projectStore";
+import { deleteChosenProject } from "../../lib/api/services/projectsServices/deleteChosenProject";
+import { useMutation } from "react-query";
 
 function DeleteProjectModal({ index, title, toggleDispatch, handleIsSelectModeActive }: { index: number; title: string; toggleDispatch: (action: string) => void; handleIsSelectModeActive: (selectModeActive: boolean) => void }) {
 	const [deleteTitleInput, setDeleteTitleInput] = useState<string>("");
+
+	// zustand store
 	const deleteProject = useProjectStore(state => state.deleteSelectedProject);
 	const projectsList = useProjectStore(state => state.projects);
 
+	// remove project from server/db with react-query
+	const removeProject = useMutation(deleteChosenProject);
+
 	const handleDeleteProject = () => {
-		// if input matches project title, then delete project
+		// delete project if input matches project title,
 		const projectToDelete = projectsList.find(proj => proj.title === deleteTitleInput);
 		if (projectToDelete) {
 			const projectId = projectToDelete._id;
+			// delete from DB with react-query mutate
+			removeProject.mutate(projectId);
+			// delete from Zustand client state Store
 			deleteProject(projectId);
 		}
 	};
