@@ -28,7 +28,7 @@ function DeleteProjectModal({ index, title, toggleDispatch, handleIsSelectModeAc
 	};
 
 	return (
-		<div onClick={() => toggleDispatch("IS_OFF")} className="fixed w-full h-full top-0 left-0 flex items-center justify-center">
+		<div onClick={() => toggleDispatch("IS_OFF")} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center">
 			{/* <!--Modal Overlay Window--> */}
 			<div className="pointer-events-none absolute z-40 w-full h-full bg-gray-900 opacity-50"></div>
 			{/* --Modal Container-- */}
