@@ -1,7 +1,14 @@
+import { useParams } from "react-router-dom";
 import Header from "../components/common/header/Header";
 import SearchBar from "../components/common/searchbar/Searchbar";
 import { FaFolder } from "react-icons/fa";
+
 function SelectedProjectPage() {
+	const { id } = useParams();
+
+	const getLocalStorageProjs = localStorage.getItem("projects");
+	const projectsList = JSON.parse(getLocalStorageProjs);
+
 	return (
 		<section>
 			<Header />
