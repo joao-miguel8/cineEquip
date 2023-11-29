@@ -1,12 +1,11 @@
 import { create } from "zustand";
 import type { ProjectType } from "../types/ProjectType";
-import { createNewProject } from "../lib/api/services/projectsServices/createNewProject";
 
 // Data types for global projects store
 type ProjectStoreActions = {
 	projects: ProjectType[];
 	fetchAllProjects: (projects: ProjectType) => void;
-	addNewProject: (newProject: ProjectType) => Promise<void>;
+	addNewProject: (newProject: ProjectType) => void;
 	deleteSelectedProject: (projectId: string) => void;
 };
 
@@ -18,11 +17,9 @@ export const useProjectStore = create<ProjectStoreActions>(set => ({
 			projects: projectsList,
 		});
 	},
-	addNewProject: async newProject => {
-		const resp = await createNewProject(newProject);
-		const dataRes = await resp;
+	addNewProject: newProject => {
 		set(state => ({
-			projects: [...state.projects, dataRes],
+			projects: [...state.projects, newProject],
 		}));
 	},
 	deleteSelectedProject: (projectId: string) => {

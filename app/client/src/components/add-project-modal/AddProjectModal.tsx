@@ -2,15 +2,26 @@ import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
 import { useProjectStore } from "../../zustand-store/projectStore";
+import { createNewProject } from "../../lib/api/services/projectsServices/createNewProject";
+import { ProjectType } from "../../types/ProjectType";
 
 const AddProjectModal = ({ toggleDispatch }) => {
 	const [titleInput, setTitleInput] = useState<string>("");
 
-	// Zustand global store
+	// client state store
 	const addNewProject = useProjectStore(state => state.addNewProject);
-	// create new project with title property added
+
+	// create new project
 	const handleCreateNewProject = async () => {
-		await addNewProject({ title: titleInput });
+		// add new project to client state store
+		await createNewProject({ title: titleInput });
+
+		//  create a partial ProjectType object with only the title property
+		const partialProjectType: Partial<ProjectType> = { title: titleInput };
+
+		// set partialProjectType as ProjectType type
+		const projectTypePartial = partialProjectType as ProjectType;
+		addNewProject(projectTypePartial);
 	};
 
 	// remove body scroll when modal opens
