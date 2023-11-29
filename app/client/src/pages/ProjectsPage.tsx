@@ -15,7 +15,6 @@ function ProjectsPage() {
 	const getProjects = useProjectStore(state => state.fetchAllProjects);
 	// fetch project from useFetchProjects
 	const { data: projects, isLoading, error } = useFetchProjects();
-
 	// fetch project data on first render
 	useEffect(() => {
 		if (isLoading) {
@@ -39,7 +38,7 @@ function ProjectsPage() {
 	return (
 		<section>
 			{/* --Sticky top section container-- */}
-			<div className="mb-10 sticky top-0 w-full bg-white">
+			<div className="z-20 mb-10 sticky top-0 w-full bg-white">
 				{/* --Page Header-- */}
 				<Header />
 				<div className="mt-14 mx-4 flex flex-col">
@@ -64,7 +63,7 @@ function ProjectsPage() {
 			{/* --Project List Container-- */}
 			<div className="px-4 mx-auto pb-20 flex justify-center gap-12 flex-wrap">
 				{projectsList?.map((project, index) => {
-					return <ProjectCard key={index} index={index} title={project?.title} isSelectModeActive={isSelectModeActive} setIsSelectModeActive={setIsSelectModeActive} />;
+					return <ProjectCard key={index} projectData={project} index={index} isSelectModeActive={isSelectModeActive} setIsSelectModeActive={setIsSelectModeActive} />;
 				})}
 			</div>
 			{/* --Add Project Button-- */}
