@@ -5,6 +5,7 @@ import GoogleSignInPage from "../pages/GoogleSignInPage";
 import Home from "../pages/Home";
 import KitsPage from "../pages/KitsPage";
 import ProjectsPage from "../pages/ProjectsPage";
+import SelectedProjectPage from "../pages/SelectedProjectPage";
 import type { RouterType } from "./RouterType";
 
 export const pagesData: RouterType[] = [
@@ -15,6 +16,10 @@ export const pagesData: RouterType[] = [
 	{
 		path: "/projects",
 		element: <ProjectsPage />,
+	},
+	{
+		path: "projects/:projectId",
+		element: <SelectedProjectPage />,
 	},
 	{
 		path: "/kits",
