@@ -7,32 +7,31 @@ import { useProjectStore } from "../zustand-store/projectStore";
 import { IoAdd } from "react-icons/io5";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
+import { useFetchProjects } from "../lib/api/hooks/usefetchProjects";
 
 function ProjectsPage() {
+	// zustand store
 	const projectsList = useProjectStore(state => state.projects);
-	const fetchProjects = useProjectStore(state => state.fetchAllProjects);
+	const getProjects = useProjectStore(state => state.fetchAllProjects);
+	// fetch project from useFetchProjects
+	const { data: projects, isLoading, error } = useFetchProjects();
+
+	// fetch project data on first render
+	useEffect(() => {
+		if (isLoading) {
+			console.log("Loading Projects");
+		} else if (error) {
+			console.log(error);
+			throw error;
+		}
+		// update zustand store with projects
+		getProjects(projects);
+	}, [projects]);
 
 	const [isSelectModeActive, setIsSelectModeActive] = useState(false);
 
 	const toggleModal = useToggle();
 	const { isToggled, isOn: isAddProjectModalOpen, isOff, dispatch } = toggleModal;
-
-	// fetch project from Zustand Store/ MonoDB DB
-	async function getProjectData() {
-		await fetchProjects();
-	}
-
-	// rerender when a new project is created
-	useEffect(() => {
-		const renderProjectData = async () => {
-			try {
-				await getProjectData();
-			} catch (err) {
-				console.log(err);
-			}
-		};
-		renderProjectData();
-	}, [fetchProjects]);
 
 	// Only allow select project btn to be toggled if projectsList has more than 1 project
 	const toggleSelectBtn = () => projectsList.length >= 1 && setIsSelectModeActive(prevState => !prevState);
