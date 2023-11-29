@@ -5,7 +5,7 @@ import type { ProjectType } from "../types/ProjectType";
 type ProjectStoreActions = {
 	projects: ProjectType[];
 	fetchAllProjects: (projects: ProjectType) => void;
-	addNewProject: (newProject: ProjectType) => void;
+	addNewProject: (newProject: any) => void;
 	deleteSelectedProject: (projectId: string) => void;
 };
 
