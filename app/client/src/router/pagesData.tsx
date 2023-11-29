@@ -18,7 +18,7 @@ export const pagesData: RouterType[] = [
 		element: <ProjectsPage />,
 	},
 	{
-		path: "projects/:projectId",
+		path: "/projects/:id",
 		element: <SelectedProjectPage />,
 	},
 	{
