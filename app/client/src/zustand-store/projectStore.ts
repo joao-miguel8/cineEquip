@@ -1,13 +1,12 @@
 import { create } from "zustand";
 import type { ProjectType } from "../types/ProjectType";
 import { createNewProject } from "../lib/api/services/projectsServices/createNewProject";
-import { fetchProjects } from "../lib/api/services/projectsServices/fetchProjects";
 import { deleteProject } from "../lib/api/services/projectsServices/deleteProject";
 
 // Data types for global projects store
 type ProjectStoreActions = {
 	projects: ProjectType[];
-	fetchAllProjects: () => Promise<void>;
+	fetchAllProjects: (projects: ProjectType) => void;
 	addNewProject: (newProject: ProjectType) => Promise<void>;
 	deleteSelectedProject: (projectId: string) => Promise<void>;
 };
@@ -15,10 +14,10 @@ type ProjectStoreActions = {
 // Project global variables and functions
 export const useProjectStore = create<ProjectStoreActions>(set => ({
 	projects: [],
-	fetchAllProjects: async () => {
-		const projects = await fetchProjects();
-		set({ projects });
-		return projects;
+	fetchAllProjects: projectsList => {
+		set({
+			projects: projectsList,
+		});
 	},
 	addNewProject: async newProject => {
 		const resp = await createNewProject(newProject);
