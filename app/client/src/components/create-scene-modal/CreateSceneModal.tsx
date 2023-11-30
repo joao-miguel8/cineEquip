@@ -26,12 +26,12 @@ function CreateSceneModal({ modalToggle }: { modalToggle: UseToggleType }) {
 						Create a title for your Scene
 					</label>
 					{/* --Close Btn-- */}
-					<button aria-label="close create a new project modal" onClick={() => modalToggle.dispatch("IS_OFF")}>
+					<button aria-label="close create a new scene modal" onClick={() => modalToggle.dispatch("IS_OFF")}>
 						<IoMdClose size={"1.7rem"} className={"hover:text-primary duration-150"} />
 					</button>
 				</div>
 				{/* --Modal Body-- */}
-				<div aria-label="add a project name to create your project" className="mt-4">
+				<div aria-label="add a scene name to create your scene" className="mt-4">
 					<input {...register("name")} placeholder="Scene Name" type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
 				</div>
 				{/* --Modal Footer Btns-- */}
