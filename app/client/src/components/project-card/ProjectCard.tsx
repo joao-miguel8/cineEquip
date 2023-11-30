@@ -3,12 +3,13 @@ import "../../App.css";
 import classNames from "classnames";
 import { IoIosCloseCircle } from "react-icons/io";
 import DeleteProjectModal from "../delete-project-modal/DeleteProjectModal";
-import useToggle from "../../hooks/useToggle";
+import useToggle from "../../hooks/useToggle/useToggle";
 import { Link } from "react-router-dom";
+import { UseToggleType } from "../../hooks/useToggle/type";
 
 function ProjectCard({ index, projectData, isSelectModeActive, setIsSelectModeActive }: { index: number; isSelectModeActive: boolean; setIsSelectModeActive: (setSelectMode: boolean) => void }) {
 	const deleteModalToggle = useToggle();
-	const { isToggled, isOff, isOn, dispatch } = deleteModalToggle;
+	const { isToggled, isOff, isOn, dispatch }: UseToggleType = deleteModalToggle;
 	return (
 		<div className="relative">
 			{isSelectModeActive && <IoIosCloseCircle size={"1.8rem"} onClick={() => dispatch("IS_ON")} className={"absolute right-1 top-1 hover:text-red-500"} />}

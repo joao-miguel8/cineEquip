@@ -1,7 +1,7 @@
 function ScenesList() {
 	return (
 		<section>
-			<div></div>
+			<div>SCENES LIST</div>
 		</section>
 	);
 }

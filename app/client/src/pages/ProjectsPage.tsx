@@ -2,12 +2,13 @@ import SearchBar from "../components/common/searchbar/Searchbar";
 import Header from "../components/common/header/Header";
 import ProjectCard from "../components/project-card/ProjectCard";
 import AddProjectModal from "../components/add-project-modal/AddProjectModal";
-import useToggle from "../hooks/useToggle";
-import { useProjectStore } from "../zustand-store/projectStore";
+import useToggle from "../hooks/useToggle/useToggle";
 import { IoAdd } from "react-icons/io5";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
-import { useFetchProjects } from "../lib/api/hooks/usefetchProjects";
+import { useFetchProjects } from "../lib/api/hooks/useFetchProjects";
+import { useProjectStore } from "../zustand-store/projectStore";
+import type { UseToggleType } from "../hooks/useToggle/type";
 
 function ProjectsPage() {
 	// zustand store
@@ -30,7 +31,7 @@ function ProjectsPage() {
 	const [isSelectModeActive, setIsSelectModeActive] = useState(false);
 
 	const toggleModal = useToggle();
-	const { isToggled, isOn: isAddProjectModalOpen, isOff, dispatch } = toggleModal;
+	const { isToggled, isOn: isAddProjectModalOpen, isOff, dispatch }: UseToggleType = toggleModal;
 
 	// Only allow select project btn to be toggled if projectsList has more than 1 project
 	const toggleSelectBtn = () => projectsList.length >= 1 && setIsSelectModeActive(prevState => !prevState);
