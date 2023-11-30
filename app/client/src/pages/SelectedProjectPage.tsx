@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
+import useToggle from "../hooks/useToggle";
 import Header from "../components/common/header/Header";
 import SearchBar from "../components/common/searchbar/Searchbar";
-import { FaFolder } from "react-icons/fa";
-import type { ProjectType } from "../types/ProjectType";
 import ScenesList from "../components/scenes-list/ScenesList";
+import CreateSceneModal from "../components/create-scene-modal/CreateSceneModal";
+import type { ProjectType } from "../types/ProjectType";
+import { FaFolder } from "react-icons/fa";
 import { IoAdd } from "react-icons/io5";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
@@ -16,6 +18,9 @@ function SelectedProjectPage() {
 
 	const findChosenProject = () => projectsList.state.projects.find((proj: ProjectType) => proj._id === id);
 	const { _id, title, gear, scenes, kit } = findChosenProject();
+
+	const toggleModal = useToggle();
+	const { isToggled, isOn: isCreateSceneModalOn, isOff, dispatch } = toggleModal;
 
 	return (
 		<section>
@@ -55,12 +60,18 @@ function SelectedProjectPage() {
 			</div>
 			<ScenesList />
 			{/* Add button */}
-			<div aria-label="add a project button" className="py-2 fixed bottom-0 flex justify-center w-full">
+			<div
+				onClick={() => {
+					toggleModal.dispatch("IS_ON");
+				}}
+				aria-label="add a Scene button"
+				className="py-2 fixed bottom-0 flex justify-center w-full">
 				<button className={"mb-2 px-5 py-2.5 min-[350px]:w-80 flex gap-2 justify-center items-center text-gray-900 hover:bg-gray-100 font-medium rounded-lg text-sm bg-primary dark:text-white  dark:hover:bg-gray-700 duration-150"}>
 					<IoAdd size={"1.4rem"} />
 					<span>Add Scene</span>
 				</button>
 			</div>
+			{isCreateSceneModalOn && <CreateSceneModal modalToggle={toggleModal} />}
 		</section>
 	);
 }
