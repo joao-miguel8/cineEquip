@@ -12,10 +12,16 @@ const AddProjectModal = ({ toggleDispatch }) => {
 
 	// create new project
 	const handleCreateNewProject = async () => {
-		// add new project to client state store
-		await createNewProject({ title: titleInput });
-		// set partialProjectType as ProjectType type
-		addNewProject({ title: titleInput });
+		try {
+			// send newly created project to server
+			const AddProjectToServer = await createNewProject({ title: titleInput });
+
+			// server response object returned and add to client state
+			addNewProject(AddProjectToServer);
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
 	};
 
 	// remove body scroll when modal opens
