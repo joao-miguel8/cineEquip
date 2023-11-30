@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import type { SceneType } from "../../types/SceneType";
 import { IoMdClose } from "react-icons/io";
+import type { SceneType } from "../../types/SceneType";
 import type { UseToggleType } from "../../hooks/useToggle/type";
 
 function CreateSceneModal({ modalToggle }: { modalToggle: UseToggleType }) {
