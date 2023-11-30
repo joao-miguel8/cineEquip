@@ -3,7 +3,7 @@ import type { SceneType } from "../../types/SceneType";
 import { IoMdClose } from "react-icons/io";
 import type { UseToggleType } from "../../hooks/useToggle/type";
 
-function CreateSceneModal({ modalToggle }: { modalToggle: UseToggleType }) {
+function CreateKitModal({ modalToggle }: { modalToggle: UseToggleType }) {
 	const { register, handleSubmit } = useForm<SceneType>();
 
 	const onSubmit = (e: any) => {
@@ -23,32 +23,32 @@ function CreateSceneModal({ modalToggle }: { modalToggle: UseToggleType }) {
 				<div className="flex justify-between items-start pb-3">
 					{/* --Modal Title-- */}
 					<label id="modal-title" className="text-18 font-bold">
-						Create a title for your Scene
+						Create a title for your Kit
 					</label>
 					{/* --Close Btn-- */}
-					<button aria-label="close create a new scene modal" onClick={() => modalToggle.dispatch("IS_OFF")}>
+					<button aria-label="close create a new kit modal" onClick={() => modalToggle.dispatch("IS_OFF")}>
 						<IoMdClose size={"1.7rem"} className={"hover:text-primary duration-150"} />
 					</button>
 				</div>
 				{/* --Modal Body-- */}
-				<div aria-label="add a scene name to create your scene" className="mt-4">
-					<input {...register("name")} placeholder="Scene Name" type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
+				<div aria-label="add a kit name to create your kit" className="mt-4">
+					<input {...register("name")} placeholder="kit Name" type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
 				</div>
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">
-					{/* --Create Scene Btn-- */}
+					{/* --Create Kit Btn-- */}
 					<button
 						onClick={() => {
 							handleModalCloseAndFormSubmit();
 						}}
 						type="submit"
 						value="submit"
-						aria-label="add new project"
+						aria-label="add new Kit"
 						className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
-						Create Scene
+						Create Kit
 					</button>
 					{/* --Close Btn-- */}
-					<button type="button" onClick={() => modalToggle.dispatch("IS_OFF")} aria-label="close create scene modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
+					<button type="button" onClick={() => modalToggle.dispatch("IS_OFF")} aria-label="close create kit modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
 						Close
 					</button>
 				</div>
@@ -57,4 +57,4 @@ function CreateSceneModal({ modalToggle }: { modalToggle: UseToggleType }) {
 	);
 }
 
-export default CreateSceneModal;
+export default CreateKitModal;
