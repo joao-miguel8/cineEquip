@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 function ProjectCard({ index, projectData, isSelectModeActive, setIsSelectModeActive }: { index: number; isSelectModeActive: boolean; setIsSelectModeActive: (setSelectMode: boolean) => void }) {
 	const deleteModalToggle = useToggle();
 	const { isToggled, isOff, isOn, dispatch } = deleteModalToggle;
-
 	return (
 		<div className="relative">
 			{isSelectModeActive && <IoIosCloseCircle size={"1.8rem"} onClick={() => dispatch("IS_ON")} className={"absolute right-1 top-1 hover:text-red-500"} />}
