@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
-import type { SceneType } from "../../types/SceneType";
 import { IoMdClose } from "react-icons/io";
+import type { KitType } from "../../types/KitType";
 import type { UseToggleType } from "../../hooks/useToggle/type";
 
 function CreateKitModal({ modalToggle }: { modalToggle: UseToggleType }) {
-	const { register, handleSubmit } = useForm<SceneType>();
+	const { register, handleSubmit } = useForm<KitType>();
 
 	const onSubmit = (e: any) => {
 		console.log(JSON.stringify(e));
