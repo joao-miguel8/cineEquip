@@ -20,7 +20,7 @@ function SelectedProjectPage() {
 	return (
 		<section>
 			{/* sticky top section */}
-			<div className="overflow-hidden sticky z-30 top-0 w-full border-4  bg-white ">
+			<div className="overflow-hidden sticky z-30 top-0 w-full bg-white ">
 				<Header />
 				<div className="mt-10 mx-4 flex flex-col">
 					<SearchBar placeholder="Search Project" />
