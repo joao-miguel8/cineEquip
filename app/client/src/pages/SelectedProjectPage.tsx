@@ -12,6 +12,7 @@ import CreateSceneModal from "../components/create-scene-modal/CreateSceneModal"
 import CreateButton from "../components/create-button/CreateButton";
 import type { UseToggleType } from "../hooks/useToggle/type";
 import CreateKitModal from "../components/create-kit-modal/CreateKitModal";
+import CreateGearModal from "../components/create-gear-modal/CreateGearModal";
 function SelectedProjectPage() {
 	// chosen project id passed with params
 	const { id } = useParams();
@@ -89,6 +90,7 @@ function SelectedProjectPage() {
 			{selectedTab === "Gear" && (
 				<div>
 					<CreateButton buttonName={"Add a Gear"} toggleModal={toggleModal} actionType={"IS_ON"} />
+					{isModalToggled && <CreateGearModal modalToggle={toggleModal} />}
 				</div>
 			)}
 		</section>
