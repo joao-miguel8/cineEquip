@@ -1,4 +1,3 @@
-// const { MONGO_URI } = require("../../config/dev");
 require("dotenv").config();
 
 // MongoDB database library
