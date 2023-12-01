@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
 import { useProjectStore } from "../../zustand-store/projectStore";
-import { createNewProject } from "../../lib/api/services/projectsServices/createNewProject";
+import { createNewProject } from "../../lib/api/services/project-services/createNewProject";
 
 const AddProjectModal = ({ toggleDispatch }) => {
 	const [titleInput, setTitleInput] = useState<string>("");

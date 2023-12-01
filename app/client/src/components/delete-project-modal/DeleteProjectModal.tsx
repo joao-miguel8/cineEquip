@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useProjectStore } from "../../zustand-store/projectStore";
-import { deleteChosenProject } from "../../lib/api/services/projectsServices/deleteChosenProject";
+import { deleteChosenProject } from "../../lib/api/services/project-services/deleteChosenProject";
 import { useMutation } from "react-query";
 
 function DeleteProjectModal({ index, title, toggleDispatch, handleIsSelectModeActive }: { index: number; title: string; toggleDispatch: (action: string) => void; handleIsSelectModeActive: (selectModeActive: boolean) => void }) {

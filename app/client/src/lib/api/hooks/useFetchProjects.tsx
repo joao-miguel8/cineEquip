@@ -1,4 +1,4 @@
-import { fetchProjects } from "../services/projectsServices/fetchProjects";
+import { fetchProjects } from "../services/project-services/fetchProjects";
 import { useQuery } from "react-query";
 
 export function useFetchProjects() {
