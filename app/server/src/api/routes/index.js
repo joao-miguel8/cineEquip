@@ -17,6 +17,6 @@ router.delete("/deleteProject/:projectId", DeleteProject);
 router.get("/fetchAllProjects", fetchAllProjects);
 
 // Scene Routes
-router.post("/createScene/:id", CreateNewScene);
+router.post("/createScene/:projectId", CreateNewScene);
 
 module.exports = router;
