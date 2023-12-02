@@ -1,20 +1,15 @@
-import { useForm } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
 import type { KitType } from "../../types/KitType";
 import type { UseToggleType } from "../../hooks/useToggle/type";
 
 function CreateKitModal({ modalToggle }: { modalToggle: UseToggleType }) {
-	const { register, handleSubmit } = useForm<KitType>();
-
 	const onSubmit = (e: any) => {
 		console.log(JSON.stringify(e));
 		modalToggle.dispatch("IS_OFF");
 	};
 
-	const handleModalCloseAndFormSubmit = () => handleSubmit(onSubmit);
-
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => modalToggle.dispatch("IS_OFF")}>
+		<form className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => modalToggle.dispatch("IS_OFF")}>
 			{/* <!--Modal Overlay Window--> */}
 			<div className="pointer-events-none absolute z-40 w-full h-full bg-gray-900 opacity-50"></div>
 			{/* --Modal Container-- */}
@@ -32,19 +27,12 @@ function CreateKitModal({ modalToggle }: { modalToggle: UseToggleType }) {
 				</div>
 				{/* --Modal Body-- */}
 				<div aria-label="add a kit name to create your kit" className="mt-4">
-					<input {...register("name")} placeholder="kit Name" type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
+					<input placeholder="kit Name" type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
 				</div>
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">
 					{/* --Create Kit Btn-- */}
-					<button
-						onClick={() => {
-							handleModalCloseAndFormSubmit();
-						}}
-						type="submit"
-						value="submit"
-						aria-label="add new Kit"
-						className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
+					<button type="submit" value="submit" aria-label="add new Kit" className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
 						Create Kit
 					</button>
 					{/* --Close Btn-- */}

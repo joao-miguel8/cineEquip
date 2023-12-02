@@ -1,24 +1,25 @@
-import { useForm } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
 import type { SceneType } from "../../types/SceneType";
 import type { UseToggleType } from "../../hooks/useToggle/type";
-import { createScene } from "../../lib/api/services/scene-services/CreateScene";
+import { createScene } from "../../lib/api/services/scene-services/createScene";
+import { useState } from "react";
 
 function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleType; projectId: string }) {
-	const { register, handleSubmit, getValues } = useForm<SceneType>();
+	const [sceneForm, setSceneForm] = useState<SceneType>({
+		name: "",
+	});
 
-	const handleModalCloseAndFormSubmit = async () => {
+	const handleFormSubmit = async () => {
 		try {
-			const formValues = getValues();
-			Promise.all([await createScene(projectId, formValues.name), modalToggle.dispatch("IS_OFF")]);
+			await createScene(projectId, sceneForm.name);
 		} catch (err) {
 			console.log(err);
 			throw err;
 		}
 	};
-
+	console.log(projectId);
 	return (
-		<form className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => modalToggle.dispatch("IS_OFF")}>
+		<form onSubmit={async () => await handleFormSubmit()} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => modalToggle.dispatch("IS_OFF")}>
 			{/* <!--Modal Overlay Window--> */}
 			<div className="pointer-events-none absolute z-40 w-full h-full bg-gray-900 opacity-50"></div>
 			{/* --Modal Container-- */}
@@ -36,12 +37,12 @@ function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleTy
 				</div>
 				{/* --Modal Body-- */}
 				<div aria-label="add a scene name to create your scene" className="mt-4">
-					<input {...register("name")} placeholder="Scene Name" type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
+					<input value={sceneForm.name} onChange={e => setSceneForm({ ...sceneForm, name: e.target.value })} placeholder="Scene Name" type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
 				</div>
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">
 					{/* --Create Scene Btn-- */}
-					<button onClick={() => handleSubmit(handleModalCloseAndFormSubmit)} type="submit" value="submit" aria-label="add new project" className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
+					<button type="submit" value="submit" aria-label="add new project" className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
 						Create Scene
 					</button>
 					{/* --Close Btn-- */}
