@@ -2,19 +2,23 @@ import { useForm } from "react-hook-form";
 import { IoMdClose } from "react-icons/io";
 import type { SceneType } from "../../types/SceneType";
 import type { UseToggleType } from "../../hooks/useToggle/type";
+import { createScene } from "../../lib/api/services/scene-services/CreateScene";
 
-function CreateSceneModal({ modalToggle }: { modalToggle: UseToggleType }) {
-	const { register, handleSubmit } = useForm<SceneType>();
+function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleType; projectId: string }) {
+	const { register, handleSubmit, getValues } = useForm<SceneType>();
 
-	const onSubmit = (e: any) => {
-		console.log(JSON.stringify(e));
-		modalToggle.dispatch("IS_OFF");
+	const handleModalCloseAndFormSubmit = async () => {
+		try {
+			const formValues = getValues();
+			Promise.all([await createScene(projectId, formValues.name), modalToggle.dispatch("IS_OFF")]);
+		} catch (err) {
+			console.log(err);
+			throw err;
+		}
 	};
 
-	const handleModalCloseAndFormSubmit = () => handleSubmit(onSubmit);
-
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => modalToggle.dispatch("IS_OFF")}>
+		<form className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => modalToggle.dispatch("IS_OFF")}>
 			{/* <!--Modal Overlay Window--> */}
 			<div className="pointer-events-none absolute z-40 w-full h-full bg-gray-900 opacity-50"></div>
 			{/* --Modal Container-- */}
@@ -37,18 +41,17 @@ function CreateSceneModal({ modalToggle }: { modalToggle: UseToggleType }) {
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">
 					{/* --Create Scene Btn-- */}
-					<button
-						onClick={() => {
-							handleModalCloseAndFormSubmit();
-						}}
-						type="submit"
-						value="submit"
-						aria-label="add new project"
-						className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
+					<button onClick={() => handleSubmit(handleModalCloseAndFormSubmit)} type="submit" value="submit" aria-label="add new project" className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
 						Create Scene
 					</button>
 					{/* --Close Btn-- */}
-					<button type="button" onClick={() => modalToggle.dispatch("IS_OFF")} aria-label="close create scene modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
+					<button
+						type="button"
+						onClick={() => {
+							modalToggle.dispatch("IS_OFF");
+						}}
+						aria-label="close create scene modal"
+						className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
 						Close
 					</button>
 				</div>
