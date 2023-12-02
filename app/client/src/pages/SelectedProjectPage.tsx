@@ -17,6 +17,8 @@ import CreateGearModal from "../components/create-gear-modal/CreateGearModal";
 function SelectedProjectPage() {
 	// chosen project id passed with params
 	const { id } = useParams();
+	const toggleModal = useToggle();
+	const { isToggled, isOn: isModalToggled, isOff, dispatch }: UseToggleType = toggleModal;
 
 	const getLocalStorageProjects = localStorage.getItem("projects");
 	const projectsList = JSON.parse(getLocalStorageProjects);
@@ -24,15 +26,11 @@ function SelectedProjectPage() {
 	const findChosenProject = () => projectsList.state.projects.find((proj: ProjectType) => proj._id === id);
 	const { _id, title, gear, scenes, kit } = findChosenProject();
 
-	const toggleModal = useToggle();
-	const { isToggled, isOn: isModalToggled, isOff, dispatch }: UseToggleType = toggleModal;
-
 	enum tabs {
 		Scenes = "Scenes",
 		Kits = "Kits",
 		Gear = "Gear",
 	}
-
 	const [selectedTab, setSelectedTab] = useState(tabs.Scenes);
 
 	return (
@@ -75,7 +73,7 @@ function SelectedProjectPage() {
 			{/* Scene View Section */}
 			{selectedTab === "Scenes" && (
 				<div>
-					<ScenesList />
+					<ScenesList scenesList={scenes} />
 					<CreateButton buttonName={"Add a Scene"} toggleModal={toggleModal} actionType={"IS_ON"} />
 					{isModalToggled && <CreateSceneModal modalToggle={toggleModal} projectId={_id} />}
 				</div>
