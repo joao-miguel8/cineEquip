@@ -13,6 +13,7 @@ import CreateButton from "../components/create-button/CreateButton";
 import type { UseToggleType } from "../hooks/useToggle/type";
 import CreateKitModal from "../components/create-kit-modal/CreateKitModal";
 import CreateGearModal from "../components/create-gear-modal/CreateGearModal";
+
 function SelectedProjectPage() {
 	// chosen project id passed with params
 	const { id } = useParams();
@@ -76,7 +77,7 @@ function SelectedProjectPage() {
 				<div>
 					<ScenesList />
 					<CreateButton buttonName={"Add a Scene"} toggleModal={toggleModal} actionType={"IS_ON"} />
-					{isModalToggled && <CreateSceneModal modalToggle={toggleModal} />}
+					{isModalToggled && <CreateSceneModal modalToggle={toggleModal} projectId={_id} />}
 				</div>
 			)}
 			{/* Kits View Section */}
