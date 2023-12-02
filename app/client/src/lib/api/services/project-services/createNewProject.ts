@@ -4,7 +4,7 @@ import { axiosInstance } from "../../apiConfig";
 export async function createNewProject(fieldToUpdate: Partial<ProjectType>) {
 	try {
 		const resp = await axiosInstance.post("/createNewProject", fieldToUpdate);
-		return resp.data;
+		return await resp.data;
 	} catch (er) {
 		console.log(er);
 		return er;
