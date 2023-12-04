@@ -1,8 +1,8 @@
 import { IoMdClose } from "react-icons/io";
-import type { SceneType } from "../../types/SceneType";
-import type { UseToggleType } from "../../hooks/useToggle/type";
-import { createScene } from "../../lib/api/services/scene-services/createScene";
 import { useState } from "react";
+import type { UseToggleType } from "../../hooks/useToggle/type";
+import type { SceneType } from "../../types/SceneType";
+import { createScene } from "../../lib/api/services/scene-services/createScene";
 
 function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleType; projectId: string }) {
 	const [sceneForm, setSceneForm] = useState<SceneType>({
@@ -17,7 +17,7 @@ function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleTy
 			throw err;
 		}
 	};
-	console.log(projectId);
+
 	return (
 		<form onSubmit={async () => await handleFormSubmit()} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => modalToggle.dispatch("IS_OFF")}>
 			{/* <!--Modal Overlay Window--> */}
