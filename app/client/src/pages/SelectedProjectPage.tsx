@@ -76,16 +76,6 @@ function SelectedProjectPage() {
 					<FaFolder color={"#4F48E2"} size={"1.8rem"} />
 					{findChosenProject ? <h3 className="text-18">{selectProject.title}</h3> : <h3>Loading title...</h3>}
 				</div>
-				{/* Select button */}
-				<div aria-label={`toggle button to select your ${selectedTab}`} className="mt-4 px-4 w-full flex justify-between">
-					<button type="button" className="mb-2 p-2 sm:px-5 sm:py-2.5 text-12 md:text-14 text-gray-900 font-medium rounded-lg dark:text-white bg-gray-700 hover:bg-primary duration-300">
-						Select {selectedTab}
-					</button>
-					{/* utility button */}
-					<button>
-						<BsThreeDotsVertical size={"1.6rem"} />
-					</button>
-				</div>
 			</div>
 
 			{/* Scene View Section */}
