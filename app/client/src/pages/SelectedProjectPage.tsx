@@ -1,36 +1,54 @@
-import { useParams } from "react-router-dom";
-import { useState } from "react";
+import classNames from "classnames";
 import { FaFolder } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import classNames from "classnames";
-import type { ProjectType } from "../types/ProjectType";
-import useToggle from "../hooks/useToggle/useToggle";
 import Header from "../components/common/header/Header";
 import SearchBar from "../components/common/searchbar/Searchbar";
 import ScenesList from "../components/scenes-list/ScenesList";
 import CreateSceneModal from "../components/create-scene-modal/CreateSceneModal";
 import CreateButton from "../components/create-button/CreateButton";
-import type { UseToggleType } from "../hooks/useToggle/type";
 import CreateKitModal from "../components/create-kit-modal/CreateKitModal";
 import CreateGearModal from "../components/create-gear-modal/CreateGearModal";
+import { useProjectStore } from "../zustand-store/projectStore";
+import { useQuery } from "react-query";
+import useToggle from "../hooks/useToggle/useToggle";
+import type { UseToggleType } from "../hooks/useToggle/type";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import type { ProjectType } from "../types/ProjectType";
+import { fetchProjects } from "../lib/api/services/project-services/fetchProjects";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
 	const { id } = useParams();
+
 	const toggleModal = useToggle();
 	const { isToggled, isOn: isModalToggled, isOff, dispatch }: UseToggleType = toggleModal;
 
-	const getLocalStorageProjects = localStorage.getItem("projects");
-	const projectsList = JSON.parse(getLocalStorageProjects);
+	// zustand store
+	const projectsList = useProjectStore(state => state.projects);
+	const getProjects = useProjectStore(state => state.fetchAllProjects);
 
-	const findChosenProject = () => projectsList.state.projects.find((proj: ProjectType) => proj._id === id);
-	const { _id, title, gear, scenes, kit } = findChosenProject();
+	// Query our Database to fetch our projects first page render
+	const {
+		data: projects,
+		isLoading,
+		error,
+	} = useQuery("projects", async () => await fetchProjects(), {
+		// onLoading: isLoading => console.log(isLoading),
+		onError: error => console.log(error),
+		onSuccess: projects => getProjects(projects),
+	});
+
+	// Find the chosen projects id
+	const findChosenProject = projectsList?.find((proj: ProjectType) => proj._id === id);
+	const selectProject = findChosenProject || { _id: "", title: [], gear: [], scenes: [], kit: [] };
 
 	enum tabs {
 		Scenes = "Scenes",
 		Kits = "Kits",
 		Gear = "Gear",
 	}
+
 	const [selectedTab, setSelectedTab] = useState(tabs.Scenes);
 
 	return (
@@ -56,7 +74,7 @@ function SelectedProjectPage() {
 				{/* title container */}
 				<div className="mt-4 flex gap-4 items-center justify-center">
 					<FaFolder color={"#4F48E2"} size={"1.8rem"} />
-					<h3 className="text-18">{title}</h3>
+					{findChosenProject ? <h3 className="text-18">{selectProject.title}</h3> : <h3>Loading title...</h3>}
 				</div>
 				{/* Select button */}
 				<div aria-label={`toggle button to select your ${selectedTab}`} className="mt-4 px-4 w-full flex justify-between">
@@ -73,9 +91,16 @@ function SelectedProjectPage() {
 			{/* Scene View Section */}
 			{selectedTab === "Scenes" && (
 				<div>
-					<ScenesList scenesList={scenes} />
+					{isLoading ? (
+						<div className="mx-auto w-fit flex justify-center ">
+							<svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"></svg>
+							<p className="text-18">Loading Scenes</p>
+						</div>
+					) : (
+						<ScenesList scenesList={selectProject.scenes} />
+					)}
 					<CreateButton buttonName={"Add a Scene"} toggleModal={toggleModal} actionType={"IS_ON"} />
-					{isModalToggled && <CreateSceneModal modalToggle={toggleModal} projectId={_id} />}
+					{isModalToggled && <CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} />}
 				</div>
 			)}
 			{/* Kits View Section */}
