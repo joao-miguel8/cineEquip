@@ -77,7 +77,6 @@ function SelectedProjectPage() {
 					{findChosenProject ? <h3 className="text-18">{selectProject.title}</h3> : <h3>Loading title...</h3>}
 				</div>
 			</div>
-
 			{/* Scene View Section */}
 			{selectedTab === "Scenes" && (
 				<div>
