@@ -7,11 +7,12 @@ import { createScene } from "../../lib/api/services/scene-services/createScene";
 function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleType; projectId: string }) {
 	const [sceneForm, setSceneForm] = useState<SceneType>({
 		name: "",
+		description: "",
 	});
 
 	const handleFormSubmit = async () => {
 		try {
-			await createScene(projectId, sceneForm.name);
+			await createScene(projectId, sceneForm.name, sceneForm.description || "");
 		} catch (err) {
 			console.log(err);
 			throw err;
@@ -37,7 +38,19 @@ function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleTy
 				</div>
 				{/* --Modal Body-- */}
 				<div aria-label="add a scene name to create your scene" className="mt-4">
-					<input value={sceneForm.name} onChange={e => setSceneForm({ ...sceneForm, name: e.target.value })} placeholder="Scene Name" type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
+					{/* Scene name input */}
+					<input value={sceneForm.name} onChange={e => setSceneForm({ ...sceneForm, name: e.target.value })} placeholder="Scene Name" maxLength={24} type="text" className="px-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
+					{/* Description input */}
+					<textarea
+						value={sceneForm.description}
+						onChange={e => setSceneForm({ ...sceneForm, description: e.target.value })}
+						name=""
+						id="description"
+						placeholder="Add a description"
+						maxLength={100}
+						cols={30}
+						rows={10}
+						className="p-2 mt-8 border-[1.2px] w-full h-20 resize-none rounded outline-none focus:border-primary"></textarea>
 				</div>
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">

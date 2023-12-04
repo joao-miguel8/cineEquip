@@ -9,6 +9,7 @@ async function CreateNewScene(req, res) {
 		// Create new Scene
 		const newScene = new Scene({
 			name: req.body.name,
+			description: req.body.description,
 		});
 		// Save new Scene to DB Scene Collection
 		await newScene.save();

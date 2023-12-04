@@ -3,7 +3,7 @@ import { KitType } from "./KitType";
 export type SceneType = {
 	_id: string;
 	name: string;
-	description?: string;
+	description: string;
 	kitList?: KitType[] | [];
 	callTime?: Date;
 	callSheet?: string;
