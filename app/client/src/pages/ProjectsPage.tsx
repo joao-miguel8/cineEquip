@@ -1,32 +1,28 @@
+import classNames from "classnames";
+import { IoAdd } from "react-icons/io5";
 import SearchBar from "../components/common/searchbar/Searchbar";
 import Header from "../components/common/header/Header";
 import ProjectCard from "../components/project-card/ProjectCard";
 import AddProjectModal from "../components/add-project-modal/AddProjectModal";
 import useToggle from "../hooks/useToggle/useToggle";
-import { IoAdd } from "react-icons/io5";
-import classNames from "classnames";
-import { useEffect, useState } from "react";
-import { useFetchProjects } from "../lib/api/hooks/useFetchProjects";
+import { useState } from "react";
 import { useProjectStore } from "../zustand-store/projectStore";
+import { useQuery } from "react-query";
 import type { UseToggleType } from "../hooks/useToggle/type";
+import { fetchProjects } from "../lib/api/services/project-services/fetchProjects";
 
 function ProjectsPage() {
 	// zustand store
 	const projectsList = useProjectStore(state => state.projects);
 	const getProjects = useProjectStore(state => state.fetchAllProjects);
-	// fetch project from useFetchProjects
-	const { data: projects, isLoading, error } = useFetchProjects();
-	// fetch project data on first render
-	useEffect(() => {
-		if (isLoading) {
-			console.log("Loading Projects");
-		} else if (error) {
-			console.log(error);
-			throw error;
-		}
-		// update zustand store with projects
-		getProjects(projects);
-	}, [projects]);
+	const {
+		data: projects,
+		isLoading,
+		error,
+	} = useQuery("projects", async () => await fetchProjects(), {
+		onError: error => console.log(error),
+		onSuccess: projects => getProjects(projects),
+	});
 
 	const [isSelectModeActive, setIsSelectModeActive] = useState(false);
 
