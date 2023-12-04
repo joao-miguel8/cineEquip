@@ -1,44 +1,34 @@
 import { create } from "zustand";
 import type { ProjectType } from "../types/ProjectType";
-import { createJSONStorage, persist } from "zustand/middleware";
 
 // Data types for global projects store
 type ProjectStoreActions = {
 	projects: ProjectType[];
-	fetchAllProjects: (projects: ProjectType) => void;
+	fetchAllProjects: (projects: ProjectType[]) => void;
 	addNewProject: (newProject: any) => void;
 	deleteSelectedProject: (projectId: string) => void;
 };
 
 // Project global variables and functions
-export const useProjectStore = create<ProjectStoreActions>()(
-	persist(
-		set => ({
-			projects: [],
-			fetchAllProjects: projectsList => {
-				set({
-					projects: projectsList,
-				});
-			},
-			addNewProject: newProject => {
-				set(state => ({
-					projects: [...state.projects, newProject],
-				}));
-			},
-			deleteSelectedProject: (projectId: string) => {
-				// if projectId exists remove project with chosen id
-				if (projectId) {
-					set(state => ({
-						projects: state.projects.filter(proj => proj._id !== projectId),
-					}));
-				} else {
-					console.error("Invalid projectToDelete object:", projectId);
-				}
-			},
-		}),
-		{
-			name: "projects",
-			storage: createJSONStorage(() => localStorage),
+export const useProjectStore = create<ProjectStoreActions>(set => ({
+	projects: [],
+	fetchAllProjects: async projects => {
+		set({
+			projects: projects,
+		});
+	},
+	addNewProject: newProject => {
+		set(state => ({
+			projects: [...state.projects, newProject],
+		}));
+	},
+	deleteSelectedProject: (projectId: string) => {
+		if (projectId) {
+			set(state => ({
+				projects: state.projects.filter(proj => proj._id !== projectId),
+			}));
+		} else {
+			console.error("Invalid projectToDelete object:", projectId);
 		}
-	)
-);
+	},
+}));
