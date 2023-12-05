@@ -34,9 +34,9 @@ function SelectedProjectPage() {
 		isLoading,
 		error,
 	} = useQuery("projects", async () => await fetchProjects(), {
-		// onLoading: isLoading => console.log(isLoading),
 		onError: error => console.log(error),
 		onSuccess: projects => getProjects(projects),
+		refetchOnWindowFocus: false,
 	});
 
 	// Find the chosen projects id

@@ -22,6 +22,7 @@ function ProjectsPage() {
 	} = useQuery("projects", async () => await fetchProjects(), {
 		onError: error => console.log(error),
 		onSuccess: projects => getProjects(projects),
+		refetchOnWindowFocus: false,
 	});
 
 	const [isSelectModeActive, setIsSelectModeActive] = useState(false);
