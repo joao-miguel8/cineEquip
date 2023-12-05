@@ -10,14 +10,25 @@ import { UseToggleType } from "../../hooks/useToggle/type";
 function ProjectCard({ index, projectData, isSelectModeActive, setIsSelectModeActive }: { index: number; isSelectModeActive: boolean; setIsSelectModeActive: (setSelectMode: boolean) => void }) {
 	const deleteModalToggle = useToggle();
 	const { isToggled, isOff, isOn, dispatch }: UseToggleType = deleteModalToggle;
+	// border-b-[0.5px]
 	return (
-		<div className="relative">
-			{isSelectModeActive && <IoIosCloseCircle size={"1.8rem"} onClick={() => dispatch("IS_ON")} className={"absolute right-1 top-1 hover:text-red-500"} />}
+		<div className="w-full md:w-60 bg-gray-800 group relative min-[768px]:border border-accent min-[1024px] border-b hover:bg-accent duration-300">
+			{isSelectModeActive && (
+				// delete button with card overlay
+				<div onClick={() => dispatch("IS_ON")} className="pt-1 px-2 z-20 absolute w-full h-full duration-300">
+					<div className="flex justify-end w-full">
+						<IoIosCloseCircle size={"1.8rem"} className={"text-accent group-hover:text-red-500"} />
+					</div>
+				</div>
+			)}
+			{/* regular card with route */}
 			<Link to={`/projects/${projectData?._id}`}>
-				<div className={classNames("text-center flex hover:bg-accent duration-300 ease-in-out rounded-md h-20 p-2", isSelectModeActive ? "border-2 border-primary" : null)}>
-					<div className={classNames("flex gap-2 flex-col items-center justify-center w-[6rem]")}>
-						<FaFolder color={"#4F48E2"} size={"1.8rem"} />
-						<h2 className="truncate-3">{projectData?.title ? projectData.title : "title no"}</h2>
+				<div className={classNames("mt-4 p-2 flex ease-in-out min-[1024px]:justify-center", isSelectModeActive ? "border-neutral-400" : null)}>
+					<div className={classNames("z-10 flex lg:flex-col gap-4 items-center truncate")}>
+						<div className="text-40">
+							<FaFolder color={"#4F48E2"} style={{ fontSize: "100%" }} />
+						</div>
+						<h2 className="text-18 text-white group-hover:text-textDark ">{projectData?.title}</h2>
 					</div>
 				</div>
 			</Link>

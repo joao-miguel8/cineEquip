@@ -8,8 +8,7 @@ body {
 
 /* custom truncate selector */
 .truncate-3 {
-	overflow: hidden;
-	display: -webkit-box;
-	-webkit-line-clamp: 1; /* number of lines to show */
-	-webkit-box-orient: vertical;
+	/* overflow: hidden; */
+	/* display: -webkit-box; */
+	-webkit-line-clamp: 1; /* number of lines to show*/
 }

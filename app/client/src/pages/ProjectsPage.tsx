@@ -36,13 +36,13 @@ function ProjectsPage() {
 	return (
 		<section>
 			{/* --Sticky top section container-- */}
-			<div className="z-20 mb-10 sticky top-0 w-full bg-white">
+			<div className="z-30 py-4 sticky top-0 w-full bg-white">
 				{/* --Page Header-- */}
 				<Header />
-				<div className="mt-14 mx-4 flex flex-col">
+				<div className="mt-4 mx-4 flex flex-col">
 					<SearchBar aria-label="Search for a Project" placeholder={"Search for a Project"} />
 					{/* --Select / Delete Selected Btns-- */}
-					<div className="mt-20 w-full md:w-5/6 md:mx-auto flex flex-wrap justify-between">
+					<div className="mb-4 mt-10 w-full md:w-5/6 md:mx-auto flex flex-wrap justify-between">
 						{/* --Select Btn-- */}
 						<button
 							onClick={() => {
@@ -50,8 +50,19 @@ function ProjectsPage() {
 							}}
 							aria-label="toggle button to select your projects"
 							type="button"
-							className={classNames("mb-2 p-2 sm:px-5 sm:py-2.5 text-12 md:text-14 text-gray-900 font-medium rounded-lg dark:text-white", projectsList?.length === 0 ? "bg-gray-400 cursor-not-allowed" : "bg-gray-700 dark:hover:bg-primary", isSelectModeActive ? "bg-primary" : null)}>
+							className={classNames("p-2 text-14 text-gray-900 font-medium rounded-lg dark:text-white", projectsList?.length === 0 ? "bg-gray-400 cursor-not-allowed" : "bg-gray-700 dark:hover:bg-primary", isSelectModeActive ? "bg-primary" : null)}>
 							Select projects
+						</button>
+						{/* --Add Project Button-- */}
+
+						<button
+							onClick={() => {
+								dispatch("IS_ON");
+								setIsSelectModeActive(false);
+							}}
+							className={classNames("p-2 text-14 flex gap-2 justify-center items-center text-gray-900 hover:bg-gray-100 font-medium rounded-lg text-sm bg-primary dark:text-white  dark:hover:bg-gray-700 duration-150", isAddProjectModalOpen && "cursor-not-allowed bg-gray-700")}>
+							<IoAdd size={"1.4rem"} />
+							Add Project
 						</button>
 					</div>
 				</div>
@@ -59,25 +70,10 @@ function ProjectsPage() {
 			{/* --Project Dialog Component-- */}
 			{isAddProjectModalOpen ? <AddProjectModal toggleDispatch={dispatch} /> : null}
 			{/* --Project List Container-- */}
-			<div className="px-4 mx-auto pb-20 flex justify-center gap-12 flex-wrap">
+			<div className="md:ml-10 mx-auto pb-20 flex flex-col sm:flex-row lg:ml-12 flex-wrap">
 				{projectsList?.map((project, index) => {
 					return <ProjectCard key={index} projectData={project} index={index} isSelectModeActive={isSelectModeActive} setIsSelectModeActive={setIsSelectModeActive} />;
 				})}
-			</div>
-			{/* --Add Project Button-- */}
-			<div aria-label="add a project button" className="py-2 fixed bottom-0 flex justify-center w-full">
-				<button
-					onClick={() => {
-						dispatch("IS_ON");
-						setIsSelectModeActive(false);
-					}}
-					className={classNames(
-						"mb-2 px-5 py-2.5  min-[350px]:w-80 flex gap-2 justify-center items-center text-gray-900 hover:bg-gray-100 font-medium rounded-lg text-sm bg-primary dark:text-white  dark:hover:bg-gray-700 duration-150",
-						isAddProjectModalOpen && "cursor-not-allowed bg-gray-700"
-					)}>
-					<IoAdd size={"1.4rem"} />
-					<span>Add Project</span>
-				</button>
 			</div>
 		</section>
 	);
