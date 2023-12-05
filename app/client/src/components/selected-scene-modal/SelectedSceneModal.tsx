@@ -4,10 +4,16 @@ import SearchBar from "../common/searchbar/Searchbar";
 import { useState } from "react";
 import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
 import { SceneType } from "../../types/SceneType";
+import { FaChevronUp } from "react-icons/fa";
+import ViewMoreSceneInfo from "../view-more-scene-info/ViewMoreSceneInfo";
 
 function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneType; toggleDispatch: (action: string) => void }) {
 	// remove body scroll when modal opens
 	useDisableBodyScroll();
+
+	const [sceneInfo, setSceneInfo] = useState(sceneData);
+
+	const [isMoreSceneInfoToggled, setIsMoreSceneInfoToggled] = useState(false);
 
 	enum Scenetabs {
 		kits = "kits",
@@ -22,7 +28,7 @@ function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneTyp
 			<div className="pointer-events-none absolute z-40 w-full h-full bg-gray-900 opacity-50"></div>
 			{/* --Modal Container-- */}
 			{/* stopPropagation added to stop overlay from toggling if user clicks on modal container */}
-			<div onClick={e => e.stopPropagation()} role="dialog" aria-labelledby="modal-title" className="z-50 overflow-y-auto mx-auto w-full h-full  text-left bg-white rounded shadow-lg">
+			<div onClick={e => e.stopPropagation()} role="dialog" aria-labelledby="modal-title" className="pb-20 z-50 overflow-y-auto mx-auto w-full h-full text-left bg-white rounded shadow-lg">
 				<div className="p-4">
 					<div className="flex justify-between items-start pb-3">
 						{/* --Modal Title-- */}
@@ -36,7 +42,18 @@ function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneTyp
 						</button>
 					</div>
 					<SearchBar placeholder="Search" />
+					{/* more info of scene container */}
 				</div>
+				{/* /// */}
+				<button onClick={() => setIsMoreSceneInfoToggled(prevVal => !prevVal)} className="pl-4 p-2 h-14 text-left w-full flex justify-between items-center bg-neutral-800 text-white">
+					View More info about {sceneData.name}
+					<FaChevronUp size={"1.4rem"} className={classNames(`mr-4 duration-300`, isMoreSceneInfoToggled ? "rotate-180" : "rotate-0")} />
+				</button>
+				<div className={classNames(`overflow-hidden`, isMoreSceneInfoToggled ? "h-0" : "h-fit")}>
+					{/* drop town tab */}
+					<ViewMoreSceneInfo isMoreSceneInfoToggled={isMoreSceneInfoToggled} sceneInfo={sceneInfo} setSceneInfo={setSceneInfo} />
+				</div>
+
 				{/* --Modal Footer Btns-- */}
 				<div className="fixed bottom-0 flex w-full ">
 					{/* --Kits Btn-- */}
