@@ -29,12 +29,12 @@ const AddProjectModal = ({ toggleDispatch }) => {
 
 	return (
 		//  --Main Container--
-		<div className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => toggleDispatch("IS_OFF")}>
+		<form className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => toggleDispatch("IS_OFF")}>
 			{/* <!--Modal Overlay Window--> */}
 			<div className="pointer-events-none absolute z-40 w-full h-full bg-gray-900 opacity-50"></div>
 			{/* --Modal Container-- */}
 			{/* stopPropagation added to stop overlay from toggling if user clicks on modal container */}
-			<div onClick={e => e.stopPropagation()} role="dialog" aria-labelledby="modal-title" className="px-6 py-4 z-50 overflow-y-auto mx-auto w-11/12 md:max-w-[28rem] text-left bg-white rounded shadow-lg">
+			<div onClick={e => e.stopPropagation()} role="dialog" aria-labelledby="modal-title" className="pb-2 px-6 py-4 z-50 overflow-y-auto mx-auto w-11/12 md:max-w-[28rem] text-left bg-white rounded shadow-lg">
 				<div className="flex justify-between items-start pb-3">
 					{/* --Modal Title-- */}
 					<h4 id="modal-title" className="text-18 font-bold">
@@ -46,9 +46,7 @@ const AddProjectModal = ({ toggleDispatch }) => {
 					</button>
 				</div>
 				{/* --Modal Body-- */}
-				<div aria-label="add a project name to create your project" className="mt-4">
-					<input value={titleInput} onChange={e => setTitleInput(e.target.value)} type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
-				</div>
+				<input aria-label="add a name to create your new project" value={titleInput} onChange={e => setTitleInput(e.target.value)} type="text" maxLength={24} className="mt-4 px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">
 					{/* --Create Project Btn-- */}
@@ -58,6 +56,7 @@ const AddProjectModal = ({ toggleDispatch }) => {
 							toggleDispatch("IS_OFF");
 						}}
 						aria-label="add new project"
+						type="submit"
 						className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
 						Create Project
 					</button>
@@ -67,7 +66,7 @@ const AddProjectModal = ({ toggleDispatch }) => {
 					</button>
 				</div>
 			</div>
-		</div>
+		</form>
 	);
 };
 
