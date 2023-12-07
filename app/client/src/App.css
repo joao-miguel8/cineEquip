@@ -2,6 +2,7 @@
 /* apply font styling globally */
 body {
 	@apply font-karla;
+	background: #f6f6f6;
 }
 @tailwind components;
 @tailwind utilities;
