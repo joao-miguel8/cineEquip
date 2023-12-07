@@ -36,7 +36,7 @@ function ProjectsPage() {
 	return (
 		<section className="bg-[#f6f6f6]">
 			{/* --Sticky top section container-- */}
-			<div className=" z-30 py-4 sticky top-0 w-full ">
+			<div className="bg-[#f6f6f6] z-30 py-4 sticky top-0 w-full ">
 				{/* --Page Header-- */}
 				<Header />
 				<div className="mx-6 lg:mx-14 flex flex-col sm:flex-row sm:justify-between gap-4">
@@ -45,7 +45,7 @@ function ProjectsPage() {
 				</div>
 
 				{/* --Select / Delete Selected Btns-- */}
-				<div className="mt-8 mb-4 w-full md:w-5/6 m-auto flex flex-wrap justify-between">
+				<div className="px-4 mt-8 mb-4 w-full md:w-5/6 m-auto flex flex-wrap justify-between">
 					{/* --Select Btn-- */}
 					<button
 						onClick={() => {
