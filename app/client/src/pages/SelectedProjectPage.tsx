@@ -59,7 +59,7 @@ function SelectedProjectPage() {
 					<SearchBar placeholder={`Search ${selectedTab}`} />
 				</div>
 				{/* tab buttons */}
-				<div className="mx-auto mt-4 flex justify-center max-[640px]:mx-8  sm:w-[500px] w items-center  border-b-2 border-gray-200">
+				<div className="mx-auto mt-4 flex justify-center max-[640px]:mx-8 sm:w-[500px] items-center border-b-2 border-gray-200">
 					<button onClick={() => setSelectedTab(tabs.Scenes)} aria-label="View your scenes list" className={classNames("flex-1 border-b-2", selectedTab === "Scenes" && "border-primary duration-300")}>
 						<h2 className={classNames("font-bold text-20 text-center text-gray-800", selectedTab === "Scenes" && "text-primary border-primary duration-300")}>Scenes</h2>
 					</button>
