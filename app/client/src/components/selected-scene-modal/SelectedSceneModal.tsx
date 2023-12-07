@@ -1,11 +1,10 @@
 import classNames from "classnames";
 import { IoMdClose } from "react-icons/io";
 import SearchBar from "../common/searchbar/Searchbar";
+import ViewMoreSceneInfo from "../view-more-scene-info/ViewMoreSceneInfo";
 import { useState } from "react";
 import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
-import { SceneType } from "../../types/SceneType";
-import { FaChevronUp } from "react-icons/fa";
-import ViewMoreSceneInfo from "../view-more-scene-info/ViewMoreSceneInfo";
+import type { SceneType } from "../../types/SceneType";
 
 function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneType; toggleDispatch: (action: string) => void }) {
 	// remove body scroll when modal opens
@@ -44,18 +43,14 @@ function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneTyp
 					<SearchBar placeholder="Search" />
 					{/* more info of scene container */}
 				</div>
-				{/* /// */}
-				<button onClick={() => setIsMoreSceneInfoToggled(prevVal => !prevVal)} className="pl-4 p-2 h-14 text-left w-full flex justify-between items-center bg-neutral-800 text-white">
-					View More info about {sceneData.name}
-					<FaChevronUp size={"1.4rem"} className={classNames(`mr-4 duration-300`, isMoreSceneInfoToggled ? "rotate-180" : "rotate-0")} />
-				</button>
-				<div className={classNames(`overflow-hidden`, isMoreSceneInfoToggled ? "h-0" : "h-fit")}>
+				{/* drop down container */}
+				<div className={"md:mx-4 md:flex md:justify-end"}>
 					{/* drop town tab */}
-					<ViewMoreSceneInfo isMoreSceneInfoToggled={isMoreSceneInfoToggled} sceneInfo={sceneInfo} setSceneInfo={setSceneInfo} />
+					<ViewMoreSceneInfo isMoreSceneInfoToggled={isMoreSceneInfoToggled} setIsMoreSceneInfoToggled={setIsMoreSceneInfoToggled} sceneInfo={sceneInfo} setSceneInfo={setSceneInfo} />
 				</div>
 
 				{/* --Modal Footer Btns-- */}
-				<div className="fixed bottom-0 flex w-full ">
+				<div className="fixed bottom-0 flex w-full">
 					{/* --Kits Btn-- */}
 					<button onClick={() => setChosenTab(Scenetabs.kits)} aria-label={`view your kit list for ${sceneData.name}`} className={classNames(`p-2 flex-1 font-bold duration-150`, chosenTab === "kits" ? "bg-accent text-black" : "bg-black text-white")}>
 						Kits
