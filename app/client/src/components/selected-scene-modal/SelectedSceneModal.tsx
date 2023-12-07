@@ -12,7 +12,7 @@ function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneTyp
 
 	const [sceneInfo, setSceneInfo] = useState(sceneData);
 
-	const [isMoreSceneInfoToggled, setIsMoreSceneInfoToggled] = useState(false);
+	const [isMoreSceneInfoToggled, setIsMoreSceneInfoToggled] = useState(true);
 
 	enum Scenetabs {
 		kits = "kits",
@@ -28,24 +28,27 @@ function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneTyp
 			{/* --Modal Container-- */}
 			{/* stopPropagation added to stop overlay from toggling if user clicks on modal container */}
 			<div onClick={e => e.stopPropagation()} role="dialog" aria-labelledby="modal-title" className="pb-20 z-50 overflow-y-auto mx-auto w-full h-full text-left bg-white rounded shadow-lg">
-				<div className="p-4">
-					<div className="flex justify-between items-start pb-3">
-						{/* --Modal Title-- */}
-						<div id="modal-title" className="flex gap-2 items-end font-bold">
-							<span className="text-18">Scene:</span>
-							<h4 className="text-16">{sceneData?.name}</h4>
-						</div>
-						{/* --Close Btn-- */}
-						<button aria-label={`close ${sceneData.name} scene window`} onClick={() => toggleDispatch("IS_OFF")}>
-							<IoMdClose size={"1.7rem"} className={"hover:text-primary duration-150"} />
-						</button>
+				{/* Close btn container */}
+				<div className="p-4 mb-4 w-full flex justify-end items-center">
+					{/* --Close Btn-- */}
+					<button aria-label={`close ${sceneData.name} scene window`} onClick={() => toggleDispatch("IS_OFF")}>
+						<IoMdClose size={"2rem"} className={"hover:text-primary duration-150"} />
+					</button>
+				</div>
+
+				{/* --Modal Scene Title and SearchBar container-- */}
+				<div id="modal-title" className="px-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 font-bold">
+					{/* --Modal Scene Title-- */}
+					<div className="flex gap-2 text-18 sm:text-20">
+						<span>Scene:</span>
+						<h4>{sceneData?.name}</h4>
 					</div>
 					<SearchBar placeholder="Search" />
-					{/* more info of scene container */}
 				</div>
+				{/* more info of scene container */}
 				{/* drop down container */}
-				<div className={"md:mx-4 md:flex md:justify-end"}>
-					{/* drop town tab */}
+				<div className={"mt-4 md:mx-4 md:flex md:justify-end"}>
+					{/* drop down component */}
 					<ViewMoreSceneInfo isMoreSceneInfoToggled={isMoreSceneInfoToggled} setIsMoreSceneInfoToggled={setIsMoreSceneInfoToggled} sceneInfo={sceneInfo} setSceneInfo={setSceneInfo} />
 				</div>
 
