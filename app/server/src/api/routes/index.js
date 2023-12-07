@@ -3,6 +3,7 @@ const { createNewProject } = require("../controllers/projects/CreateNewProjectCo
 const { fetchAllProjects } = require("../controllers/projects/FetchAllProjectsController");
 const { DeleteProject } = require("../controllers/projects/DeleteProjectController");
 const { CreateNewScene } = require("../controllers/scenes/CreateNewSceneController");
+const editChosenScene = require("../controllers/scenes/EditChosenSceneController");
 
 // initiate backend routes
 const router = express.Router();
@@ -18,5 +19,6 @@ router.get("/fetchAllProjects", fetchAllProjects);
 
 // Scene Routes
 router.post("/createScene/:projectId", CreateNewScene);
+router.put("/editChosenScene/:sceneId", editChosenScene);
 
 module.exports = router;
