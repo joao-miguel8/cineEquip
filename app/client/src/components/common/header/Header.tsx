@@ -6,7 +6,7 @@ const Header = () => {
 	const handleGoBackBtn = () => navigate(-1);
 
 	return (
-		<header className="mb-10 pt-4 px-2 sticky top-0 w-full h-[48px] flex items-center justify-between bg-white">
+		<header className={`mb-10 pt-4 px-2 sticky top-0 w-full h-[48px] flex items-center justify-between bg-[#F6F6F6]`}>
 			<button onClick={handleGoBackBtn} className="flex items-center gap-2">
 				<IoChevronBackOutline size={"1.5rem"} />
 			</button>
