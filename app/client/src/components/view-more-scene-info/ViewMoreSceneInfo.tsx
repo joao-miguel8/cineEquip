@@ -1,9 +1,21 @@
 import classNames from "classnames";
 import { SceneType } from "../../types/SceneType";
+import { editSceneInfo } from "../../lib/api/services/scene-services/editSceneInfo";
+import { formatToDateTimeLocalString } from "../../util/formatToDateTimeLocalString";
 
 function ViewMoreSceneInfo({ isMoreSceneInfoToggled, sceneInfo, setSceneInfo }: { isMoreSceneInfoToggled: boolean; sceneInfo: SceneType; setSceneInfo: (updateField) => updateField }) {
 	return (
-		<form className={classNames(`px-6 py-4 bg-neutral-800 w-full h-fit text-white flex flex-col gap-6 duration-300`, isMoreSceneInfoToggled ? "-translate-y-[400px]" : "translate-y-0")}>
+		<form
+			onSubmit={async e => {
+				e.preventDefault();
+				try {
+					await editSceneInfo(sceneInfo._id, sceneInfo);
+					setSceneInfo(sceneInfo);
+				} catch (err) {
+					console.log("Error updating scene info", err);
+				}
+			}}
+			className={classNames(`px-6 py-4 bg-neutral-800 w-full h-fit text-white flex flex-col gap-6 duration-300`, isMoreSceneInfoToggled ? "-translate-y-[400px]" : "translate-y-0")}>
 			<div className="flex flex-col gap-2 ">
 				{/* Scene name input container*/}
 				<div className="mt-4 w-full">
@@ -46,12 +58,12 @@ function ViewMoreSceneInfo({ isMoreSceneInfoToggled, sceneInfo, setSceneInfo }: 
 				<label htmlFor="calenderStartDate" className="font-bold text-accent">
 					Calender start time:
 				</label>
-				<input type="datetime-local" name="calenderStartDate" id="calenderStartDate" className="text-black" />
+				<input onChange={e => setSceneInfo({ ...sceneInfo, calenderStartDate: e.target.value })} value={sceneInfo.calenderStartDate ? formatToDateTimeLocalString(sceneInfo.calenderStartDate) : ""} type="datetime-local" name="calenderStartDate" id="calenderStartDate" className="text-black" />
 				{/* calender start date input */}
 				<label htmlFor="calenderStartDate" className="font-bold text-accent">
-					Calender start time:
+					Calender end time:
 				</label>
-				<input type="datetime-local" name="calenderStartDate" id="calenderStartDate" className="text-black" />
+				<input onChange={e => setSceneInfo({ ...sceneInfo, calenderEndDate: e.target.value })} value={sceneInfo.calenderEndDate ? formatToDateTimeLocalString(sceneInfo.calenderEndDate) : ""} type="datetime-local" name="calenderEndDate" id="calenderEndDate" className="text-black" />
 			</div>
 			{/* Description container */}
 			<div aria-label={`description section for ${sceneInfo.name} scene`} className="mt-6">
@@ -74,16 +86,18 @@ function ViewMoreSceneInfo({ isMoreSceneInfoToggled, sceneInfo, setSceneInfo }: 
 				<label htmlFor="CallTime" className="font-bold text-accent">
 					CallTime:
 				</label>
-				<input type="datetime-local" id="CallTime" name="CallTime" className="text-black" />
+				<input onChange={e => setSceneInfo({ ...sceneInfo, callTime: e.target.value })} value={sceneInfo.callTime ? formatToDateTimeLocalString(sceneInfo.callTime) : ""} type="datetime-local" id="CallTime" name="CallTime" className="text-black" />
 				{/* Call Sheet input */}
 				<div className="mt-4 md:mt-0 flex flex-1 gap-2 w-full items-center">
-					<label htmlFor="callSheet" className="font-bold text-accent">
+					<label htmlFor="callSheet" className="ml-6 font-bold text-accent">
 						Call Sheet:
 					</label>
-					<input onChange={e => setSceneInfo({ ...sceneInfo, callSheet: e.target.value })} value={sceneInfo.callSheet} placeholder="Add a Call sheet" type="text" id="callSheet" name="callSheet" className=" focus:outline-none bg-transparent" />
+					<input onChange={e => setSceneInfo({ ...sceneInfo, callSheet: e.target.value })} value={sceneInfo.callSheet} placeholder="Add a Call sheet" type="text" id="callSheet" name="callSheet" className="w-full focus:outline-none bg-transparent" maxLength={10} />
 				</div>
 			</div>
-			<button className="mt-4 py-2 px-6 flex justify-center w-full sm:w-fit font-bold bg-primary hover:bg-accent hover:text-black duration-300 rounded-md">Update Scene Info</button>
+			<button type="submit" className="mt-4 py-2 px-6 flex justify-center w-full sm:w-fit font-bold bg-primary hover:bg-accent hover:text-black duration-300 rounded-md">
+				Update Scene Info
+			</button>
 		</form>
 	);
 }
