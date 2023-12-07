@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import { FaFolder } from "react-icons/fa";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import Header from "../components/common/header/Header";
 import SearchBar from "../components/common/searchbar/Searchbar";
 import ScenesList from "../components/scenes-list/ScenesList";
@@ -54,7 +53,7 @@ function SelectedProjectPage() {
 	return (
 		<section>
 			{/* sticky top section */}
-			<div className="overflow-hidden sticky z-30 top-0 w-full bg-white ">
+			<div className="overflow-hidden sticky z-30 top-0 w-full bg-[#F6F6F6] ">
 				<Header />
 				<div className="mt-10 mx-4 flex flex-col">
 					<SearchBar placeholder={`Search ${selectedTab}`} />
