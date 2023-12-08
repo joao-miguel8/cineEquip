@@ -27,7 +27,7 @@ function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneTyp
 			<div className="pointer-events-none absolute z-40 w-full h-full bg-gray-900 opacity-50"></div>
 			{/* --Modal Container-- */}
 			{/* stopPropagation added to stop overlay from toggling if user clicks on modal container */}
-			<div onClick={e => e.stopPropagation()} role="dialog" aria-labelledby="modal-title" className="pb-20 z-50 overflow-y-auto mx-auto w-full h-full text-left bg-white rounded shadow-lg">
+			<div onClick={e => e.stopPropagation()} role="dialog" aria-labelledby="modal-title" className="z-50 overflow-y-auto mx-auto w-full h-full text-left bg-white rounded shadow-lg">
 				{/* Close btn container */}
 				<div className="p-4 mb-4 w-full flex justify-end items-center">
 					{/* --Close Btn-- */}
@@ -45,23 +45,22 @@ function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneTyp
 					</div>
 					<SearchBar placeholder="Search" />
 				</div>
-				{/* more info of scene container */}
-				{/* drop down container */}
-				<div className={"mt-4 md:mx-4 md:flex md:justify-end"}>
+
+				{/* more info of scene container / and btns */}
+				<div className={"mt-4 md:mx-4 md:flex md:justify-between relative"}>
+					{/* --Kits Btns and Gear Btns-- */}
+					<div className="mx-4 md:mx-0 mt-8 md:mt-0 mb-10 flex gap-6 items-end w-80">
+						{/* --Kits Btn-- */}
+						<button onClick={() => setChosenTab(Scenetabs.kits)} aria-label={`view your kit list for ${sceneData.name}`} className={classNames(`w-20 font-bold duration-150 border-b`, chosenTab === "kits" ? " text-primary border-primary" : "border-gray-400 text-black")}>
+							Kits
+						</button>
+						{/* --Gear Btn-- */}
+						<button onClick={() => setChosenTab(Scenetabs.gear)} aria-label={`view your gear list for ${sceneData.name}`} className={classNames(`w-20 font-bold duration-150 border-b`, chosenTab === "gear" ? " text-primary border-primary" : "border-gray-400 text-black")}>
+							Gear
+						</button>
+					</div>
 					{/* drop down component */}
 					<ViewMoreSceneInfo isMoreSceneInfoToggled={isMoreSceneInfoToggled} setIsMoreSceneInfoToggled={setIsMoreSceneInfoToggled} sceneInfo={sceneInfo} setSceneInfo={setSceneInfo} />
-				</div>
-
-				{/* --Modal Footer Btns-- */}
-				<div className="fixed bottom-0 flex w-full">
-					{/* --Kits Btn-- */}
-					<button onClick={() => setChosenTab(Scenetabs.kits)} aria-label={`view your kit list for ${sceneData.name}`} className={classNames(`p-2 flex-1 font-bold duration-150`, chosenTab === "kits" ? "bg-accent text-black" : "bg-black text-white")}>
-						Kits
-					</button>
-					{/* --Gear Btn-- */}
-					<button onClick={() => setChosenTab(Scenetabs.gear)} aria-label={`view your gear list for ${sceneData.name}`} className={classNames(`p-2 flex-1 font-bold duration-150`, chosenTab === "gear" ? "bg-accent text-black" : "bg-black text-white")}>
-						Gear
-					</button>
 				</div>
 			</div>
 		</div>

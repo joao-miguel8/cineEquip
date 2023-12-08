@@ -7,15 +7,14 @@ import { FaChevronUp } from "react-icons/fa";
 function ViewMoreSceneInfo({ isMoreSceneInfoToggled, setIsMoreSceneInfoToggled, sceneInfo, setSceneInfo }: { isMoreSceneInfoToggled: boolean; sceneInfo: SceneType; setSceneInfo: (updateField) => updateField }) {
 	// bg - [#FFFFFF];
 	return (
-		<div className="mx-4 md:mx-0 md:w-fit flex flex-col items-end shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] bg-[#FFFFFF]">
+		<div className="mx-4 md:mx-0 md:w-fit flex flex-col justify-end items-end bg-[#FFFFFF]">
 			<button onClick={() => setIsMoreSceneInfoToggled(prevVal => !prevVal)} className="pl-4 p-2 flex h-14 text-12 sm:text-14 text-left font-bold md:w-[24rem] w-full justify-between items-center bg-primary text-white rounded-sm">
 				View More info about {sceneInfo.name}
 				<FaChevronUp size={"1.4rem"} color={"#fff"} className={classNames(`mr-4 duration-300`, isMoreSceneInfoToggled ? "rotate-180" : "rotate-0")} />
 			</button>
-			<div className={classNames(`md:w-[24rem] w-full overflow-hidden`, isMoreSceneInfoToggled ? "h-0" : "h-fit")}>
+			<div className={classNames(`md:w-[24rem] w-full overflow-scroll overscroll-y-contain absolute top-full right-0 rounded-b-sm`, isMoreSceneInfoToggled ? "h-0" : "max-h-80 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]")}>
 				<form
-					onSubmit={async e => {
-						e.preventDefault();
+					onSubmit={async () => {
 						try {
 							await editSceneInfo(sceneInfo._id, sceneInfo);
 							setSceneInfo(sceneInfo);
@@ -110,9 +109,9 @@ function ViewMoreSceneInfo({ isMoreSceneInfoToggled, setIsMoreSceneInfoToggled, 
 					{/* Call time input / Call sheet input */}
 					<div className="flex flex-col item-start gap-4">
 						{/* CallTime input */}
-						<div>
+						<div className="flex flex-col sm:flex-row items-center md:justify-between gap-2">
 							<label htmlFor="CallTime" className="text-14 font-bold text-primary">
-								CallTime:
+								Call Time:
 							</label>
 							<input onChange={e => setSceneInfo({ ...sceneInfo, callTime: e.target.value })} value={sceneInfo.callTime ? formatToDateTimeLocalString(sceneInfo.callTime) : ""} type="datetime-local" id="CallTime" name="CallTime" className="text-black" />
 							{/* Call Sheet input */}
