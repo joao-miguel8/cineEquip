@@ -55,25 +55,29 @@ function SelectedProjectPage() {
 			{/* sticky top section */}
 			<div className="overflow-hidden sticky z-30 top-0 w-full bg-[#F6F6F6] ">
 				<Header />
-				<div className="mt-10 mx-4 flex flex-col">
+				{/* title container and searchbar */}
+				<div className="px-4 w-full flex flex-col sm:flex-row gap-6 sm:gap-0 justify-between">
+					{/* title container */}
+					<div className="flex gap-4 items-center">
+						<FaFolder color={"#4F48E2"} size={"1.8rem"} />
+						{findChosenProject ? <h3 className="font-bold text-18 sm:text-20">{selectProject.title}</h3> : <h3>Loading title...</h3>}
+					</div>
 					<SearchBar placeholder={`Search ${selectedTab}`} />
 				</div>
-				{/* tab buttons */}
-				<div className="mx-auto mt-4 flex justify-center max-[640px]:mx-8 sm:w-[500px] items-center border-b-2 border-gray-200">
-					<button onClick={() => setSelectedTab(tabs.Scenes)} aria-label="View your scenes list" className={classNames("flex-1 border-b-2", selectedTab === "Scenes" && "border-primary duration-300")}>
-						<h2 className={classNames("font-bold text-20 text-center text-gray-800", selectedTab === "Scenes" && "text-primary border-primary duration-300")}>Scenes</h2>
+				{/* tab btn */}
+				<div className="mx-4 mt-8 flex gap-2 justify-start max-[640px]:mx-8 sm:w-[500px] items-center">
+					{/* Scenes btn */}
+					<button onClick={() => setSelectedTab(tabs.Scenes)} aria-label="View your scenes list" className={classNames("w-20 border-b", selectedTab === "Scenes" && "border-primary duration-300")}>
+						<h2 className={classNames("font-bold text-center text-gray-800", selectedTab === "Scenes" && "text-primary border-primary duration-300")}>Scenes</h2>
 					</button>
-					<button onClick={() => setSelectedTab(tabs.Kits)} aria-label="View your kits list" className={classNames("flex-1 border-b-2", selectedTab === "Kits" && "border-primary duration-300")}>
-						<h2 className={classNames("font-bold text-20 text-center text-gray-800", selectedTab === "Kits" && "text-primary border-primary duration-300")}>Kits</h2>
+					{/* Kits btn */}
+					<button onClick={() => setSelectedTab(tabs.Kits)} aria-label="View your kits list" className={classNames("w-20 border-b", selectedTab === "Kits" && "border-primary duration-300")}>
+						<h2 className={classNames("font-bold text-center text-gray-800", selectedTab === "Kits" && "text-primary border-primary duration-300")}>Kits</h2>
 					</button>
-					<button onClick={() => setSelectedTab(tabs.Gear)} aria-label="View your gear list" className={classNames("flex-1 border-b-2", selectedTab === "Gear" && "border-primary duration-300")}>
-						<h2 className={classNames("font-bold text-20 text-center text-gray-800", selectedTab === "Gear" && "text-primary border-primary duration-300")}>Gear</h2>
+					{/* gear btn */}
+					<button onClick={() => setSelectedTab(tabs.Gear)} aria-label="View your gear list" className={classNames("w-20 border-b", selectedTab === "Gear" && "border-primary duration-300")}>
+						<h2 className={classNames("font-bold text-center text-gray-800", selectedTab === "Gear" && "text-primary border-primary duration-300")}>Gear</h2>
 					</button>
-				</div>
-				{/* title container */}
-				<div className="mt-4 flex gap-4 items-center justify-center">
-					<FaFolder color={"#4F48E2"} size={"1.8rem"} />
-					{findChosenProject ? <h3 className="text-18">{selectProject.title}</h3> : <h3>Loading title...</h3>}
 				</div>
 			</div>
 			{/* Scene View Section */}
