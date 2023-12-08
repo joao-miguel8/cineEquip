@@ -37,7 +37,7 @@ function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneTyp
 				</div>
 
 				{/* --Modal Scene Title and SearchBar container-- */}
-				<div id="modal-title" className="px-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 font-bold">
+				<div id="modal-title" className="mx-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 font-bold">
 					{/* --Modal Scene Title-- */}
 					<div className="flex gap-2 text-18 sm:text-20">
 						<span>Scene:</span>
