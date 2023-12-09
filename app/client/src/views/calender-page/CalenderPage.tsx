@@ -1,5 +1,5 @@
 // import Calender from "../components/Calender";
-import Calendar from "../components/calendar/components/Calendar";
+import Calendar from "../../components/calendar/components/Calendar";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 

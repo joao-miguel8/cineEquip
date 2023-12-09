@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import { useProjectStore } from "../../zustand-store/projectStore";
-import { deleteChosenProject } from "../../lib/api/services/project-services/deleteChosenProject";
+import { useProjectStore } from "../../../zustand-store/projectStore";
+import { deleteChosenProject } from "../../../api/services/project-services/deleteChosenProject";
 import { useMutation } from "react-query";
 
 function DeleteProjectModal({ index, title, toggleDispatch, handleIsSelectModeActive }: { index: number; title: string; toggleDispatch: (action: string) => void; handleIsSelectModeActive: (selectModeActive: boolean) => void }) {
@@ -40,10 +40,10 @@ function DeleteProjectModal({ index, title, toggleDispatch, handleIsSelectModeAc
 				</button>
 				{/* --Modal Title-- */}
 				<h4 id="modal-title" className="w-full text-center text-20 font-bold ">
-					Create a title for your project
+					Delete Your Project
 				</h4>
 				{/* --Modal Body-- */}
-				<div aria-label="give your project a name" className="text-center mt-2">
+				<div aria-label={`type ${title} to delete your project`} className="text-center mt-2">
 					<div className="my-2">
 						<p className="font-bold text-16 italic">Type the project name to delete</p>
 						<p className="mt-2">

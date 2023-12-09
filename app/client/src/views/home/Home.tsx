@@ -1,9 +1,9 @@
-import CollectionCard from "../components/common/collection-card/CollectionCard";
-import projectCollection from "../assets/projectCollection.svg";
-import kitsCollection from "../assets/kitsCollection.svg";
-import gearCollection from "../assets/gearCollection.svg";
-import favoritesCollection from "../assets/favoritesCollection.svg";
-import calenderCollection from "../assets/calenderCollection.svg";
+import CollectionCard from "./components/CollectionCard";
+import projectCollection from "../../assets/projectCollection.svg";
+import kitsCollection from "../../assets/kitsCollection.svg";
+import gearCollection from "../../assets/gearCollection.svg";
+import favoritesCollection from "../../assets/favoritesCollection.svg";
+import calenderCollection from "../../assets/calenderCollection.svg";
 import { Link } from "react-router-dom";
 
 function Home() {

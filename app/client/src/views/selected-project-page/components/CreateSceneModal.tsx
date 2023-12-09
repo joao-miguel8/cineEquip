@@ -1,8 +1,8 @@
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
-import type { UseToggleType } from "../../hooks/useToggle/type";
-import type { SceneType } from "../../types/SceneType";
-import { createScene } from "../../lib/api/services/scene-services/createScene";
+import type { UseToggleType } from "../../../hooks/useToggle/type";
+import type { SceneType } from "../../../types/SceneType";
+import { createScene } from "../../../api/services/scene-services/createScene";
 
 function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleType; projectId: string }) {
 	const [sceneForm, setSceneForm] = useState<SceneType>({

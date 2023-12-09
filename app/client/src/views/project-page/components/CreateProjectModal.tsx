@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
-import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
-import { useProjectStore } from "../../zustand-store/projectStore";
-import { createNewProject } from "../../lib/api/services/project-services/createNewProject";
+import useDisableBodyScroll from "../../../hooks/useDisableBodyScroll";
+import { useProjectStore } from "../../../zustand-store/projectStore";
+import { createNewProject } from "../../../api/services/project-services/createNewProject";
 
-const AddProjectModal = ({ toggleDispatch }) => {
+const CreateProjectModal = ({ toggleDispatch }) => {
 	const [titleInput, setTitleInput] = useState<string>("");
 
 	// client state store
@@ -70,4 +70,4 @@ const AddProjectModal = ({ toggleDispatch }) => {
 	);
 };
 
-export default AddProjectModal;
+export default CreateProjectModal;

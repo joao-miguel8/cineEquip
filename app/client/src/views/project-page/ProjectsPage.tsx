@@ -1,15 +1,15 @@
 import classNames from "classnames";
 import { IoAdd } from "react-icons/io5";
-import SearchBar from "../components/common/searchbar/Searchbar";
-import Header from "../layout/header/Header";
-import ProjectCard from "../components/project-card/ProjectCard";
-import AddProjectModal from "../components/add-project-modal/AddProjectModal";
-import useToggle from "../hooks/useToggle/useToggle";
+import SearchBar from "../../components/common/Searchbar";
+import Header from "../../layout/Header";
+import ProjectCard from "./components/ProjectCard";
+import CreateProjectModal from "./components/CreateProjectModal";
+import useToggle from "../../hooks/useToggle/useToggle";
 import { useState } from "react";
-import { useProjectStore } from "../zustand-store/projectStore";
+import { useProjectStore } from "../../zustand-store/projectStore";
 import { useQuery } from "react-query";
-import type { UseToggleType } from "../hooks/useToggle/type";
-import { fetchProjects } from "../lib/api/services/project-services/fetchProjects";
+import type { UseToggleType } from "../../hooks/useToggle/type";
+import { fetchProjects } from "../../api/services/project-services/fetchProjects";
 
 function ProjectsPage() {
 	// zustand store
@@ -70,7 +70,7 @@ function ProjectsPage() {
 				</div>
 			</div>
 			{/* --Project Dialog Component-- */}
-			{isAddProjectModalOpen ? <AddProjectModal toggleDispatch={dispatch} /> : null}
+			{isAddProjectModalOpen ? <CreateProjectModal toggleDispatch={dispatch} /> : null}
 			{/* --Project List Container-- */}
 			<div className="mt-4 mx-4 bg-[#f6f6f6] gap-4 justify-items-center pb-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 				{projectsList?.map((project, index) => {

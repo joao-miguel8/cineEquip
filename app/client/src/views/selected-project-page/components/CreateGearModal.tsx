@@ -1,6 +1,6 @@
 import { IoMdClose } from "react-icons/io";
 
-import type { UseToggleType } from "../../hooks/useToggle/type";
+import type { UseToggleType } from "../../../hooks/useToggle/type";
 
 function CreateGearModal({ modalToggle }: { modalToggle: UseToggleType }) {
 	const onSubmit = (e: any) => {

@@ -1,21 +1,20 @@
 import classNames from "classnames";
 import { FaFolder } from "react-icons/fa";
-import Header from "../layout/header/Header";
-import SearchBar from "../components/common/searchbar/Searchbar";
-import ScenesList from "../components/scenes-list/ScenesList";
-import CreateSceneModal from "../components/create-scene-modal/CreateSceneModal";
-import CreateButton from "../components/create-button/CreateButton";
-import CreateKitModal from "../components/create-kit-modal/CreateKitModal";
-import CreateGearModal from "../components/create-gear-modal/CreateGearModal";
-import { useProjectStore } from "../zustand-store/projectStore";
+import Header from "../../layout/Header";
+import SearchBar from "../../components/common/Searchbar";
+import ScenesList from "./components/ScenesList";
+import CreateSceneModal from "./components/CreateSceneModal";
+import CreateButton from "../../components/common/CreateButton";
+import CreateKitModal from "./components/CreateKitModal";
+import CreateGearModal from "./components/CreateGearModal";
+import { useProjectStore } from "../../zustand-store/projectStore";
 import { useQuery } from "react-query";
-import useToggle from "../hooks/useToggle/useToggle";
-import type { UseToggleType } from "../hooks/useToggle/type";
+import useToggle from "../../hooks/useToggle/useToggle";
+import type { UseToggleType } from "../../hooks/useToggle/type";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import type { ProjectType } from "../types/ProjectType";
-import { fetchProjects } from "../lib/api/services/project-services/fetchProjects";
-import { IoAdd } from "react-icons/io5";
+import type { ProjectType } from "../../types/ProjectType";
+import { fetchProjects } from "../../api/services/project-services/fetchProjects";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
@@ -109,7 +108,7 @@ function SelectedProjectPage() {
 							<p className="text-18">Loading Scenes</p>
 						</div>
 					) : (
-						<ScenesList selectModalToggle={isSelectModeToggled} scenesList={selectProject.scenes} />
+						<ScenesList scenesList={selectProject.scenes} />
 					)}
 					{isModalToggled && isSelectModeToggled.isToggled === false && <CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} />}
 				</div>

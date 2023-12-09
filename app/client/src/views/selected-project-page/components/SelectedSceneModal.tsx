@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import { IoMdClose } from "react-icons/io";
-import SearchBar from "../common/searchbar/Searchbar";
-import ViewMoreSceneInfo from "../view-more-scene-info/ViewMoreSceneInfo";
+import SearchBar from "../../../components/common/Searchbar";
+import ViewMoreSceneInfo from "./ViewMoreSceneInfo";
 import { useState } from "react";
-import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
-import type { SceneType } from "../../types/SceneType";
+import useDisableBodyScroll from "../../../hooks/useDisableBodyScroll";
+import type { SceneType } from "../../../types/SceneType";
 
 function SelectedSceneModal({ sceneData, toggleDispatch }: { sceneData: SceneType; toggleDispatch: (action: string) => void }) {
 	// remove body scroll when modal opens

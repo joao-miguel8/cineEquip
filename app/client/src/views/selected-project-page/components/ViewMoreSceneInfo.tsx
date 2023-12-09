@@ -1,13 +1,12 @@
 import classNames from "classnames";
-import { SceneType } from "../../types/SceneType";
-import { editSceneInfo } from "../../lib/api/services/scene-services/editSceneInfo";
-import { formatToDateTimeLocalString } from "../../util/formatToDateTimeLocalString";
+import { SceneType } from "../../../types/SceneType";
+import { editSceneInfo } from "../../../api/services/scene-services/editSceneInfo";
+import { formatToDateTimeLocalString } from "../../../util/formatToDateTimeLocalString";
 import { FaChevronUp } from "react-icons/fa";
 
 function ViewMoreSceneInfo({ isMoreSceneInfoToggled, setIsMoreSceneInfoToggled, sceneInfo, setSceneInfo }: { isMoreSceneInfoToggled: boolean; sceneInfo: SceneType; setSceneInfo: (updateField) => updateField }) {
-	// bg - [#FFFFFF];
 	return (
-		<div className="mx-4 md:mx-0 md:w-fit flex flex-col justify-end items-end bg-[#FFFFFF]">
+		<div className="md:mx-0  md:w-fit flex flex-col justify-end items-end bg-[#FFFFFF]">
 			<button onClick={() => setIsMoreSceneInfoToggled(prevVal => !prevVal)} className="pl-4 p-2 flex h-14 text-12 sm:text-14 text-left font-bold md:w-[24rem] w-full justify-between items-center bg-primary text-white rounded-sm">
 				View More info about {sceneInfo.name}
 				<FaChevronUp size={"1.4rem"} color={"#fff"} className={classNames(`mr-4 duration-300`, isMoreSceneInfoToggled ? "rotate-180" : "rotate-0")} />

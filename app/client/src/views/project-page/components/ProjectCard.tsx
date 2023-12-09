@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { FaFolder } from "react-icons/fa";
 import { IoIosCloseCircle } from "react-icons/io";
 import classNames from "classnames";
-import DeleteProjectModal from "../delete-project-modal/DeleteProjectModal";
-import "../../App.css";
-import useToggle from "../../hooks/useToggle/useToggle";
-import type { UseToggleType } from "../../hooks/useToggle/type";
+import DeleteProjectModal from "./DeleteProjectModal";
+import "../../../App.css";
+import useToggle from "../../../hooks/useToggle/useToggle";
+import type { UseToggleType } from "../../../hooks/useToggle/type";
 
 function ProjectCard({ index, projectData, isSelectModeActive, setIsSelectModeActive }: { index: number; isSelectModeActive: boolean; setIsSelectModeActive: (setSelectMode: boolean) => void }) {
 	const deleteModalToggle = useToggle();
