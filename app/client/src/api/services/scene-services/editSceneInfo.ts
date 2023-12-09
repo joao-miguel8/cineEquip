@@ -1,4 +1,4 @@
-import { SceneType } from "../../../../types/SceneType";
+import { SceneType } from "../../../types/SceneType";
 import { axiosInstance } from "../../apiConfig";
 
 export async function editSceneInfo(SceneId: string, fieldToUpdate: SceneType) {

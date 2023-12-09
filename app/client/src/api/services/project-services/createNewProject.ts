@@ -1,4 +1,4 @@
-import type { ProjectType } from "../../../../types/ProjectType";
+import type { ProjectType } from "../../../types/ProjectType";
 import { axiosInstance } from "../../apiConfig";
 
 export async function createNewProject(fieldToUpdate: Partial<ProjectType>) {
