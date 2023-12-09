@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { IoAdd } from "react-icons/io5";
 import SearchBar from "../components/common/searchbar/Searchbar";
-import Header from "../components/common/header/Header";
+import Header from "../layout/header/Header";
 import ProjectCard from "../components/project-card/ProjectCard";
 import AddProjectModal from "../components/add-project-modal/AddProjectModal";
 import useToggle from "../hooks/useToggle/useToggle";

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { FaFolder } from "react-icons/fa";
-import Header from "../components/common/header/Header";
+import Header from "../layout/header/Header";
 import SearchBar from "../components/common/searchbar/Searchbar";
 import ScenesList from "../components/scenes-list/ScenesList";
 import CreateSceneModal from "../components/create-scene-modal/CreateSceneModal";
@@ -15,6 +15,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import type { ProjectType } from "../types/ProjectType";
 import { fetchProjects } from "../lib/api/services/project-services/fetchProjects";
+import { IoAdd } from "react-icons/io5";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
@@ -22,6 +23,8 @@ function SelectedProjectPage() {
 
 	const toggleModal = useToggle();
 	const { isToggled, isOn: isModalToggled, isOff, dispatch }: UseToggleType = toggleModal;
+
+	const isSelectModeToggled = useToggle();
 
 	// zustand store
 	const projectsList = useProjectStore(state => state.projects);
@@ -43,8 +46,8 @@ function SelectedProjectPage() {
 	const selectProject = findChosenProject || { _id: "", title: [], gear: [], scenes: [], kit: [] };
 
 	enum tabs {
-		Scenes = "Scenes",
-		Kits = "Kits",
+		Scenes = "Scene",
+		Kits = "Kit",
 		Gear = "Gear",
 	}
 
@@ -64,15 +67,16 @@ function SelectedProjectPage() {
 					</div>
 					<SearchBar placeholder={`Search ${selectedTab}`} />
 				</div>
+
 				{/* tab btn */}
 				<div className="mx-4 mt-8 flex gap-2 justify-start max-[640px]:mx-8 sm:w-[500px] items-center">
 					{/* Scenes btn */}
-					<button onClick={() => setSelectedTab(tabs.Scenes)} aria-label="View your scenes list" className={classNames("w-20 border-b", selectedTab === "Scenes" && "border-primary duration-300")}>
-						<h2 className={classNames("font-bold text-center text-gray-800", selectedTab === "Scenes" && "text-primary border-primary duration-300")}>Scenes</h2>
+					<button onClick={() => setSelectedTab(tabs.Scenes)} aria-label="View your scenes list" className={classNames("w-20 border-b", selectedTab === "Scene" && "border-primary duration-300")}>
+						<h2 className={classNames("font-bold text-center text-gray-800", selectedTab === "Scene" && "text-primary border-primary duration-300")}>Scenes</h2>
 					</button>
 					{/* Kits btn */}
-					<button onClick={() => setSelectedTab(tabs.Kits)} aria-label="View your kits list" className={classNames("w-20 border-b", selectedTab === "Kits" && "border-primary duration-300")}>
-						<h2 className={classNames("font-bold text-center text-gray-800", selectedTab === "Kits" && "text-primary border-primary duration-300")}>Kits</h2>
+					<button onClick={() => setSelectedTab(tabs.Kits)} aria-label="View your kits list" className={classNames("w-20 border-b", selectedTab === "Kit" && "border-primary duration-300")}>
+						<h2 className={classNames("font-bold text-center text-gray-800", selectedTab === "Kit" && "text-primary border-primary duration-300")}>Kits</h2>
 					</button>
 					{/* gear btn */}
 					<button onClick={() => setSelectedTab(tabs.Gear)} aria-label="View your gear list" className={classNames("w-20 border-b", selectedTab === "Gear" && "border-primary duration-300")}>
@@ -80,8 +84,24 @@ function SelectedProjectPage() {
 					</button>
 				</div>
 			</div>
+			{/* --Select / Delete Selected Btns-- */}
+			<div className="px-4 mt-8 mb-4 w-full md:w-5/6 m-auto flex flex-wrap items-center justify-between">
+				{/* --Select Btn-- */}
+				<button
+					onClick={() => {
+						isSelectModeToggled.dispatch("TOGGLE");
+					}}
+					aria-label="toggle button to select your projects"
+					type="button"
+					className={classNames("p-2 text-14 text-gray-900 font-medium rounded-lg dark:text-white bg-gray-600", projectsList?.length === 0 && "bg-gray-400 cursor-not-allowed")}>
+					Select projects
+				</button>
+				{}
+				{/* --Add btn-- */}
+				{selectedTab && <CreateButton buttonName={`Add a ${selectedTab}`} toggleModal={toggleModal} actionType={"IS_ON"} />}
+			</div>
 			{/* Scene View Section */}
-			{selectedTab === "Scenes" && (
+			{selectedTab === "Scene" && (
 				<div>
 					{isLoading ? (
 						<div className="mx-auto w-fit flex justify-center ">
@@ -89,26 +109,15 @@ function SelectedProjectPage() {
 							<p className="text-18">Loading Scenes</p>
 						</div>
 					) : (
-						<ScenesList scenesList={selectProject.scenes} />
+						<ScenesList selectModalToggle={isSelectModeToggled} scenesList={selectProject.scenes} />
 					)}
-					<CreateButton buttonName={"Add a Scene"} toggleModal={toggleModal} actionType={"IS_ON"} />
-					{isModalToggled && <CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} />}
+					{isModalToggled && isSelectModeToggled.isToggled === false && <CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} />}
 				</div>
 			)}
 			{/* Kits View Section */}
-			{selectedTab === "Kits" && (
-				<div>
-					<CreateButton buttonName={"Add a Kit"} toggleModal={toggleModal} actionType={"IS_ON"} />
-					{isModalToggled && <CreateKitModal modalToggle={toggleModal} />}
-				</div>
-			)}
+			{selectedTab === "Kit" && <div>{isModalToggled && <CreateKitModal modalToggle={toggleModal} />}</div>}
 			{/* Gear View section */}
-			{selectedTab === "Gear" && (
-				<div>
-					<CreateButton buttonName={"Add a Gear"} toggleModal={toggleModal} actionType={"IS_ON"} />
-					{isModalToggled && <CreateGearModal modalToggle={toggleModal} />}
-				</div>
-			)}
+			{selectedTab === "Gear" && <div>{isModalToggled && <CreateGearModal modalToggle={toggleModal} />}</div>}
 		</section>
 	);
 }
