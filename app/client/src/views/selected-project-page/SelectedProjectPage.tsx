@@ -2,23 +2,30 @@ import classNames from "classnames";
 import { FaFolder } from "react-icons/fa";
 import Header from "../../layout/Header";
 import SearchBar from "../../components/common/Searchbar";
-import ScenesList from "./components/ScenesList";
-import CreateSceneModal from "./components/CreateSceneModal";
 import CreateButton from "../../components/common/CreateButton";
+import CreateSceneModal from "./components/CreateSceneModal";
 import CreateKitModal from "./components/CreateKitModal";
 import CreateGearModal from "./components/CreateGearModal";
+import SelectedSceneModal from "./components/SelectedSceneModal";
+import SceneCard from "./components/SceneCard";
+import { fetchProjects } from "../../api/services/project-services/fetchProjects";
 import { useProjectStore } from "../../zustand-store/projectStore";
 import { useQuery } from "react-query";
 import useToggle from "../../hooks/useToggle/useToggle";
-import type { UseToggleType } from "../../hooks/useToggle/type";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import type { UseToggleType } from "../../hooks/useToggle/type";
 import type { ProjectType } from "../../types/ProjectType";
-import { fetchProjects } from "../../api/services/project-services/fetchProjects";
+import type { SceneType } from "../../types/SceneType";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
 	const { id } = useParams();
+
+	const [chosenScene, setChosenScene] = useState<SceneType>();
+
+	const chosenSceneModalToggle = useToggle();
+	const { isOn: isChosenSceneOpened, dispatch: dispatchChosenSceneOpened }: UseToggleType = chosenSceneModalToggle;
 
 	const toggleModal = useToggle();
 	const { isToggled, isOn: isModalToggled, isOff, dispatch }: UseToggleType = toggleModal;
@@ -108,7 +115,22 @@ function SelectedProjectPage() {
 							<p className="text-18">Loading Scenes</p>
 						</div>
 					) : (
-						<ScenesList scenesList={selectProject.scenes} />
+						<section className="pb-[70px] p-4 mt-4 mx-auto flex flex-wrap gap-4 items-start justify-center sm:justify-start">
+							{selectProject?.scenes.map(scene => {
+								return (
+									<>
+										<div
+											onClick={() => {
+												dispatchChosenSceneOpened("IS_ON");
+												setChosenScene(scene);
+											}}>
+											<SceneCard key={scene._id} scene={scene} />
+										</div>
+									</>
+								);
+							})}
+							{isChosenSceneOpened && <SelectedSceneModal sceneData={chosenScene} toggleDispatch={dispatchChosenSceneOpened} />}
+						</section>
 					)}
 					{isModalToggled && isSelectModeToggled.isToggled === false && <CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} />}
 				</div>
