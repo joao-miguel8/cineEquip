@@ -1,5 +1,5 @@
 import type { RouterType } from "./RouterType";
-import { pagesData } from "./viewsData";
+import { pagesData } from "./viewsRoutes";
 import { Route, Routes } from "react-router-dom";
 
 export function AppRouter() {

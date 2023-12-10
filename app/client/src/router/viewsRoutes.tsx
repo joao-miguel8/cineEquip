@@ -1,11 +1,11 @@
-import CalenderPage from "../views/CalenderPage";
-import FavoritesPage from "../views/FavoritesPage";
-import GearsPage from "../views/GearsPage";
-import GoogleSignInPage from "../views/GoogleSignInPage";
-import Home from "../views/Home";
-import KitsPage from "../views/KitsPage";
-import ProjectsPage from "../views/ProjectsPage";
-import SelectedProjectPage from "../views/SelectedProjectPage";
+import CalenderPage from "../views/calender-page/CalenderPage";
+import FavoritesPage from "../views/favorites-page/FavoritesPage";
+import GearsPage from "../views/gears-page/GearsPage";
+import GoogleSignInPage from "../views/google-sign-in-page/GoogleSignInPage";
+import Home from "../views/home/Home";
+import KitsPage from "../views/kits-page/KitsPage";
+import ProjectsPage from "../views/project-page/ProjectsPage";
+import SelectedProjectPage from "../views/selected-project-page/SelectedProjectPage";
 import type { RouterType } from "./RouterType";
 
 export const pagesData: RouterType[] = [
