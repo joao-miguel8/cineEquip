@@ -16,6 +16,8 @@ import { useParams } from "react-router-dom";
 import type { UseToggleType } from "../../hooks/useToggle/type";
 import type { ProjectType } from "../../types/ProjectType";
 import type { SceneType } from "../../types/SceneType";
+import Modal from "../../components/common/Modal";
+import DeleteSceneModal from "./components/DeleteSceneModal";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
@@ -55,6 +57,7 @@ function SelectedProjectPage() {
 	}
 
 	const [selectedTab, setSelectedTab] = useState(tabs.Scenes);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	return (
 		<section>
@@ -99,7 +102,7 @@ function SelectedProjectPage() {
 					className={classNames("p-2 text-14 text-gray-900 font-medium rounded-lg dark:text-white bg-gray-600", projectsList?.length === 0 && "bg-gray-400 cursor-not-allowed")}>
 					Select projects
 				</button>
-				{}
+
 				{/* --Add btn-- */}
 				{selectedTab && <CreateButton buttonName={`Add a ${selectedTab}`} toggleModal={toggleModal} actionType={"IS_ON"} />}
 			</div>
@@ -114,13 +117,17 @@ function SelectedProjectPage() {
 					) : (
 						<section className="pb-[70px] p-4 mt-4 mx-auto flex flex-wrap gap-4 items-start justify-center sm:justify-start">
 							{selectProject?.scenes.map((scene: SceneType) => {
-								return <SceneCard key={scene._id} scene={scene} isSelectModeToggle={isSelectModeToggled} />;
+								return <SceneCard key={scene._id} scene={scene} setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} isSelectModeToggled={isSelectModeToggled} />;
 							})}
 						</section>
 					)}
 					{isModalToggled && isSelectModeToggled.isToggled === false && <CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} />}
 				</div>
 			)}
+
+			<Modal isOpen={isModalOpen}>
+				<DeleteSceneModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+			</Modal>
 
 			{/* Kits View Section */}
 			{selectedTab === "Kit" && <div>{isModalToggled && <CreateKitModal modalToggle={toggleModal} />}</div>}
