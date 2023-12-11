@@ -33,6 +33,9 @@ function SelectedScene() {
 	});
 	const chosenScene = findChosenScene[0];
 
+	// find project that is associated with chosen scene
+	const projectContainingScene = projects?.find((project: ProjectType) => project.scenes.some((scene: SceneType) => scene._id === id));
+
 	// remove body scroll when modal opens
 	useDisableBodyScroll();
 
@@ -47,12 +50,7 @@ function SelectedScene() {
 		<div className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center">
 			{/* stopPropagation added to stop overlay from toggling if user clicks on modal container */}
 			<div onClick={e => e.stopPropagation()} role="dialog" aria-labelledby="modal-title" className="z-50 overflow-y-auto mx-auto w-full h-full text-left bg-[#F6F6F6] rounded shadow-lg">
-				{/* Close btn container */}
-				<div className="p-4 mb-4 w-full flex justify-end items-center">
-					{/* --Close Btn-- */}
-					<Header />
-				</div>
-
+				<Header route={`/projects/${projectContainingScene?._id}`} />
 				{/* --Modal Scene Title and SearchBar container-- */}
 				<div id="modal-title" className="mx-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 font-bold">
 					{/* --Modal Scene Title-- */}

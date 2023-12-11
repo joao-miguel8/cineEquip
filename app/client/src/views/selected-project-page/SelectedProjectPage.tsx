@@ -19,7 +19,6 @@ import type { SceneType } from "../../types/SceneType";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
-
 	const { id } = useParams();
 
 	const chosenSceneModalToggle = useToggle();
@@ -61,7 +60,7 @@ function SelectedProjectPage() {
 		<section>
 			{/* sticky top section */}
 			<div className="overflow-hidden sticky z-30 top-0 w-full bg-[#F6F6F6]">
-				<Header />
+				<Header route={"/projects"} />
 				{/* title container and searchbar */}
 				<div className="px-4 w-full flex flex-col sm:flex-row gap-6 sm:gap-0 justify-between">
 					{/* title container */}
@@ -115,13 +114,14 @@ function SelectedProjectPage() {
 					) : (
 						<section className="pb-[70px] p-4 mt-4 mx-auto flex flex-wrap gap-4 items-start justify-center sm:justify-start">
 							{selectProject?.scenes.map((scene: SceneType) => {
-								return <SceneCard key={scene._id} scene={scene} />;
+								return <SceneCard key={scene._id} scene={scene} isSelectModeToggle={isSelectModeToggled} />;
 							})}
 						</section>
 					)}
 					{isModalToggled && isSelectModeToggled.isToggled === false && <CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} />}
 				</div>
 			)}
+
 			{/* Kits View Section */}
 			{selectedTab === "Kit" && <div>{isModalToggled && <CreateKitModal modalToggle={toggleModal} />}</div>}
 			{/* Gear View section */}
