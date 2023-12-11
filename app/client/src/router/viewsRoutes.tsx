@@ -6,6 +6,7 @@ import Home from "../views/home/Home";
 import KitsPage from "../views/kits-page/KitsPage";
 import ProjectsPage from "../views/project-page/ProjectsPage";
 import SelectedProjectPage from "../views/selected-project-page/SelectedProjectPage";
+import SelectedScene from "../views/selected-project-page/components/SelectedScene";
 import type { RouterType } from "./RouterType";
 
 export const pagesData: RouterType[] = [
@@ -20,6 +21,10 @@ export const pagesData: RouterType[] = [
 	{
 		path: "/projects/:id",
 		element: <SelectedProjectPage />,
+	},
+	{
+		path: "/scene/:id",
+		element: <SelectedScene />,
 	},
 	{
 		path: "/kits",

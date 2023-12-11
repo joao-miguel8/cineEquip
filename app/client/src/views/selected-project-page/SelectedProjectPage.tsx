@@ -6,7 +6,6 @@ import CreateButton from "../../components/common/CreateButton";
 import CreateSceneModal from "./components/CreateSceneModal";
 import CreateKitModal from "./components/CreateKitModal";
 import CreateGearModal from "./components/CreateGearModal";
-import SelectedSceneModal from "./components/SelectedSceneModal";
 import SceneCard from "./components/SceneCard";
 import { fetchProjects } from "../../api/services/project-services/fetchProjects";
 import { useProjectStore } from "../../zustand-store/projectStore";
@@ -20,9 +19,8 @@ import type { SceneType } from "../../types/SceneType";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
-	const { id } = useParams();
 
-	const [chosenScene, setChosenScene] = useState<SceneType>();
+	const { id } = useParams();
 
 	const chosenSceneModalToggle = useToggle();
 	const { isOn: isChosenSceneOpened, dispatch: dispatchChosenSceneOpened }: UseToggleType = chosenSceneModalToggle;
@@ -62,7 +60,7 @@ function SelectedProjectPage() {
 	return (
 		<section>
 			{/* sticky top section */}
-			<div className="overflow-hidden sticky z-30 top-0 w-full bg-[#F6F6F6] ">
+			<div className="overflow-hidden sticky z-30 top-0 w-full bg-[#F6F6F6]">
 				<Header />
 				{/* title container and searchbar */}
 				<div className="px-4 w-full flex flex-col sm:flex-row gap-6 sm:gap-0 justify-between">
@@ -116,20 +114,9 @@ function SelectedProjectPage() {
 						</div>
 					) : (
 						<section className="pb-[70px] p-4 mt-4 mx-auto flex flex-wrap gap-4 items-start justify-center sm:justify-start">
-							{selectProject?.scenes.map(scene => {
-								return (
-									<>
-										<div
-											onClick={() => {
-												dispatchChosenSceneOpened("IS_ON");
-												setChosenScene(scene);
-											}}>
-											<SceneCard key={scene._id} scene={scene} />
-										</div>
-									</>
-								);
+							{selectProject?.scenes.map((scene: SceneType) => {
+								return <SceneCard key={scene._id} scene={scene} />;
 							})}
-							{isChosenSceneOpened && <SelectedSceneModal sceneData={chosenScene} toggleDispatch={dispatchChosenSceneOpened} />}
 						</section>
 					)}
 					{isModalToggled && isSelectModeToggled.isToggled === false && <CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} />}
