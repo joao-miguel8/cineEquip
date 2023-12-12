@@ -1,8 +1,15 @@
+import classNames from "classnames";
 import { IoMdClose } from "react-icons/io";
+import { useState } from "react";
+import type { SceneType } from "../../../types/SceneType";
+import useDisableBodyScroll from "../../../hooks/useDisableBodyScroll";
 
-// { index, title, toggleDispatch, handleIsSelectModeActive }: { index: number; title: string; toggleDispatch: (action: string) => void; handleIsSelectModeActive: (selectModeActive: boolean) => void }
+function DeleteSceneModal({ scene, closeModal }: { scene: SceneType; closeModal: () => void }) {
+	const { name } = scene;
+	const [deleteTitleInput, setDeleteTitleInput] = useState("");
 
-function DeleteSceneModal({ closeModal }: { closeModal: () => void }) {
+	useDisableBodyScroll();
+
 	return (
 		<div onClick={() => closeModal()} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center">
 			{/* <!--Modal Overlay Window--> */}
@@ -24,26 +31,21 @@ function DeleteSceneModal({ closeModal }: { closeModal: () => void }) {
 						<p className="font-bold text-16 italic">Type the Scene name to delete</p>
 						<p className="mt-2">
 							<span className="italic text-16 inline-block mr-2 ">Scene Name:</span>
-							{/* {title.split("").map((ltr: string, i: number) => {
+							{name.split("").map((ltr: string, i: number) => {
 								return (
 									<span key={i} className={classNames("italic text-16 font-bold ", ltr === deleteTitleInput[i] ? "text-gray-800" : "text-gray-400")}>
 										{ltr}
 									</span>
 								);
-							})} */}
+							})}
 						</p>
 					</div>
-					<input type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-red-400" />
+					<input type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-red-400" onChange={e => setDeleteTitleInput(e.target.value)} />
 				</div>
 				{/* --delete Scene Btn-- */}
 				<div aria-label="delete your scene button" className="flex w-full justify-end">
-					<button
-						onClick={() => {
-							// handleDeleteProject();
-							// handleIsSelectModeActive(false);
-							// toggleDispatch("IS_OFF");
-						}}
-						className="mt-4 p-2 text-white bg-[#F25554] rounded-lg font-medium hover:text-white hover:bg-red-600">
+					{/* handleDeleteProject */}
+					<button onClick={() => closeModal()} className="mt-4 p-2 text-white bg-[#F25554] rounded-lg font-medium hover:text-white hover:bg-red-600">
 						Delete Project
 					</button>
 				</div>

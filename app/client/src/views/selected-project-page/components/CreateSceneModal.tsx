@@ -1,14 +1,16 @@
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
-import type { UseToggleType } from "../../../hooks/useToggle/type";
-import type { SceneType } from "../../../types/SceneType";
 import { createScene } from "../../../api/services/scene-services/createScene";
+import useDisableBodyScroll from "../../../hooks/useDisableBodyScroll";
+import type { SceneType } from "../../../types/SceneType";
 
-function CreateSceneModal({ openModal, closeModal, modalToggle, projectId }: { openModal: () => void; closeModal: () => void; modalToggle: UseToggleType; projectId: string }) {
+function CreateSceneModal({ closeModal, projectId }: { closeModal: () => void; projectId: string }) {
 	const [sceneForm, setSceneForm] = useState<SceneType>({
 		name: "",
 		description: "",
 	});
+
+	useDisableBodyScroll();
 
 	const handleFormSubmit = async () => {
 		try {
