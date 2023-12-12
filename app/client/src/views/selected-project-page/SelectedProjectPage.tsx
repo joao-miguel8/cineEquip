@@ -24,12 +24,6 @@ function SelectedProjectPage() {
 	// chosen project id passed with params
 	const { id } = useParams();
 
-	const chosenSceneModalToggle = useToggle();
-	const { isOn: isChosenSceneOpened, dispatch: dispatchChosenSceneOpened }: UseToggleType = chosenSceneModalToggle;
-
-	const toggleModal = useToggle();
-	const { isToggled, isOn: isModalToggled, isOff, dispatch }: UseToggleType = toggleModal;
-
 	const isSelectModeToggled = useToggle();
 
 	// zustand store
@@ -159,7 +153,7 @@ function SelectedProjectPage() {
 				)}
 				{/* Create Scene Modal */}
 				<Modal isOpen={modalState[MODAL_TYPES.CREATE_SCENE]} modalType={MODAL_TYPES.CREATE_SCENE}>
-					<CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} openModal={() => openModal(MODAL_TYPES.CREATE_SCENE)} closeModal={() => closeModal(MODAL_TYPES.CREATE_SCENE)} />
+					<CreateSceneModal projectId={selectProject._id} closeModal={() => closeModal(MODAL_TYPES.CREATE_SCENE)} />
 				</Modal>
 			</Tab>
 			{/* Delete Modal */}
