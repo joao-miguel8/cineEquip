@@ -41,7 +41,7 @@ function CreateSceneModal({ closeModal, projectId }: { closeModal: () => void; p
 				{/* --Modal Body-- */}
 				<div aria-label="add a scene name to create your scene" className="mt-4">
 					{/* Scene name input */}
-					<input value={sceneForm.name} onChange={e => setSceneForm({ ...sceneForm, name: e.target.value })} placeholder="Scene Name" maxLength={24} type="text" className="px-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
+					<input value={sceneForm.name} onChange={e => setSceneForm({ ...sceneForm, name: e.target.value })} placeholder="Scene Name" maxLength={24} minLength={6} required type="text" className="px-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
 					{/* Description input */}
 					<textarea
 						value={sceneForm.description}
