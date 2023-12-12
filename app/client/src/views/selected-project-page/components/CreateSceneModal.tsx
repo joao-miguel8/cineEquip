@@ -5,7 +5,9 @@ import useDisableBodyScroll from "../../../hooks/useDisableBodyScroll";
 import type { SceneType } from "../../../types/SceneType";
 
 function CreateSceneModal({ closeModal, projectId }: { closeModal: () => void; projectId: string }) {
-	const [sceneForm, setSceneForm] = useState<SceneType>({
+	type FormSceneData = Pick<SceneType, "name" | "description">;
+
+	const [sceneForm, setSceneForm] = useState<FormSceneData>({
 		name: "",
 		description: "",
 	});
