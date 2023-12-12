@@ -4,7 +4,7 @@ import type { UseToggleType } from "../../../hooks/useToggle/type";
 import type { SceneType } from "../../../types/SceneType";
 import { createScene } from "../../../api/services/scene-services/createScene";
 
-function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleType; projectId: string }) {
+function CreateSceneModal({ openModal, closeModal, modalToggle, projectId }: { openModal: () => void; closeModal: () => void; modalToggle: UseToggleType; projectId: string }) {
 	const [sceneForm, setSceneForm] = useState<SceneType>({
 		name: "",
 		description: "",
@@ -20,7 +20,7 @@ function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleTy
 	};
 
 	return (
-		<form onSubmit={async () => await handleFormSubmit()} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => modalToggle.dispatch("IS_OFF")}>
+		<form onSubmit={async () => await handleFormSubmit()} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => closeModal()}>
 			{/* <!--Modal Overlay Window--> */}
 			<div className="pointer-events-none absolute z-40 w-full h-full bg-gray-900 opacity-50"></div>
 			{/* --Modal Container-- */}
@@ -32,7 +32,7 @@ function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleTy
 						Create a title for your Scene
 					</label>
 					{/* --Close Btn-- */}
-					<button aria-label="close create a new scene modal" onClick={() => modalToggle.dispatch("IS_OFF")}>
+					<button aria-label="close create a new scene modal" onClick={() => closeModal()}>
 						<IoMdClose size={"1.7rem"} className={"hover:text-primary duration-150"} />
 					</button>
 				</div>
@@ -59,13 +59,7 @@ function CreateSceneModal({ modalToggle, projectId }: { modalToggle: UseToggleTy
 						Create Scene
 					</button>
 					{/* --Close Btn-- */}
-					<button
-						type="button"
-						onClick={() => {
-							modalToggle.dispatch("IS_OFF");
-						}}
-						aria-label="close create scene modal"
-						className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
+					<button type="button" onClick={() => closeModal()} aria-label="close create scene modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
 						Close
 					</button>
 				</div>

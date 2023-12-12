@@ -2,16 +2,16 @@ import { IoMdClose } from "react-icons/io";
 
 // { index, title, toggleDispatch, handleIsSelectModeActive }: { index: number; title: string; toggleDispatch: (action: string) => void; handleIsSelectModeActive: (selectModeActive: boolean) => void }
 
-function DeleteSceneModal({ isModalOpen, setIsModalOpen }) {
+function DeleteSceneModal({ closeModal }: { closeModal: () => void }) {
 	return (
-		<div onClick={() => setIsModalOpen(false)} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center">
+		<div onClick={() => closeModal()} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center">
 			{/* <!--Modal Overlay Window--> */}
 			<div className="pointer-events-none absolute z-40 w-full h-full bg-gray-900 opacity-50"></div>
 			{/* --Modal Container-- */}
 			{/* stopPropagation added to stop overlay from toggling if user clicks on modal container */}
 			<div onClick={e => e.stopPropagation()} role="dialog" aria-labelledby="modal-title" className="px-6 py-4 z-50 overflow-y-auto mx-auto w-11/12 md:max-w-[28rem] text-left bg-white rounded shadow-lg">
 				{/* --Close Btn-- */}
-				<button onClick={() => setIsModalOpen(false)} className="w-full flex justify-end">
+				<button onClick={() => closeModal()} className="w-full flex justify-end">
 					<IoMdClose size={"1.7rem"} className={"hover:text-primary duration-150"} />
 				</button>
 				{/* --Modal Title-- */}

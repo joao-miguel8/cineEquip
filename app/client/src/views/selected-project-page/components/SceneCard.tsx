@@ -3,16 +3,16 @@ import { FaChevronRight } from "react-icons/fa";
 import { IoIosCloseCircle } from "react-icons/io";
 import type { SceneType } from "../../../types/SceneType";
 
-function SceneCard({ scene, isModalOpen, setIsModalOpen, isSelectModeToggled }: { scene: SceneType; isModalOpen: boolean; setIsModalOpen: (val: boolean) => void; isSelectModeToggled: { isToggled: false; isOn: false; isOff: true } }) {
-	// disable route for delete modal
-	const disableRouteIfSelectModeToggled = isModalOpen ? "#" : `/scene/${scene._id}`;
+function SceneCard({ scene, openModal, isSelectModeToggled }: { scene: SceneType; OpenModal: () => void; isSelectModeToggled: { isToggled: false; isOn: false; isOff: true } }) {
+	// disable route for delete modal if the select mode is toggled on
+	const disableRouteIfSelectModeToggled = isSelectModeToggled.isToggled ? "#" : `/scene/${scene._id}`;
 
 	return (
 		<>
 			{/* select mode overlay */}
 			<div className="p-4 w-[300px] flex flex-col items-center bg-white border border-gray-300 rounded-md hover:bg-primary hover:text-white duration-300 h-30 relative">
 				{isSelectModeToggled.isToggled && (
-					<div onClick={() => setIsModalOpen(true)} className="group flex w-full h-full z-30 absolute top-0 rounded-md">
+					<div onClick={() => openModal()} className="group flex w-full h-full z-30 absolute top-0 rounded-md">
 						<div className="flex justify-end w-full">
 							<IoIosCloseCircle size={"1.8rem"} className={"text-black group-hover:text-red-400"} />
 						</div>

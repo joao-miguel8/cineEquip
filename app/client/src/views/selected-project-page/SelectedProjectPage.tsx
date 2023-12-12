@@ -2,10 +2,10 @@ import classNames from "classnames";
 import { FaFolder } from "react-icons/fa";
 import Header from "../../layout/Header";
 import SearchBar from "../../components/common/Searchbar";
-import CreateButton from "../../components/common/CreateButton";
 import CreateSceneModal from "./components/CreateSceneModal";
-import CreateKitModal from "./components/CreateKitModal";
-import CreateGearModal from "./components/CreateGearModal";
+// import CreateKitModal from "./components/CreateKitModal";
+// import CreateGearModal from "./components/CreateGearModal";
+import CreateButton from "../../components/common/CreateButton";
 import SceneCard from "./components/SceneCard";
 import { fetchProjects } from "../../api/services/project-services/fetchProjects";
 import { useProjectStore } from "../../zustand-store/projectStore";
@@ -18,6 +18,7 @@ import type { ProjectType } from "../../types/ProjectType";
 import type { SceneType } from "../../types/SceneType";
 import Modal from "../../components/common/Modal";
 import DeleteSceneModal from "./components/DeleteSceneModal";
+import Tab from "../../components/common/tab";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
@@ -55,9 +56,25 @@ function SelectedProjectPage() {
 		Kits = "Kit",
 		Gear = "Gear",
 	}
-
 	const [selectedTab, setSelectedTab] = useState(tabs.Scenes);
-	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	// Defining modal types to refer to different modal components.
+	const MODAL_TYPES = {
+		CREATE_SCENE: "CreateScene",
+		DELETE_SCENE: "DeleteScene",
+	};
+	//  State to manage models that to track each modals current state
+	const [modalState, setModalState] = useState({
+		[MODAL_TYPES.CREATE_SCENE]: false,
+		[MODAL_TYPES.DELETE_SCENE]: false,
+	});
+
+	const openModal = (modalType: string) => {
+		setModalState(prevVal => ({ ...prevVal, [modalType]: true }));
+	};
+	const closeModal = (modalType: string) => {
+		setModalState(prevVal => ({ ...prevVal, [modalType]: false }));
+	};
 
 	return (
 		<section>
@@ -104,35 +121,30 @@ function SelectedProjectPage() {
 				</button>
 
 				{/* --Add btn-- */}
-				{selectedTab && <CreateButton buttonName={`Add a ${selectedTab}`} toggleModal={toggleModal} actionType={"IS_ON"} />}
+				{selectedTab && <CreateButton buttonName={`Add a ${selectedTab}`} openModal={() => openModal(MODAL_TYPES.CREATE_SCENE)} />}
 			</div>
 			{/* Scene View Section */}
-			{selectedTab === "Scene" && (
-				<div>
-					{isLoading ? (
-						<div className="mx-auto w-fit flex justify-center ">
-							<svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"></svg>
-							<p className="text-18">Loading Scenes</p>
-						</div>
-					) : (
-						<section className="pb-[70px] p-4 mt-4 mx-auto flex flex-wrap gap-4 items-start justify-center sm:justify-start">
-							{selectProject?.scenes.map((scene: SceneType) => {
-								return <SceneCard key={scene._id} scene={scene} setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} isSelectModeToggled={isSelectModeToggled} />;
-							})}
-						</section>
-					)}
-					{isModalToggled && isSelectModeToggled.isToggled === false && <CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} />}
-				</div>
-			)}
+			<Tab tabOption={selectedTab} tabName={"Scene"}>
+				{isLoading ? (
+					<div className="mx-auto w-fit flex justify-center ">
+						<svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"></svg>
+						<p className="text-18">Loading Scenes</p>
+					</div>
+				) : (
+					<section className="pb-[70px] p-4 mt-4 mx-auto flex flex-wrap gap-4 items-start justify-center sm:justify-start">
+						{selectProject?.scenes.map((scene: SceneType) => {
+							return <SceneCard key={scene._id} scene={scene} openModal={() => openModal(MODAL_TYPES.DELETE_SCENE)} isSelectModeToggled={isSelectModeToggled} />;
+						})}
+					</section>
+				)}
+				<Modal isOpen={modalState[MODAL_TYPES.CREATE_SCENE]} modalType={MODAL_TYPES.CREATE_SCENE}>
+					<CreateSceneModal modalToggle={toggleModal} projectId={selectProject._id} openModal={() => openModal(MODAL_TYPES.CREATE_SCENE)} closeModal={() => closeModal(MODAL_TYPES.CREATE_SCENE)} />
+				</Modal>
+			</Tab>
 
-			<Modal isOpen={isModalOpen}>
-				<DeleteSceneModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+			<Modal isOpen={modalState[MODAL_TYPES.DELETE_SCENE]} modalType={MODAL_TYPES.DELETE_SCENE}>
+				<DeleteSceneModal closeModal={() => closeModal(MODAL_TYPES.DELETE_SCENE)} />
 			</Modal>
-
-			{/* Kits View Section */}
-			{selectedTab === "Kit" && <div>{isModalToggled && <CreateKitModal modalToggle={toggleModal} />}</div>}
-			{/* Gear View section */}
-			{selectedTab === "Gear" && <div>{isModalToggled && <CreateGearModal modalToggle={toggleModal} />}</div>}
 		</section>
 	);
 }

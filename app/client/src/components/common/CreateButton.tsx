@@ -1,11 +1,10 @@
 import { IoAdd } from "react-icons/io5";
-import type { UseToggleType } from "../../hooks/useToggle/type";
 
-function CreateButton({ buttonName, toggleModal: { dispatch }, actionType }: { buttonName: string; toggleModal: UseToggleType; actionType: string }) {
+function CreateButton({ buttonName, openModal }: { buttonName: string; openModal: () => void }) {
 	return (
 		<div
 			onClick={() => {
-				dispatch(actionType as "TOGGLE" | "IS_ON" | "IS_OFF");
+				openModal();
 			}}
 			aria-label={buttonName}
 			className="py-2 flex justify-center">
