@@ -11,6 +11,7 @@ import { useProjectStore } from "../../zustand-store/projectStore";
 import type { SceneType } from "../../types/SceneType";
 import type { ProjectType } from "../../types/ProjectType";
 import Tab from "../../components/common/tab";
+import Button from "../../components/common/Button";
 
 function SelectedScene() {
 	const { id } = useParams();
@@ -45,6 +46,7 @@ function SelectedScene() {
 		gear = "gear",
 	}
 	const [chosenTab, setChosenTab] = useState(Scenetabs.kits);
+
 	return (
 		<>
 			<section className="flex flex-col h-screen">
@@ -73,6 +75,10 @@ function SelectedScene() {
 								Gear
 							</button>
 						</div>
+						<div aria-label={`create a new ${chosenTab}`} className="px-4 mb-4 flex justify-end w-full">
+							<Button styles="btn-primary">Create {chosenTab}</Button>
+						</div>
+
 						{/* drop down component */}
 						{projects && <ViewMoreSceneInfo sceneInfo={chosenScene} />}
 					</div>

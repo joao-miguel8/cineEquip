@@ -9,7 +9,11 @@ body {
 
 /* custom truncate selector */
 .truncate-3 {
-	/* overflow: hidden; */
-	/* display: -webkit-box; */
 	-webkit-line-clamp: 1; /* number of lines to show*/
+}
+
+@layer components {
+	.btn-primary {
+		@apply bg-gray-700 px-6 py-2 hover:bg-primary duration-300 hover:text-white text-white rounded-full;
+	}
 }
