@@ -1,6 +1,6 @@
-function Button({ children, onClick, styles }: { children: React.ReactNode; onClick: () => void; styles: string }) {
+function Button({ children, onClick, styles }: { children: React.ReactNode; onClick?: () => void; styles: string }) {
 	return (
-		<button onClick={() => onClick()} className={styles}>
+		<button onClick={onClick ?? (() => {})} className={styles}>
 			<>{children}</>
 		</button>
 	);
