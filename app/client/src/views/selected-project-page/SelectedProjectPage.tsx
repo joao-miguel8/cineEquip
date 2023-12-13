@@ -5,7 +5,6 @@ import SearchBar from "../../components/common/Searchbar";
 import CreateSceneModal from "./components/CreateSceneModal";
 // import CreateKitModal from "./components/CreateKitModal";
 // import CreateGearModal from "./components/CreateGearModal";
-import Button from "../../components/common/Button";
 import SceneCard from "./components/SceneCard";
 import { fetchProjects } from "../../api/services/project-services/fetchProjects";
 import { useProjectStore } from "../../zustand-store/projectStore";
@@ -13,7 +12,7 @@ import { useQuery } from "react-query";
 import useToggle from "../../hooks/useToggle/useToggle";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import type { UseToggleType } from "../../hooks/useToggle/type";
+
 import type { ProjectType } from "../../types/ProjectType";
 import type { SceneType } from "../../types/SceneType";
 import Modal from "../../components/common/Modal";
@@ -120,20 +119,18 @@ function SelectedProjectPage() {
 				<div className="px-4 mt-8 mb-4 w-full md:w-5/6 m-auto flex flex-wrap items-center justify-between">
 					{/* --Select Btn-- */}
 					<button
+						aria-label="toggle button to select your projects"
 						onClick={() => {
 							isSelectModeToggled.dispatch("TOGGLE");
 						}}
-						aria-label="toggle button to select your projects"
-						type="button"
-						className={classNames("p-2 text-14 text-gray-900 font-medium rounded-lg dark:text-white bg-gray-600", projectsList?.length === 0 && "bg-gray-400 cursor-not-allowed")}>
+						className={`btn-toggle-stye01 ${selectProject?.scenes === null ? "bg-gray-400 cursor-not-allowed" : ""}`}>
 						Select projects
 					</button>
-
 					{/* --Add btn-- */}
 					{selectedTab && (
-						<Button onClick={() => openModal(MODAL_TYPES.CREATE_SCENE)} styles="p-2 flex gap-2 justify-center items-center text-gray-900 hover:bg-gray-100 font-medium rounded-lg text-sm bg-primary dark:text-white  dark:hover:bg-gray-700 duration-150">
-							Add a Scene
-						</Button>
+						<button onClick={() => openModal(MODAL_TYPES.CREATE_SCENE)} className="btn-primary">
+							Create a Scene
+						</button>
 					)}
 				</div>
 			</div>

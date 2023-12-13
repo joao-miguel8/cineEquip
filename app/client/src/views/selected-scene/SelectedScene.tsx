@@ -11,7 +11,6 @@ import { useProjectStore } from "../../zustand-store/projectStore";
 import type { SceneType } from "../../types/SceneType";
 import type { ProjectType } from "../../types/ProjectType";
 import Tab from "../../components/common/tab";
-import Button from "../../components/common/Button";
 
 function SelectedScene() {
 	const { id } = useParams();
@@ -76,7 +75,7 @@ function SelectedScene() {
 							</button>
 						</div>
 						<div aria-label={`create a new ${chosenTab}`} className="px-4 mb-4 flex justify-end w-full">
-							<Button styles="btn-primary">Create {chosenTab}</Button>
+							<button className="btn-primary">Create {chosenTab}</button>
 						</div>
 
 						{/* drop down component */}
