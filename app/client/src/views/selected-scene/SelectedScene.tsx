@@ -1,15 +1,15 @@
 import classNames from "classnames";
-import SearchBar from "../../../components/common/Searchbar";
-import Header from "../../../layout/Header";
-import ViewMoreSceneInfo from "./ViewMoreSceneInfo";
-import { fetchProjects } from "../../../api/services/project-services/fetchProjects";
-import useDisableBodyScroll from "../../../hooks/useDisableBodyScroll";
+import SearchBar from "../../components/common/Searchbar";
+import Header from "../../layout/Header";
+import ViewMoreSceneInfo from "./components/ViewMoreSceneInfo";
+import { fetchProjects } from "../../api/services/project-services/fetchProjects";
+import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { useProjectStore } from "../../../zustand-store/projectStore";
-import type { SceneType } from "../../../types/SceneType";
-import type { ProjectType } from "../../../types/ProjectType";
+import { useProjectStore } from "../../zustand-store/projectStore";
+import type { SceneType } from "../../types/SceneType";
+import type { ProjectType } from "../../types/ProjectType";
 
 function SelectedScene() {
 	const { id } = useParams();

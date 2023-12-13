@@ -6,7 +6,7 @@ import Home from "../views/home/Home";
 import KitsPage from "../views/kits-page/KitsPage";
 import ProjectsPage from "../views/project-page/ProjectsPage";
 import SelectedProjectPage from "../views/selected-project-page/SelectedProjectPage";
-import SelectedScene from "../views/selected-project-page/components/SelectedScene";
+import SelectedScene from "../views/selected-scene/SelectedScene";
 import type { RouterType } from "./RouterType";
 
 export const pagesData: RouterType[] = [
