@@ -11,6 +11,7 @@ import type { SceneType } from "../../types/SceneType";
 import type { ProjectType } from "../../types/ProjectType";
 import Tab from "../../components/common/tab/Tab";
 import useTab from "../../components/common/tab/hooks/useTab";
+import GearCard from "../../components/common/GearCard";
 
 function SelectedScene() {
 	const { id } = useParams();
@@ -60,7 +61,7 @@ function SelectedScene() {
 					{/* more info of scene container / and btns */}
 					<div className={"mt-4 md:mx-4 md:flex md:justify-between relative"}>
 						{/* --Kits Btns and Gear Btns-- */}
-						<div className="mx-4 md:mx-0 mt-8 md:mt-0 mb-10 flex gap-6 items-end w-80">
+						<div className="mx-4 md:mx-0 mt-8 md:mt-0 mb-10 flex gap-6 items-end">
 							{/* --Kits Btn-- */}
 							<button
 								onClick={() => TABS.handleSetChosenTab(TABS.tabs.KITS_TAB)}
@@ -85,11 +86,16 @@ function SelectedScene() {
 					</div>
 				</div>
 				{/* Tab content */}
-				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs["KITS_TAB"]}>
-					{/* scroll content container */}
-					<div className="w-full grow overflow-y-scroll bg-[#F6F6F6"></div>
-				</Tab>
-				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs.GEAR_TAB}></Tab>
+				<div className="w-full grow overflow-y-scroll bg-[#F6F6F6">
+					<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs["KITS_TAB"]}>
+						{/* scroll content container */}
+					</Tab>
+					<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs.GEAR_TAB}>
+						<div className="p-2 flex flex-wrap gap-4">
+							<GearCard />
+						</div>
+					</Tab>
+				</div>
 			</section>
 		</>
 	);
