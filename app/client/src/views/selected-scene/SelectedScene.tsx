@@ -5,12 +5,12 @@ import ViewMoreSceneInfo from "./components/ViewMoreSceneInfo";
 import { fetchProjects } from "../../api/services/project-services/fetchProjects";
 import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
 import { useQuery } from "react-query";
 import { useProjectStore } from "../../zustand-store/projectStore";
 import type { SceneType } from "../../types/SceneType";
 import type { ProjectType } from "../../types/ProjectType";
-import Tab from "../../components/common/tab";
+import Tab from "../../components/common/tab/Tab";
+import useTab from "../../components/common/tab/hooks/useTab";
 
 function SelectedScene() {
 	const { id } = useParams();
@@ -40,11 +40,9 @@ function SelectedScene() {
 	// remove body scroll when modal opens
 	useDisableBodyScroll();
 
-	enum Scenetabs {
-		kits = "kits",
-		gear = "gear",
-	}
-	const [chosenTab, setChosenTab] = useState(Scenetabs.kits);
+	const TABS = useTab();
+	TABS.addTab("KITS_TAB", "kit");
+	TABS.addTab("GEAR_TAB", "gear");
 
 	return (
 		<>
@@ -66,16 +64,16 @@ function SelectedScene() {
 						{/* --Kits Btns and Gear Btns-- */}
 						<div className="mx-4 md:mx-0 mt-8 md:mt-0 mb-10 flex gap-6 items-end w-80">
 							{/* --Kits Btn-- */}
-							<button onClick={() => setChosenTab(Scenetabs.kits)} aria-label={`view your kit list for ${chosenScene?.name}`} className={classNames(`w-20 font-bold duration-150 border-b`, chosenTab === "kits" ? " text-primary border-primary" : "border-gray-400 text-black")}>
+							<button onClick={() => TABS.setChosenTab("KITS_TAB")} aria-label={`view your kit list for ${chosenScene?.name}`} className={classNames(`w-20 font-bold duration-150 border-b`, TABS.chosenTab === "KITS_TAB" ? "text-primary border-primary" : "border-gray-400 text-black")}>
 								Kits
 							</button>
 							{/* --Gear Btn-- */}
-							<button onClick={() => setChosenTab(Scenetabs.gear)} aria-label={`view your gear list for ${chosenScene?.name}`} className={classNames(`w-20 font-bold duration-150 border-b`, chosenTab === "gear" ? " text-primary border-primary" : "border-gray-400 text-black")}>
+							<button onClick={() => TABS.setChosenTab("GEAR_TAB")} aria-label={`view your gear list for ${chosenScene?.name}`} className={classNames(`w-20 font-bold duration-150 border-b`, TABS.chosenTab === "GEAR_TAB" ? "text-primary border-primary" : "border-gray-400 text-black")}>
 								Gear
 							</button>
 						</div>
-						<div aria-label={`create a new ${chosenTab}`} className="px-4 mb-4 flex justify-end w-full">
-							<button className="btn-primary">Create {chosenTab}</button>
+						<div aria-label={`create a new ${TABS.chosenTab}`} className="px-4 mb-4 flex justify-end w-full">
+							<button className="btn-primary">Create {TABS.tabs[TABS.chosenTab]}</button>
 						</div>
 
 						{/* drop down component */}
@@ -83,11 +81,11 @@ function SelectedScene() {
 					</div>
 				</div>
 				{/* Tab content */}
-				<Tab tabOption={chosenTab} tabName={"kits"}>
+				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs["KITS_TYPE"]}>
 					{/* scroll content container */}
 					<div className="w-full grow overflow-y-scroll bg-[#F6F6F6"></div>
 				</Tab>
-				<Tab tabOption={chosenTab} tabName={"gear"}>
+				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs["GEAR_TYPE"]}>
 					<p>Gear Tab</p>
 				</Tab>
 			</section>

@@ -17,7 +17,7 @@ import type { ProjectType } from "../../types/ProjectType";
 import type { SceneType } from "../../types/SceneType";
 import Modal from "../../components/common/Modal";
 import DeleteSceneModal from "./components/DeleteSceneModal";
-import Tab from "../../components/common/tab";
+import Tab from "../../components/common/tab/Tab";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
