@@ -40,9 +40,7 @@ function SelectedScene() {
 	// remove body scroll when modal opens
 	useDisableBodyScroll();
 
-	const TABS = useTab();
-	TABS.addTab("KITS_TAB", "kit");
-	TABS.addTab("GEAR_TAB", "gear");
+	const TABS = useTab({ KITS_TAB: "kits", GEAR_TAB: "gear" });
 
 	return (
 		<>
@@ -64,16 +62,22 @@ function SelectedScene() {
 						{/* --Kits Btns and Gear Btns-- */}
 						<div className="mx-4 md:mx-0 mt-8 md:mt-0 mb-10 flex gap-6 items-end w-80">
 							{/* --Kits Btn-- */}
-							<button onClick={() => TABS.setChosenTab("KITS_TAB")} aria-label={`view your kit list for ${chosenScene?.name}`} className={classNames(`w-20 font-bold duration-150 border-b`, TABS.chosenTab === "KITS_TAB" ? "text-primary border-primary" : "border-gray-400 text-black")}>
+							<button
+								onClick={() => TABS.handleSetChosenTab(TABS.tabs.KITS_TAB)}
+								aria-label={`view your kit list for ${chosenScene?.name}`}
+								className={classNames(`w-20 font-bold duration-150 border-b`, TABS.chosenTab === TABS.tabs.KITS_TAB ? "text-primary border-primary" : "border-gray-400 text-black")}>
 								Kits
 							</button>
 							{/* --Gear Btn-- */}
-							<button onClick={() => TABS.setChosenTab("GEAR_TAB")} aria-label={`view your gear list for ${chosenScene?.name}`} className={classNames(`w-20 font-bold duration-150 border-b`, TABS.chosenTab === "GEAR_TAB" ? "text-primary border-primary" : "border-gray-400 text-black")}>
+							<button
+								onClick={() => TABS.handleSetChosenTab(TABS.tabs.GEAR_TAB)}
+								aria-label={`view your gear list for ${chosenScene?.name}`}
+								className={classNames(`w-20 font-bold duration-150 border-b`, TABS.chosenTab === TABS.tabs.GEAR_TAB ? "text-primary border-primary" : "border-gray-400 text-black")}>
 								Gear
 							</button>
 						</div>
-						<div aria-label={`create a new ${TABS.chosenTab}`} className="px-4 mb-4 flex justify-end w-full">
-							<button className="btn-primary">Create {TABS.tabs[TABS.chosenTab]}</button>
+						<div aria-label={`create a new ${TABS.tabs.chosenTab}`} className="px-4 mb-4 flex justify-end w-full">
+							<button className="btn-primary">Create {TABS.chosenTab}</button>
 						</div>
 
 						{/* drop down component */}
@@ -81,13 +85,11 @@ function SelectedScene() {
 					</div>
 				</div>
 				{/* Tab content */}
-				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs["KITS_TYPE"]}>
+				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs["KITS_TAB"]}>
 					{/* scroll content container */}
 					<div className="w-full grow overflow-y-scroll bg-[#F6F6F6"></div>
 				</Tab>
-				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs["GEAR_TYPE"]}>
-					<p>Gear Tab</p>
-				</Tab>
+				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs.GEAR_TAB}></Tab>
 			</section>
 		</>
 	);

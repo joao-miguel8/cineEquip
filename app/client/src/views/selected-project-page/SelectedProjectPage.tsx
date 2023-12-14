@@ -124,7 +124,7 @@ function SelectedProjectPage() {
 							isSelectModeToggled.dispatch("TOGGLE");
 						}}
 						className={`btn-toggle-stye01 ${selectProject?.scenes === null ? "bg-gray-400 cursor-not-allowed" : ""}`}>
-						Select projects
+						Select Scene
 					</button>
 					{/* --Add btn-- */}
 					{selectedTab && (
