@@ -1,6 +1,6 @@
 import { IoMdClose } from "react-icons/io";
 
-import type { UseToggleType } from "../../../hooks/useToggle/type";
+import type { UseToggleType } from "../../hooks/useToggle/type";
 
 function CreateGearModal({ modalToggle }: { modalToggle: UseToggleType }) {
 	const onSubmit = (e: any) => {
@@ -27,7 +27,20 @@ function CreateGearModal({ modalToggle }: { modalToggle: UseToggleType }) {
 				</div>
 				{/* --Modal Body-- */}
 				<div aria-label="add a name to create your gear" className="mt-4">
-					<input placeholder="Gear Name" type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
+					{/* gear name input */}
+					<label htmlFor="name" className="font-bold">
+						Name
+					</label>
+					<input placeholder="Gear Name" name="name" id="name" type="text" className="px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
+					{/* gear status select */}
+					<label htmlFor="status" className="inline-block mt-4 font-bold">
+						Status
+					</label>
+					<select name="status" id="status" className="block px-2 py-2 w-40 border-[1.2px] rounded outline-none focus:border-primary">
+						<option value="available">is available</option>
+						<option value="in Use">in Use</option>
+						<option value="damaged">is damaged</option>
+					</select>
 				</div>
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">
@@ -36,7 +49,7 @@ function CreateGearModal({ modalToggle }: { modalToggle: UseToggleType }) {
 						Create Gear
 					</button>
 					{/* --Close Btn-- */}
-					<button type="button" onClick={() => modalToggle.dispatch("IS_OFF")} aria-label="close create gear modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
+					<button type="submit" aria-label="close create gear modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
 						Close
 					</button>
 				</div>
