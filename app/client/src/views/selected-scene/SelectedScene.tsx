@@ -38,16 +38,13 @@ function SelectedScene() {
 	// find project that is associated with chosen scene
 	const projectContainingScene = projects?.find((project: ProjectType) => project.scenes.some((scene: SceneType) => scene._id === id));
 
-	// remove body scroll when modal opens
-	useDisableBodyScroll();
-
 	const TABS = useTab({ KITS_TAB: "kits", GEAR_TAB: "gear" });
 
 	return (
 		<>
-			<section className="flex flex-col h-screen">
+			<section className="flex flex-col h-full">
 				{/* Top section sticky */}
-				<div className="w-full rounded shadow-lg bg-[#F6F6F6]">
+				<div className="w-full sticky top-0 shadow-lg bg-[#F6F6F6]">
 					<Header route={`/projects/${projectContainingScene?._id}`} />
 					<div className="mx-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 font-bold">
 						{/* --Modal Scene Title-- */}
@@ -55,47 +52,51 @@ function SelectedScene() {
 							<span>Scene:</span>
 							<h4>{chosenScene?.name}</h4>
 						</div>
-						<SearchBar placeholder="Search" />
+						{/* <SearchBar placeholder="Search" /> */}
 					</div>
 
 					{/* more info of scene container / and btns */}
 					<div className={"mt-4 md:mx-4 md:flex md:justify-between relative"}>
-						{/* --Kits Btns and Gear Btns-- */}
-						<div className="mx-4 md:mx-0 mt-8 md:mt-0 mb-10 flex gap-6 items-end">
-							{/* --Kits Btn-- */}
-							<button
-								onClick={() => TABS.handleSetChosenTab(TABS.tabs.KITS_TAB)}
-								aria-label={`view your kit list for ${chosenScene?.name}`}
-								className={classNames(`w-20 font-bold duration-150 border-b`, TABS.chosenTab === TABS.tabs.KITS_TAB ? "text-primary border-primary" : "border-gray-400 text-black")}>
-								Kits
-							</button>
-							{/* --Gear Btn-- */}
-							<button
-								onClick={() => TABS.handleSetChosenTab(TABS.tabs.GEAR_TAB)}
-								aria-label={`view your gear list for ${chosenScene?.name}`}
-								className={classNames(`w-20 font-bold duration-150 border-b`, TABS.chosenTab === TABS.tabs.GEAR_TAB ? "text-primary border-primary" : "border-gray-400 text-black")}>
-								Gear
-							</button>
+						{/* --Kits Btns | Gear Btns and viewSceneInfo -- */}
+						<div className="mx-4 md:mx-0 my-2 md:mt-0 flex flex-col md:flex-row gap-6 justify-between">
+							{/* --Kits Btns and Gear Btns-- */}
+							<div className="flex gap-2">
+								{/* --Kits Btn-- */}
+								<button
+									onClick={() => TABS.handleSetChosenTab(TABS.tabs.KITS_TAB)}
+									aria-label={`view your kit list for ${chosenScene?.name}`}
+									className={classNames(`w-20 font-bold duration-150 border-b`, TABS.chosenTab === TABS.tabs.KITS_TAB ? "text-primary border-primary" : "border-gray-400 text-black")}>
+									Kits
+								</button>
+								{/* --Gear Btn-- */}
+								<button
+									onClick={() => TABS.handleSetChosenTab(TABS.tabs.GEAR_TAB)}
+									aria-label={`view your gear list for ${chosenScene?.name}`}
+									className={classNames(`w-20 font-bold duration-150 border-b`, TABS.chosenTab === TABS.tabs.GEAR_TAB ? "text-primary border-primary" : "border-gray-400 text-black")}>
+									Gear
+								</button>
+							</div>
+							{/* drop down component */}
+							{projects && <ViewMoreSceneInfo sceneInfo={chosenScene} />}
 						</div>
-						<div aria-label={`create a new ${TABS.tabs.chosenTab}`} className="px-4 mb-4 flex justify-end w-full">
+						{/* Select btn | Create Btn */}
+						<div aria-label={`create a new ${TABS.tabs.chosenTab}`} className="px-4 mb-4 flex justify-between w-full">
+							{/* Select btn */}
+							<button className="btn-toggle-stye01 px-4 py-2 text-14 font-bold">Select {TABS.chosenTab}</button>
+							{/* Create btn */}
 							<button className="btn-primary">Create {TABS.chosenTab}</button>
 						</div>
-
-						{/* drop down component */}
-						{projects && <ViewMoreSceneInfo sceneInfo={chosenScene} />}
 					</div>
 				</div>
 				{/* Tab content */}
-				<div className="w-full grow overflow-y-scroll bg-[#F6F6F6">
-					<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs["KITS_TAB"]}>
-						{/* scroll content container */}
-					</Tab>
-					<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs.GEAR_TAB}>
-						<div className="p-2 flex flex-wrap gap-4">
-							<GearCard />
-						</div>
-					</Tab>
-				</div>
+				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs["KITS_TAB"]}>
+					{/* scroll content container */}
+				</Tab>
+				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs.GEAR_TAB}>
+					<div className="m-4 flex flex-wrap gap-4">
+						<GearCard />
+					</div>
+				</Tab>
 			</section>
 		</>
 	);
