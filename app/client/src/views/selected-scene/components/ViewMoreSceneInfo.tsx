@@ -16,7 +16,7 @@ function ViewMoreSceneInfo({ sceneInfo }: { sceneInfo: SceneType }) {
 				View More info about {formData?.name}
 				<FaChevronUp size={"1.4rem"} color={"#fff"} className={classNames(`mr-4 duration-300`, isMoreSceneInfoToggled ? "rotate-180" : "rotate-0")} />
 			</button>
-			<div className={classNames(`md:w-[24rem] w-full overflow-scroll overscroll-y-contain absolute top-14 right-0 rounded-b-sm`, isMoreSceneInfoToggled ? "h-0" : "max-h-80 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]")}>
+			<div className={classNames(`md:w-[24rem] w-full overflow-scroll overscroll-y-contain absolute -top-[320px] right-0 rounded-b-sm`, isMoreSceneInfoToggled ? "h-0" : "max-h-80 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]")}>
 				<form
 					onSubmit={async () => {
 						try {

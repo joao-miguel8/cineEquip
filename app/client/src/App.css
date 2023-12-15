@@ -14,9 +14,9 @@ body {
 
 @layer components {
 	.btn-primary {
-		@apply bg-gray-700 px-6 py-2 hover:bg-primary duration-300 hover:text-white text-white rounded-full;
+		@apply py-2 px-4 sm:px-6 sm:py-2 text-14 sm:text-16 bg-gray-700 hover:bg-primary duration-300 hover:text-white text-white rounded-full;
 	}
 	.btn-toggle-stye01 {
-		@apply bg-accent px-6 py-2 hover:bg-primary duration-300 hover:text-white text-black rounded-full;
+		@apply py-2 px-4 sm:px-6 sm:py-2 text-14 sm:text-16 font-bold hover:bg-primary duration-300 bg-accent hover:text-white text-black rounded-full;
 	}
 }

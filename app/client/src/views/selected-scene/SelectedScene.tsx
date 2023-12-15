@@ -54,10 +54,9 @@ function SelectedScene() {
 						</div>
 						{/* <SearchBar placeholder="Search" /> */}
 					</div>
-
-					{/* more info of scene container / and btns */}
-					<div className={"mt-4 md:mx-4 md:flex md:justify-between relative"}>
-						{/* --Kits Btns | Gear Btns and viewSceneInfo -- */}
+					{/* tab btns / select and create btns */}
+					<div className={"mt-4 md:mx-4"}>
+						{/* --Kits Btns | Gear Btns  */}
 						<div className="mx-4 md:mx-0 my-2 md:mt-0 flex flex-col md:flex-row gap-6 justify-between">
 							{/* --Kits Btns and Gear Btns-- */}
 							<div className="flex gap-2">
@@ -76,13 +75,11 @@ function SelectedScene() {
 									Gear
 								</button>
 							</div>
-							{/* drop down component */}
-							{projects && <ViewMoreSceneInfo sceneInfo={chosenScene} />}
 						</div>
 						{/* Select btn | Create Btn */}
-						<div aria-label={`create a new ${TABS.tabs.chosenTab}`} className="px-4 mb-4 flex justify-between w-full">
+						<div aria-label={`create a new ${TABS.tabs.chosenTab}`} className="mt-8 px-4 mb-4 flex justify-between w-full">
 							{/* Select btn */}
-							<button className="btn-toggle-stye01 px-4 py-2 text-14 font-bold">Select {TABS.chosenTab}</button>
+							<button className="btn-toggle-stye01 ">Select {TABS.chosenTab}</button>
 							{/* Create btn */}
 							<button className="btn-primary">Create {TABS.chosenTab}</button>
 						</div>
@@ -93,11 +90,17 @@ function SelectedScene() {
 					{/* scroll content container */}
 				</Tab>
 				<Tab tabOption={TABS.chosenTab} tabName={TABS.tabs.GEAR_TAB}>
-					<div className="m-4 flex flex-wrap gap-4">
+					<div className="mb-20 m-4 flex justify-start flex-wrap gap-4">
 						<GearCard />
 					</div>
 				</Tab>
 			</section>
+			{/* drop down component */}
+			{projects && (
+				<div className="fixed bottom-0 w-full">
+					<ViewMoreSceneInfo sceneInfo={chosenScene} />
+				</div>
+			)}
 		</>
 	);
 }
