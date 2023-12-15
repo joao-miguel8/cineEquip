@@ -36,9 +36,9 @@ function ProjectsPage() {
 	return (
 		<section className="bg-[#f6f6f6]">
 			{/* --Sticky top section container-- */}
-			<div className="bg-[#f6f6f6] z-30 py-4 sticky top-0 w-full ">
+			<div className="bg-[#f6f6f6] z-30 sticky top-0 w-full ">
 				{/* --Page Header-- */}
-				<Header />
+				<Header route={"/"} />
 				<div className="mx-6 lg:mx-14 flex flex-col sm:flex-row sm:justify-between gap-4">
 					<h2 className="text-18 sm:text-22">Projects</h2>
 					<SearchBar aria-label="Search for a Project" placeholder={"Search for a Project"} />
