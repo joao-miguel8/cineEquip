@@ -11,12 +11,12 @@ function ViewMoreSceneInfo({ sceneInfo }: { sceneInfo: SceneType }) {
 	const [isMoreSceneInfoToggled, setIsMoreSceneInfoToggled] = useState(true);
 
 	return (
-		<div className="md:mx-0  md:w-fit flex flex-col justify-end items-end bg-[#FFFFFF]">
+		<div className="relative md:mx-0 md:w-fit flex flex-col justify-end items-end bg-[#FFFFFF]">
 			<button onClick={() => setIsMoreSceneInfoToggled(prevVal => !prevVal)} className="pl-4 p-2 flex h-14 text-12 sm:text-14 text-left font-bold md:w-[24rem] w-full justify-between items-center bg-primary text-white rounded-sm">
 				View More info about {formData?.name}
 				<FaChevronUp size={"1.4rem"} color={"#fff"} className={classNames(`mr-4 duration-300`, isMoreSceneInfoToggled ? "rotate-180" : "rotate-0")} />
 			</button>
-			<div className={classNames(`md:w-[24rem] w-full overflow-scroll overscroll-y-contain absolute top-full right-0 rounded-b-sm`, isMoreSceneInfoToggled ? "h-0" : "max-h-80 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]")}>
+			<div className={classNames(`md:w-[24rem] w-full overflow-scroll overscroll-y-contain absolute top-14 right-0 rounded-b-sm`, isMoreSceneInfoToggled ? "h-0" : "max-h-80 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]")}>
 				<form
 					onSubmit={async () => {
 						try {
