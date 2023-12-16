@@ -1,4 +1,4 @@
-const enum GearStatuses {
+export enum GearStatuses {
 	isAvailable = "isAvailable",
 	isInUse = "isInUse",
 	isDamaged = "isDamaged",
