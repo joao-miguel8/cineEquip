@@ -1,7 +1,7 @@
 import { IoMdClose } from "react-icons/io";
 import { createGear } from "../../api/services/gear-services/createGear";
 import { GearStatuses, GearType } from "../../types/GearType";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 
 function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 	type FormDataType = Pick<GearType, "name" | "status">;
@@ -16,8 +16,6 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 	const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		setGearFormData({ ...gearFormData, status: e.target.value as GearStatuses });
 	};
-	console.log(gearFormData.status);
-	console.log(gearFormData.name);
 
 	return (
 		<form onSubmit={onSubmit} className="z-50 fixed w-full h-full top-0 left-0 flex items-center justify-center" onClick={() => modalClose()}>
