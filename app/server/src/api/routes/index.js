@@ -5,6 +5,7 @@ const { DeleteProject } = require("../controllers/projects/DeleteProjectControll
 const { CreateNewScene } = require("../controllers/scenes/CreateNewSceneController");
 const editChosenScene = require("../controllers/scenes/EditChosenSceneController");
 const deleteScene = require("../controllers/scenes/DeleteSceneController");
+const { CreateGear } = require("../controllers/gear/CreateGear");
 
 // initiate backend routes
 const router = express.Router();
@@ -22,5 +23,8 @@ router.get("/fetchAllProjects", fetchAllProjects);
 router.post("/createScene/:projectId", CreateNewScene);
 router.put("/editChosenScene/:sceneId", editChosenScene);
 router.delete("/deleteScene/:sceneId", deleteScene);
+
+// Gear Routes
+router.post("/createGear", CreateGear);
 
 module.exports = router;
