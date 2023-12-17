@@ -3,9 +3,22 @@ import Modal from "../../components/common/Modal";
 import CreateGearModal from "../../components/modals/CreateGearModal";
 import Header from "../../layout/Header";
 import useModal from "../../components/modals/hooks/useModal";
+import { useEffect } from "react";
+import { fetchAllGear } from "../../api/services/gear-services/fetchAllGear";
 
 function GearsPage() {
 	const modals = useModal(["createGear"]);
+
+	useEffect(() => {
+		(async () => {
+			try {
+				const gearData = await fetchAllGear();
+				console.log(gearData);
+			} catch (error) {
+				console.error("Error fetching gear:", error);
+			}
+		})();
+	}, []);
 
 	return (
 		<>
