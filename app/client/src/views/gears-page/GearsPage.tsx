@@ -5,20 +5,19 @@ import Header from "../../layout/Header";
 import useModal from "../../components/modals/hooks/useModal";
 import { useEffect } from "react";
 import { fetchAllGear } from "../../api/services/gear-services/fetchAllGear";
+import { useGearStore } from "../../zustand-store/gearStore";
+import { useQuery } from "react-query";
 
 function GearsPage() {
 	const modals = useModal(["createGear"]);
+	const getGearList = useGearStore(state => state.getAllGear);
+	const gearList = useGearStore(state => state.gear);
 
-	useEffect(() => {
-		(async () => {
-			try {
-				const gearData = await fetchAllGear();
-				console.log(gearData);
-			} catch (error) {
-				console.error("Error fetching gear:", error);
-			}
-		})();
-	}, []);
+	const gearFetch = useQuery("gears", async () => await fetchAllGear(), {
+		onError: error => console.log(error),
+		onSuccess: gears => getGearList(gears),
+		refetchOnWindowFocus: false,
+	});
 
 	return (
 		<>
@@ -33,7 +32,9 @@ function GearsPage() {
 				</button>
 			</div>
 			<section className="m-4 flex flex-wrap gap-4">
-				<GearCard />
+				{gearList?.map(gear => (
+					<GearCard gearData={gear} />
+				))}
 			</section>
 			<Modal isOpen={modals.modals.createGear} modalType={"createGear"}>
 				<CreateGearModal modalClose={() => modals.closeModal("createGear")} />
