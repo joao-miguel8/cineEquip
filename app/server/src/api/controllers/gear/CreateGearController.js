@@ -3,10 +3,11 @@ const { createQRCodeInGearCreation } = require("../../middlewares/gear/createQRC
 
 async function CreateGear(req, res) {
 	try {
-		const { name, status } = req.body;
+		const { name, status, img } = req.body;
 		const createGear = await Gear.create({
 			name: name,
 			status: status,
+			img: img,
 		});
 
 		const gearWithQRCode = await createQRCodeInGearCreation(createGear);

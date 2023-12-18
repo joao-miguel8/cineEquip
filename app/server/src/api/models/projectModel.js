@@ -5,6 +5,7 @@ const GearSchema = new Schema({
 	QRCode: String,
 	serialNumber: String,
 	name: String,
+	img: String,
 	status: { type: String, enum: ["isAvailable", "isInUse", "isDamaged"], default: "isAvailable" },
 	manufacturer: { type: String, require: false },
 	model: { type: String, require: false },
