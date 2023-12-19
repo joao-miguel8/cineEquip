@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { FaFolder } from "react-icons/fa";
 import Header from "../../layout/Header";
 import SearchBar from "../../components/common/Searchbar";
-import CreateSceneModal from "./components/CreateSceneModal";
+import CreateSceneModal from "../../components/modals/CreateSceneModal";
 // import CreateKitModal from "./components/CreateKitModal";
 // import CreateGearModal from "./components/CreateGearModal";
 import SceneCard from "./components/SceneCard";
@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 import type { ProjectType } from "../../types/ProjectType";
 import type { SceneType } from "../../types/SceneType";
 import Modal from "../../components/common/Modal";
-import DeleteSceneModal from "./components/DeleteSceneModal";
+import DeleteSceneModal from "../../components/modals/DeleteSceneModal";
 import Tab from "../../components/common/tab/Tab";
 
 function SelectedProjectPage() {

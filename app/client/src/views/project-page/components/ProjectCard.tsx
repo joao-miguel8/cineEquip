@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FaFolder } from "react-icons/fa";
 import { IoIosCloseCircle } from "react-icons/io";
 import classNames from "classnames";
-import DeleteProjectModal from "./DeleteProjectModal";
+import DeleteProjectModal from "../../../components/modals/DeleteProjectModal";
 import "../../../App.css";
 import useToggle from "../../../hooks/useToggle/useToggle";
 import type { UseToggleType } from "../../../hooks/useToggle/type";

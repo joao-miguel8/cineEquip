@@ -1,9 +1,9 @@
 import classNames from "classnames";
 import { IoMdClose } from "react-icons/io";
-import { deleteScene } from "../../../api/services/scene-services/deleteScene";
-import useDisableBodyScroll from "../../../hooks/useDisableBodyScroll";
+import { deleteScene } from "../../api/services/scene-services/deleteScene";
+import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
 import { useState } from "react";
-import type { SceneType } from "../../../types/SceneType";
+import type { SceneType } from "../../types/SceneType";
 
 function DeleteSceneModal({ scene, closeModal }: { scene: SceneType; closeModal: () => void }) {
 	const { name, _id } = scene;

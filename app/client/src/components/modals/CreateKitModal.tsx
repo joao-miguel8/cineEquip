@@ -1,6 +1,6 @@
 import { IoMdClose } from "react-icons/io";
-import type { KitType } from "../../../types/KitType";
-import type { UseToggleType } from "../../../hooks/useToggle/type";
+import type { KitType } from "../../types/KitType";
+import type { UseToggleType } from "../../hooks/useToggle/type";
 
 function CreateKitModal({ modalToggle }: { modalToggle: UseToggleType }) {
 	const onSubmit = (e: any) => {

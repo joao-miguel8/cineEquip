@@ -1,8 +1,8 @@
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
-import { createScene } from "../../../api/services/scene-services/createScene";
-import useDisableBodyScroll from "../../../hooks/useDisableBodyScroll";
-import type { SceneType } from "../../../types/SceneType";
+import { createScene } from "../../api/services/scene-services/createScene";
+import useDisableBodyScroll from "../../hooks/useDisableBodyScroll";
+import type { SceneType } from "../../types/SceneType";
 
 function CreateSceneModal({ closeModal, projectId }: { closeModal: () => void; projectId: string }) {
 	type FormSceneData = Pick<SceneType, "name" | "description">;
