@@ -14,7 +14,7 @@ const CreateProjectModal = ({ closeModal }: { closeModal: () => void }) => {
 	const handleCreateNewProject = async () => {
 		try {
 			// send newly created project to server
-			const AddProjectToServer = await createNewProject({ title: titleInput });
+			const AddProjectToServer = await createNewProject({ title: titleInput.trim() });
 
 			// server response object returned and add to client state
 			addNewProject(AddProjectToServer);
@@ -46,7 +46,17 @@ const CreateProjectModal = ({ closeModal }: { closeModal: () => void }) => {
 					</button>
 				</div>
 				{/* --Modal Body-- */}
-				<input aria-label="add a name to create your new project" value={titleInput} onChange={e => setTitleInput(e.target.value)} name="projectName" type="text" maxLength={24} className="mt-4 px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary" />
+				<input
+					aria-label="add a name to create your new project"
+					value={titleInput}
+					onChange={e => setTitleInput(e.target.value)}
+					name="projectName"
+					type="text"
+					required
+					maxLength={24}
+					minLength={6}
+					className="mt-4 px-2 py-2 w-full border-[1.2px] rounded outline-none focus:border-primary"
+				/>
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">
 					{/* --Create Project Btn-- */}
