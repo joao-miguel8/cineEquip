@@ -18,6 +18,7 @@ import type { SceneType } from "../../types/SceneType";
 import Modal from "../../components/common/Modal";
 import DeleteSceneModal from "../../components/modals/DeleteSceneModal";
 import Tab from "../../components/common/tab/Tab";
+import useModal from "../../components/modals/hooks/useModal";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
@@ -53,14 +54,8 @@ function SelectedProjectPage() {
 
 	// Defining modal types to refer to different modal components.
 	enum MODAL_TYPES {
-		CREATE_SCENE = "CreateScene",
 		DELETE_SCENE = "deleteScene",
 	}
-
-	//  State to manage models that to track each modals current state
-	const [modalState, setModalState] = useState({
-		[MODAL_TYPES.CREATE_SCENE]: false,
-	});
 
 	// state to check an arrays index, use case for selecting the correct value to select with select mode option
 	const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
@@ -75,15 +70,7 @@ function SelectedProjectPage() {
 		setSelectedItemIndex(index);
 	};
 
-	// trigger modal to open by passing MODAL_TYPES value and setting it to true
-	const openModal = (modalType: MODAL_TYPES) => {
-		setModalState(prevVal => ({ ...prevVal, [modalType]: true }));
-	};
-
-	// trigger modal to close by passing MODAL_TYPES value and setting it to false
-	const closeModal = (modalType: MODAL_TYPES) => {
-		setModalState(prevVal => ({ ...prevVal, [modalType]: false }));
-	};
+	const modal = useModal(["createSceneModal"]);
 
 	return (
 		<section>
@@ -128,7 +115,7 @@ function SelectedProjectPage() {
 					</button>
 					{/* --Add btn-- */}
 					{selectedTab && (
-						<button onClick={() => openModal(MODAL_TYPES.CREATE_SCENE)} className="btn-primary">
+						<button onClick={() => modal.openModal("createSceneModal")} className="btn-primary">
 							Create a Scene
 						</button>
 					)}
@@ -150,8 +137,8 @@ function SelectedProjectPage() {
 					</section>
 				)}
 				{/* Create Scene Modal */}
-				<Modal isOpen={modalState[MODAL_TYPES.CREATE_SCENE]} modalType={MODAL_TYPES.CREATE_SCENE}>
-					<CreateSceneModal projectId={selectProject._id} closeModal={() => closeModal(MODAL_TYPES.CREATE_SCENE)} />
+				<Modal isOpen={modal.modals["createSceneModal"]} modalType={"createSceneModal"}>
+					<CreateSceneModal projectId={selectProject._id} closeModal={() => modal.closeModal("createSceneModal")} />
 				</Modal>
 			</Tab>
 			{/* Delete Modal */}
