@@ -50,11 +50,11 @@ const CreateProjectModal = ({ closeModal }: { closeModal: () => void }) => {
 				{/* --Modal Footer Btns-- */}
 				<div className="mt-6 pt-2 flex gap-4 justify-end">
 					{/* --Create Project Btn-- */}
-					<button onClick={() => closeModal()} aria-label="add new project" type="submit" className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
+					<button aria-label="add new project" type="submit" className="px-4 p-3 text-white bg-primary rounded-lg hover:text-white hover:bg-gray-700">
 						Create Project
 					</button>
 					{/* --Close Btn-- */}
-					<button onClick={() => closeModal()} aria-label="close add new project modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
+					<button onClick={closeModal} aria-label="close add new project modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
 						Close
 					</button>
 				</div>

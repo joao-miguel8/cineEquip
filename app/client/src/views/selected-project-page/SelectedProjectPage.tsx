@@ -45,7 +45,7 @@ function SelectedProjectPage() {
 	const findChosenProject = projectsList?.find((proj: ProjectType) => proj._id === id);
 	const selectProject = findChosenProject || { _id: "", title: [], gear: [], scenes: [], kit: [] };
 
-	const TABS = useTab({ KITS_TAB: "kit", GEAR_TAB: "gear", SCENES_TAB: "scene" });
+	const TABS = useTab({ SCENES_TAB: "scene", KITS_TAB: "kit", GEAR_TAB: "gear" });
 
 	// Defining modal types to refer to different modal components.
 	enum MODAL_TYPES {
@@ -108,7 +108,7 @@ function SelectedProjectPage() {
 			</div>
 
 			{/* Scene View Section */}
-			<Tab tabOption={TABS.chosenTab} tabName={"Scene"}>
+			<Tab tabOption={TABS.chosenTab} tabName={"scene"}>
 				{isLoading ? (
 					<div className="mx-auto w-fit flex justify-center ">
 						<svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"></svg>

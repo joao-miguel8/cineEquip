@@ -8,7 +8,7 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 	type FormDataType = Pick<GearType, "name" | "status" | "img">;
 
 	const [gearImgFile, setGearImgFile] = useState<string | null>(null);
-	console.log(gearImgFile);
+
 	const [gearFormData, setGearFormData] = useState<FormDataType>({
 		name: "",
 		status: GearStatuses.isAvailable,
@@ -46,7 +46,7 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 						Create a title for your Gear
 					</label>
 					{/* --Close Btn-- */}
-					<button aria-label="close create a new gear modal" onClick={() => modalClose()}>
+					<button aria-label="close create a new gear modal" onClick={modalClose}>
 						<IoMdClose size={"1.7rem"} className={"hover:text-primary duration-150"} />
 					</button>
 				</div>
@@ -90,7 +90,7 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 						Create Gear
 					</button>
 					{/* --Close Btn-- */}
-					<button type="button" aria-label="close create gear modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
+					<button onClick={modalClose} type="button" aria-label="close create gear modal" className="p-3 px-4 bg-gray-500 text-white rounded-lg  hover:bg-red-400">
 						Close
 					</button>
 				</div>
