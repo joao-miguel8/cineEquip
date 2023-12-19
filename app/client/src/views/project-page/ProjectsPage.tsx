@@ -3,12 +3,12 @@ import { IoAdd } from "react-icons/io5";
 import SearchBar from "../../components/common/Searchbar";
 import Header from "../../layout/Header";
 import ProjectCard from "./components/ProjectCard";
-import CreateProjectModal from "./components/CreateProjectModal";
-import useToggle from "../../hooks/useToggle/useToggle";
+import Modal from "../../components/common/Modal";
+import CreateProjectModal from "../../components/modals/CreateProjectModal";
 import { useState } from "react";
 import { useProjectStore } from "../../zustand-store/projectStore";
 import { useQuery } from "react-query";
-import type { UseToggleType } from "../../hooks/useToggle/type";
+import useModal from "../../components/modals/hooks/useModal";
 import { fetchProjects } from "../../api/services/project-services/fetchProjects";
 
 function ProjectsPage() {
@@ -27,11 +27,10 @@ function ProjectsPage() {
 
 	const [isSelectModeActive, setIsSelectModeActive] = useState(false);
 
-	const toggleModal = useToggle();
-	const { isToggled, isOn: isAddProjectModalOpen, isOff, dispatch }: UseToggleType = toggleModal;
-
 	// Only allow select project btn to be toggled if projectsList has more than 1 project
 	const toggleSelectBtn = () => projectsList.length >= 1 && setIsSelectModeActive(prevState => !prevState);
+
+	const modal = useModal(["createProjectModal"]);
 
 	return (
 		<section className="bg-[#f6f6f6]">
@@ -57,20 +56,24 @@ function ProjectsPage() {
 						Select projects
 					</button>
 					{/* --Add Project Button-- */}
-
 					<button
 						onClick={() => {
-							dispatch("IS_ON");
+							modal.openModal("createProjectModal");
 							setIsSelectModeActive(false);
 						}}
-						className={classNames("p-2 text-14 flex gap-2 justify-center items-center text-gray-900 hover:bg-gray-100 font-medium rounded-lg text-sm bg-primary dark:text-white  dark:hover:bg-gray-700 duration-150", isAddProjectModalOpen && "cursor-not-allowed bg-gray-700")}>
+						className={classNames(
+							"p-2 text-14 flex gap-2 justify-center items-center text-gray-900 hover:bg-gray-100 font-medium rounded-lg text-sm bg-primary dark:text-white  dark:hover:bg-gray-700 duration-150",
+							modal.modals["createProjectModal"] === true && "cursor-not-allowed bg-gray-700"
+						)}>
 						<IoAdd size={"1.4rem"} />
 						Add Project
 					</button>
 				</div>
 			</div>
 			{/* --Project Dialog Component-- */}
-			{isAddProjectModalOpen ? <CreateProjectModal toggleDispatch={dispatch} /> : null}
+			<Modal isOpen={modal.modals["createProjectModal"]} modalType={"createProjectModal"}>
+				<CreateProjectModal closeModal={() => modal.closeModal} />
+			</Modal>
 			{/* --Project List Container-- */}
 			<div className="mt-4 mx-4 bg-[#f6f6f6] gap-4 justify-items-center pb-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 				{projectsList?.map((project, index) => {
