@@ -33,9 +33,9 @@ function ProjectsPage() {
 	const modal = useModal(["createProjectModal"]);
 
 	return (
-		<section className="bg-[#f6f6f6]">
+		<section>
 			{/* --Sticky top section container-- */}
-			<div className="bg-[#f6f6f6] z-30 sticky top-0 w-full ">
+			<div className="bg-bgLight01 z-30 sticky top-0 w-full ">
 				{/* --Page Header-- */}
 				<Header route={"/"} />
 				<div className="mx-6 lg:mx-14 flex flex-col sm:flex-row sm:justify-between gap-4">

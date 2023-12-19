@@ -25,6 +25,7 @@ module.exports = {
 				primary: "#4F48E2",
 				textDark: "#28395F",
 				accent: "#C3C1FA",
+				bgLight01: "#f6f6f6",
 			},
 		},
 	},

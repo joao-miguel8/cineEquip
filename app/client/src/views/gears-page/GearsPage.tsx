@@ -24,23 +24,26 @@ function GearsPage() {
 
 	return (
 		<>
-			<Header route={"/"} />
-			{/* Select btn | Create Btn */}
-			<div onClick={() => setIsSelectModeActive(prevState => !prevState)} aria-label={`create a new gear`} className="mt-8 px-4 mb-4 flex justify-between w-full">
-				{/* Select btn */}
-				<button className={classNames("btn-toggle-stye01", isSelectModeActive && "bg-gray-800")}>Select Gear</button>
-				{/* Create btn */}
-				<button
-					onClick={() => {
-						// Deselect select mode
-						setIsSelectModeActive(true);
-						modals.openModal("createGear");
-					}}
-					className="btn-primary">
-					Create Gear
-				</button>
+			{/* sticky top section */}
+			<div className="sticky z-50 top-0 w-full bg-bgLight01">
+				<Header route={"/"} />
+				{/* Select btn | Create Btn */}
+				<div onClick={() => setIsSelectModeActive(prevState => !prevState)} aria-label={`create a new gear`} className="mt-8 px-4 mb-4 flex justify-between w-full">
+					{/* Select btn */}
+					<button className={classNames("btn-toggle-stye01", isSelectModeActive && "bg-gray-800")}>Select Gear</button>
+					{/* Create btn */}
+					<button
+						onClick={() => {
+							// Deselect select mode
+							setIsSelectModeActive(true);
+							modals.openModal("createGear");
+						}}
+						className="btn-primary">
+						Create Gear
+					</button>
+				</div>
 			</div>
-			<section className="m-4 flex flex-wrap gap-4">
+			<section className="m-4 mt-20 flex flex-wrap gap-4">
 				{gearList?.map(gear => (
 					<GearCard gearData={gear} isSelectModeActive={isSelectModeActive} />
 				))}
