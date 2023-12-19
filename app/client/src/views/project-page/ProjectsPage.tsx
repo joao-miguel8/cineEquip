@@ -72,7 +72,7 @@ function ProjectsPage() {
 			</div>
 			{/* --Project Dialog Component-- */}
 			<Modal isOpen={modal.modals["createProjectModal"]} modalType={"createProjectModal"}>
-				<CreateProjectModal closeModal={() => modal.closeModal} />
+				<CreateProjectModal closeModal={() => modal.closeModal("createProjectModal")} />
 			</Modal>
 			{/* --Project List Container-- */}
 			<div className="mt-4 mx-4 bg-[#f6f6f6] gap-4 justify-items-center pb-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
