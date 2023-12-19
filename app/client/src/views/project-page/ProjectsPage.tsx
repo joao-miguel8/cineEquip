@@ -52,7 +52,7 @@ function ProjectsPage() {
 						}}
 						aria-label="toggle button to select your projects"
 						type="button"
-						className={classNames("p-2 text-14 text-gray-900 font-medium rounded-lg dark:text-white bg-gray-600", projectsList?.length === 0 && "bg-gray-400 cursor-not-allowed", isSelectModeActive && "bg-gray-800")}>
+						className={classNames("btn-toggle-stye01", projectsList?.length === 0 && "bg-gray-400 cursor-not-allowed", isSelectModeActive && "bg-gray-800")}>
 						Select projects
 					</button>
 					{/* --Add Project Button-- */}
@@ -61,11 +61,7 @@ function ProjectsPage() {
 							modal.openModal("createProjectModal");
 							setIsSelectModeActive(false);
 						}}
-						className={classNames(
-							"p-2 text-14 flex gap-2 justify-center items-center text-gray-900 hover:bg-gray-100 font-medium rounded-lg text-sm bg-primary dark:text-white  dark:hover:bg-gray-700 duration-150",
-							modal.modals["createProjectModal"] === true && "cursor-not-allowed bg-gray-700"
-						)}>
-						<IoAdd size={"1.4rem"} />
+						className={classNames("btn-primary", modal.modals["createProjectModal"] === true && "cursor-not-allowed bg-gray-700")}>
 						Add Project
 					</button>
 				</div>
