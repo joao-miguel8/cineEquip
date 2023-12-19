@@ -19,6 +19,7 @@ import Modal from "../../components/common/Modal";
 import DeleteSceneModal from "../../components/modals/DeleteSceneModal";
 import Tab from "../../components/common/tab/Tab";
 import useModal from "../../components/modals/hooks/useModal";
+import { useSelectArrayItem } from "../../hooks/useSelectArrayItem";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
@@ -57,18 +58,8 @@ function SelectedProjectPage() {
 		DELETE_SCENE = "deleteScene",
 	}
 
-	// state to check an arrays index, use case for selecting the correct value to select with select mode option
-	const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
-
-	// update selectedItemIndex to -1 to trigger modal to deselect
-	const deselectItem = () => {
-		setSelectedItemIndex(-1);
-	};
-
-	// update selectItem to pass a specific index of an array to select
-	const selectItem = (index: number) => {
-		setSelectedItemIndex(index);
-	};
+	const selectSceneCard = useSelectArrayItem();
+	const { selectedItemIndex: cardSceneIndex } = selectSceneCard;
 
 	const modal = useModal(["createSceneModal"]);
 
@@ -132,7 +123,7 @@ function SelectedProjectPage() {
 				) : (
 					<section className="pb-[70px] p-4 mt-4 mx-auto flex flex-wrap gap-4 items-start justify-center sm:justify-start">
 						{selectProject?.scenes.map((scene: SceneType, index: number) => (
-							<SceneCard key={scene._id} scene={scene} openModal={() => selectItem(index)} isSelectModeToggled={isSelectModeToggled} />
+							<SceneCard key={scene._id} scene={scene} openModal={() => selectSceneCard.selectItem(index)} isSelectModeToggled={isSelectModeToggled} />
 						))}
 					</section>
 				)}
@@ -142,8 +133,8 @@ function SelectedProjectPage() {
 				</Modal>
 			</Tab>
 			{/* Delete Modal */}
-			<Modal isOpen={selectedItemIndex !== -1} modalType={MODAL_TYPES.DELETE_SCENE}>
-				<DeleteSceneModal closeModal={() => deselectItem()} scene={selectProject?.scenes[selectedItemIndex]} />
+			<Modal isOpen={cardSceneIndex !== -1} modalType={MODAL_TYPES.DELETE_SCENE}>
+				<DeleteSceneModal closeModal={() => selectSceneCard.deselectItem()} scene={selectProject?.scenes[cardSceneIndex]} />
 			</Modal>
 		</section>
 	);
