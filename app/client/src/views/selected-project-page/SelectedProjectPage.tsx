@@ -10,9 +10,7 @@ import { fetchProjects } from "../../api/services/project-services/fetchProjects
 import { useProjectStore } from "../../zustand-store/projectStore";
 import { useQuery } from "react-query";
 import useToggle from "../../hooks/useToggle/useToggle";
-import { useState } from "react";
 import { useParams } from "react-router-dom";
-
 import type { ProjectType } from "../../types/ProjectType";
 import type { SceneType } from "../../types/SceneType";
 import Modal from "../../components/common/Modal";
@@ -20,6 +18,7 @@ import DeleteSceneModal from "../../components/modals/DeleteSceneModal";
 import Tab from "../../components/common/tab/Tab";
 import useModal from "../../components/modals/hooks/useModal";
 import { useSelectArrayItem } from "../../hooks/useSelectArrayItem";
+import useTab from "../../components/common/tab/hooks/useTab";
 
 function SelectedProjectPage() {
 	// chosen project id passed with params
@@ -46,12 +45,7 @@ function SelectedProjectPage() {
 	const findChosenProject = projectsList?.find((proj: ProjectType) => proj._id === id);
 	const selectProject = findChosenProject || { _id: "", title: [], gear: [], scenes: [], kit: [] };
 
-	enum TABS {
-		Scenes = "Scene",
-		Kits = "Kit",
-		Gear = "Gear",
-	}
-	const [selectedTab, setSelectedTab] = useState(TABS.Scenes);
+	const TABS = useTab({ KITS_TAB: "kit", GEAR_TAB: "gear", SCENES_TAB: "scene" });
 
 	// Defining modal types to refer to different modal components.
 	enum MODAL_TYPES {
@@ -75,22 +69,22 @@ function SelectedProjectPage() {
 						<FaFolder color={"#4F48E2"} size={"1.8rem"} />
 						{findChosenProject ? <h3 className="font-bold text-18 sm:text-20">{selectProject.title}</h3> : <h3>Loading title...</h3>}
 					</div>
-					<SearchBar placeholder={`Search ${selectedTab}`} />
+					<SearchBar placeholder={`Search ${TABS.chosenTab}`} />
 				</div>
 
 				{/* Tab btns */}
 				<div className="mx-4 mt-8 flex gap-2 justify-start max-[640px]:mx-8 sm:w-[500px] items-center">
 					{/* Scenes btn */}
-					<button onClick={() => setSelectedTab(TABS.Scenes)} aria-label="View your scenes list" className={classNames("w-20 border-b", selectedTab === "Scene" && "border-primary duration-300")}>
-						<h2 className={classNames("font-bold text-center text-gray-800", selectedTab === "Scene" && "text-primary border-primary duration-300")}>Scenes</h2>
+					<button onClick={() => TABS.handleSetChosenTab("scene")} aria-label="View your scenes list" className={classNames("w-20 border-b", TABS.chosenTab === "scene" && "border-primary duration-300")}>
+						<h2 className={classNames("font-bold text-center text-gray-800", TABS.chosenTab === "scene" && "text-primary border-primary duration-300")}>Scenes</h2>
 					</button>
 					{/* Kits btn */}
-					<button onClick={() => setSelectedTab(TABS.Kits)} aria-label="View your kits list" className={classNames("w-20 border-b", selectedTab === "Kit" && "border-primary duration-300")}>
-						<h2 className={classNames("font-bold text-center text-gray-800", selectedTab === "Kit" && "text-primary border-primary duration-300")}>Kits</h2>
+					<button onClick={() => TABS.handleSetChosenTab("kit")} aria-label="View your kits list" className={classNames("w-20 border-b", TABS.chosenTab === "kit" && "border-primary duration-300")}>
+						<h2 className={classNames("font-bold text-center text-gray-800", TABS.chosenTab === "kit" && "text-primary border-primary duration-300")}>Kits</h2>
 					</button>
 					{/* gear btn */}
-					<button onClick={() => setSelectedTab(TABS.Gear)} aria-label="View your gear list" className={classNames("w-20 border-b", selectedTab === "Gear" && "border-primary duration-300")}>
-						<h2 className={classNames("font-bold text-center text-gray-800", selectedTab === "Gear" && "text-primary border-primary duration-300")}>Gear</h2>
+					<button onClick={() => TABS.handleSetChosenTab("gear")} aria-label="View your gear list" className={classNames("w-20 border-b", TABS.chosenTab === "gear" && "border-primary duration-300")}>
+						<h2 className={classNames("font-bold text-center text-gray-800", TABS.chosenTab === "gear" && "text-primary border-primary duration-300")}>Gear</h2>
 					</button>
 				</div>
 				{/* --Select / Delete Selected Btns-- */}
@@ -105,7 +99,7 @@ function SelectedProjectPage() {
 						Select Scene
 					</button>
 					{/* --Add btn-- */}
-					{selectedTab && (
+					{TABS.chosenTab && (
 						<button onClick={() => modal.openModal("createSceneModal")} className="btn-primary">
 							Create a Scene
 						</button>
@@ -114,7 +108,7 @@ function SelectedProjectPage() {
 			</div>
 
 			{/* Scene View Section */}
-			<Tab tabOption={selectedTab} tabName={"Scene"}>
+			<Tab tabOption={TABS.chosenTab} tabName={"Scene"}>
 				{isLoading ? (
 					<div className="mx-auto w-fit flex justify-center ">
 						<svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"></svg>
