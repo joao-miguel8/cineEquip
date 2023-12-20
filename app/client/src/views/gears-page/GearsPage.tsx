@@ -1,20 +1,29 @@
+import classNames from "classnames";
 import GearCard from "../../components/common/GearCard";
 import Modal from "../../components/common/Modal";
 import CreateGearModal from "../../components/modals/CreateGearModal";
+import DeleteGearModal from "../../components/modals/DeleteGearModal";
 import Header from "../../layout/Header";
-import useModal from "../../components/modals/hooks/useModal";
+import type { GearType } from "../../types/GearType";
 import { fetchAllGear } from "../../api/services/gear-services/fetchAllGear";
+import useModal from "../../components/modals/hooks/useModal";
 import { useGearStore } from "../../zustand-store/gearStore";
 import { useQuery } from "react-query";
 import { useState } from "react";
-import classNames from "classnames";
 
 function GearsPage() {
-	const modals = useModal(["createGear"]);
+	const modals = useModal(["createGear", "deleteGear"]);
+	console.log(modals);
+	// Defining modal types to refer to different modal components.
+	enum MODAL_TYPES {
+		DELETE_GEAR = "deleteGear",
+	}
 	const getGearList = useGearStore(state => state.getAllGear);
 	const gearList = useGearStore(state => state.gear);
 
 	const [isSelectModeActive, setIsSelectModeActive] = useState(false);
+
+	const [selectedGearCard, setSelectedGearCard] = useState<GearType>();
 
 	const gearFetch = useQuery("gears", async () => await fetchAllGear(), {
 		onError: error => console.log(error),
@@ -45,11 +54,20 @@ function GearsPage() {
 			</div>
 			<section className="m-4 mt-20 flex flex-wrap gap-4">
 				{gearList?.map(gear => (
-					<GearCard gearData={gear} isSelectModeActive={isSelectModeActive} />
+					<button
+						onClick={() => {
+							modals.openModal("deleteGear");
+							setSelectedGearCard(gear);
+						}}>
+						<GearCard gearData={gear} isSelectModeActive={isSelectModeActive} />
+					</button>
 				))}
 			</section>
 			<Modal isOpen={modals.modals.createGear} modalType={"createGear"}>
 				<CreateGearModal modalClose={() => modals.closeModal("createGear")} />
+			</Modal>
+			<Modal isOpen={modals.modals["deleteGear"]} modalType={"deleteGear"}>
+				<DeleteGearModal closeModal={() => modals.closeModal("deleteGear")} selectedGearData={selectedGearCard} />
 			</Modal>
 		</>
 	);
