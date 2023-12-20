@@ -13,11 +13,7 @@ import { useState } from "react";
 
 function GearsPage() {
 	const modals = useModal(["createGear", "deleteGear"]);
-	console.log(modals);
-	// Defining modal types to refer to different modal components.
-	enum MODAL_TYPES {
-		DELETE_GEAR = "deleteGear",
-	}
+
 	const getGearList = useGearStore(state => state.getAllGear);
 	const gearList = useGearStore(state => state.gear);
 
