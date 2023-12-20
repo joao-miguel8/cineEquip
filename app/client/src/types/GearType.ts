@@ -5,7 +5,7 @@ export enum GearStatuses {
 }
 
 export type GearType = {
-	_id: string;
+	_id?: string;
 	QRCode?: string;
 	serialNumber?: string;
 	name: string;

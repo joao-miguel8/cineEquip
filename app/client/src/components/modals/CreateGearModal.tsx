@@ -1,8 +1,8 @@
+import classNames from "classnames";
 import { IoMdClose } from "react-icons/io";
 import { createGear } from "../../api/services/gear-services/createGear";
-import { GearStatuses, GearType } from "../../types/GearType";
 import { useState } from "react";
-import classNames from "classnames";
+import { GearStatuses, GearType } from "../../types/GearType";
 
 function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 	type FormDataType = Pick<GearType, "name" | "status" | "img">;
@@ -16,8 +16,17 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 	});
 
 	const onSubmit = async () => {
-		await createGear(gearFormData);
+		// Create copy of current form data
+		const updatedFormData = {
+			...gearFormData,
+		};
+		// Trim whitespace from 'name' field
+		updatedFormData.name = updatedFormData.name.trim();
+
+		setGearFormData(updatedFormData);
+		await createGear(updatedFormData);
 	};
+
 	const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		setGearFormData({ ...gearFormData, status: e.target.value as GearStatuses });
 	};
@@ -27,7 +36,6 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 		if (files && files.length > 0) {
 			// convert blob object format to image link
 			let imgLink = URL.createObjectURL(files[0]);
-			console.log(imgLink);
 			setGearImgFile(imgLink);
 			setGearFormData({ ...gearFormData, img: imgLink });
 		}
