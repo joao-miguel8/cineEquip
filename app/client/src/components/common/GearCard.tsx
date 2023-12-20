@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { Link } from "react-router-dom";
 import { IoIosCloseCircle } from "react-icons/io";
 import { MdError } from "react-icons/md";
 import { GearStatuses, GearType } from "../../types/GearType";
@@ -21,7 +22,7 @@ function GearCard({ gearData, isSelectModeActive }: { gearData: GearType; isSele
 					</div>
 				</>
 			)}
-			<button className="shadow-md w-40 rounded-md overflow-clip bg-white hover:shadow-[0px_4px_20px_0px_#d6bcfa] duration-300">
+			<Link to={`/gear/${gearData?._id}`} className="inline-block shadow-md w-40 rounded-md overflow-clip bg-white hover:shadow-[0px_4px_20px_0px_#d6bcfa] duration-300">
 				{gearData?.img ? (
 					<img src={gearData?.img} alt="image of gear" className="border-gray-200 border-b h-40" />
 				) : (
@@ -40,7 +41,7 @@ function GearCard({ gearData, isSelectModeActive }: { gearData: GearType; isSele
 						{gearData?.status}
 					</span>
 				</div>
-			</button>
+			</Link>
 		</div>
 	);
 }

@@ -5,6 +5,7 @@ import GoogleSignInPage from "../views/google-sign-in-page/GoogleSignInPage";
 import Home from "../views/home/Home";
 import KitsPage from "../views/kits-page/KitsPage";
 import ProjectsPage from "../views/project-page/ProjectsPage";
+import SelectedGearPage from "../views/selected-gear-page/SelectedGearPage";
 import SelectedProjectPage from "../views/selected-project-page/SelectedProjectPage";
 import SelectedScene from "../views/selected-scene/SelectedScene";
 import type { RouterType } from "./RouterType";
@@ -33,6 +34,10 @@ export const pagesData: RouterType[] = [
 	{
 		path: "/gear",
 		element: <GearsPage />,
+	},
+	{
+		path: "/gear/:id",
+		element: <SelectedGearPage />,
 	},
 	{
 		path: "/favorites",
