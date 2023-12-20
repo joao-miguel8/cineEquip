@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { GearStatuses, GearType } from "../../types/GearType";
-import { MdError } from "react-icons/md";
 import { IoIosCloseCircle } from "react-icons/io";
+import { MdError } from "react-icons/md";
+import { GearStatuses, GearType } from "../../types/GearType";
 
 function GearCard({ gearData, isSelectModeActive }: { gearData: GearType; isSelectModeActive: boolean }) {
 	// change gear status text color if it matches the correct status
@@ -15,8 +15,8 @@ function GearCard({ gearData, isSelectModeActive }: { gearData: GearType; isSele
 		<div className="group relative">
 			{isSelectModeActive && (
 				<>
-					<div className="cursor-pointer absolute w-full h-full  rounded-md duration-300 hover:bg-black opacity-20"></div>
-					<div className="absolute flex justify-end w-full">
+					<div className="group cursor-pointer absolute w-full h-full  rounded-md duration-300 group-hover:bg-black opacity-20"></div>
+					<div className="absolute flex justify-end w-full bg-white rounded-t-md">
 						<IoIosCloseCircle size={"1.8rem"} className={"relative text-black group-hover:text-red-500 duration-300"} />
 					</div>
 				</>
