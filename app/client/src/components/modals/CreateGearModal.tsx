@@ -31,7 +31,7 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 		setGearFormData({ ...gearFormData, status: e.target.value as GearStatuses });
 	};
 
-	const uploadGearImage = (e: React.FormEvent<HTMLFormElement>) => {
+	const uploadGearImage: React.ChangeEventHandler<HTMLInputElement> = e => {
 		const files = e.target.files;
 		if (files && files.length > 0) {
 			// convert blob object format to image link
@@ -86,7 +86,7 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 								</p>
 								<p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG or JPG (MAX. 800x400px)</p>
 							</div>
-							<input onChange={(e: React.FormEvent<HTMLFormElement>) => uploadGearImage(e)} id="dropzone-img-file" type="file" className="hidden" />
+							<input onChange={(e: React.ChangeEvent<HTMLInputElement>) => uploadGearImage(e)} id="dropzone-img-file" type="file" className="hidden" />
 						</label>
 					</div>
 				</div>
