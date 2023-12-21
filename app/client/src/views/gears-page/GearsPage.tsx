@@ -21,7 +21,7 @@ function GearsPage() {
 
 	const [selectedGearCard, setSelectedGearCard] = useState<GearType>();
 
-	const gearFetch = useQuery("gears", async () => await fetchAllGear(), {
+	const { data } = useQuery("gears", async () => await fetchAllGear(), {
 		onError: error => console.log(error),
 		onSuccess: gears => getGearList(gears),
 		refetchOnWindowFocus: false,
