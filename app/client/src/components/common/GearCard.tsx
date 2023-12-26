@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { IoIosCloseCircle } from "react-icons/io";
 import { MdError } from "react-icons/md";
 import { GearStatuses, GearType } from "../../types/GearType";
+import { IMAGE_UPLOAD_URL } from "../../config/IMAGE_UPLOAD_URL";
 
 function GearCard({ gearData, isSelectModeActive }: { gearData: GearType; isSelectModeActive: boolean }) {
 	// change gear status text color if it matches the correct status
@@ -24,7 +25,7 @@ function GearCard({ gearData, isSelectModeActive }: { gearData: GearType; isSele
 			)}
 			<Link to={`/gear/${gearData?._id}`} className="inline-block shadow-md w-40 rounded-md overflow-clip bg-white hover:shadow-[0px_4px_20px_0px_#d6bcfa] duration-300">
 				{gearData?.img ? (
-					<img src={gearData?.img} alt="image of gear" className="border-gray-200 border-b h-40" />
+					<img src={`${IMAGE_UPLOAD_URL}${gearData.img}`} alt="image of gear" className="border-gray-200 border-b h-40" />
 				) : (
 					<div aria-label="no image of gear" className="border-gray-200 border-b h-40">
 						<div className="bg-gray-50 h-full flex gap-2 items-center justify-center">
