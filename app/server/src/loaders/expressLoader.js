@@ -11,6 +11,7 @@ function expressLoader(app) {
 	app.use((err, req, res, next) => {
 		console.error(err.stack);
 	});
+	app.use(express.static("uploads"));
 
 	console.log("Express Running");
 	return app;

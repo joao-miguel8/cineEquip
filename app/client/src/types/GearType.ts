@@ -9,7 +9,7 @@ export type GearType = {
 	QRCode?: string;
 	serialNumber?: string;
 	name: string;
-	img?: string;
+	img?: File | null;
 	status: GearStatuses;
 	manufacturer?: string;
 	model?: string;

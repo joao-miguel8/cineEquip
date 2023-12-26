@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { IoAdd } from "react-icons/io5";
 import SearchBar from "../../components/common/Searchbar";
 import Header from "../../layout/Header";
 import ProjectCard from "./components/ProjectCard";

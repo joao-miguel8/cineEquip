@@ -2,29 +2,38 @@ import classNames from "classnames";
 import { IoMdClose } from "react-icons/io";
 import { createGear } from "../../api/services/gear-services/createGear";
 import { useState } from "react";
-import { GearStatuses, GearType } from "../../types/GearType";
+import { GearStatuses } from "../../types/GearType";
 
 function CreateGearModal({ modalClose }: { modalClose: () => void }) {
-	type FormDataType = Pick<GearType, "name" | "status" | "img">;
+	type FormDataType = {
+		name: string;
+		status: "isAvailable" | "isInUse" | "isDamaged";
+		img: File | null;
+	};
 
-	const [gearImgFile, setGearImgFile] = useState<string | null>(null);
+	const [imgPreview, setImgPreview] = useState<string>("");
 
+	// making the data be passed into req body
 	const [gearFormData, setGearFormData] = useState<FormDataType>({
 		name: "",
 		status: GearStatuses.isAvailable,
-		img: "",
+		img: null,
 	});
 
-	const onSubmit = async () => {
-		// Create copy of current form data
-		const updatedFormData = {
-			...gearFormData,
-		};
-		// Trim whitespace from 'name' field
-		updatedFormData.name = updatedFormData.name.trim();
+	const onSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
+		try {
+			e.preventDefault();
+			// Create copy of current form data
+			const updatedFormData = {
+				...gearFormData,
+			};
+			// Trim whitespace from 'name' field
+			updatedFormData.name = updatedFormData.name.trim();
 
-		setGearFormData(updatedFormData);
-		await createGear(updatedFormData);
+			await createGear(updatedFormData);
+		} catch (err) {
+			console.log(err, "Error Submitting form");
+		}
 	};
 
 	const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -32,12 +41,13 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 	};
 
 	const uploadGearImage: React.ChangeEventHandler<HTMLInputElement> = e => {
-		const files = e.target.files;
+		const files = e.target.files || null;
+
+		// check if file exists and if have more than 1 file
 		if (files && files.length > 0) {
-			// convert blob object format to image link
-			let imgLink = URL.createObjectURL(files[0]);
-			setGearImgFile(imgLink);
-			setGearFormData({ ...gearFormData, img: imgLink });
+			setGearFormData({ ...gearFormData, img: files[0] });
+			// show selected image preview in gear modal
+			setImgPreview(URL.createObjectURL(e.target.files[0]));
 		}
 	};
 
@@ -75,9 +85,9 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 						<option value={GearStatuses.isDamaged}>is damaged</option>
 					</select>
 					{/* drag and drop gear image */}
-					<div className={classNames("mt-4 flex items-center justify-center w-full rounded-lg", gearImgFile ?? "bg-gray-50")} style={{ backgroundImage: `url(${gearImgFile})`, backgroundSize: "cover", backgroundPosition: "center" }}>
+					<div className={classNames("mt-4 flex items-center justify-center w-full rounded-lg", imgPreview ?? "bg-gray-50")} style={{ backgroundImage: `url(${imgPreview})`, backgroundSize: "cover", backgroundPosition: "center" }}>
 						<label htmlFor="dropzone-img-file" className="flex flex-col items-center justify-center w-full h-64 border border-gray-300 border-dashed rounded-lg cursor-pointer">
-							<div className={classNames("flex flex-col items-center justify-center pt-5 pb-6", gearImgFile ? "hidden" : "inline-block")}>
+							<div className={classNames("flex flex-col items-center justify-center pt-5 pb-6", imgPreview ? "hidden" : "inline-block")}>
 								<svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
 									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
 								</svg>

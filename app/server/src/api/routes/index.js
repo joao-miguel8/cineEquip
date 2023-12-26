@@ -1,4 +1,7 @@
 const express = require("express");
+const { imageUpload } = require("../middlewares/multer");
+
+// Routes:
 const { createNewProject } = require("../controllers/projects/CreateNewProjectController");
 const { fetchAllProjects } = require("../controllers/projects/FetchAllProjectsController");
 const { DeleteProject } = require("../controllers/projects/DeleteProjectController");
@@ -27,7 +30,8 @@ router.put("/editChosenScene/:sceneId", editChosenScene);
 router.delete("/deleteScene/:sceneId", deleteScene);
 
 // Gear Routes
-router.post("/createGear", CreateGear);
+
+router.post("/createGear", imageUpload.single("img"), CreateGear);
 router.delete("/deleteGear/:gearId", deleteGear);
 router.get("/fetchAllGear", fetchAllGear);
 
