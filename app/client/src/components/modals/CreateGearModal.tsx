@@ -22,7 +22,6 @@ function CreateGearModal({ modalClose }: { modalClose: () => void }) {
 
 	const onSubmit = async (e: React.MouseEvent<HTMLFormElement>) => {
 		try {
-			e.preventDefault();
 			// Create copy of current form data
 			const updatedFormData = {
 				...gearFormData,
