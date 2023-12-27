@@ -15,6 +15,6 @@ export type GearType = {
 	model?: string;
 	description?: string;
 	cost?: number | string;
-	purchaseDate?: Date | string;
+	purchaseDate?: string;
 	filters?: string[];
 };
