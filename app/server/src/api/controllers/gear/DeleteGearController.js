@@ -1,11 +1,14 @@
+const fs = require("fs");
 const { Gear } = require("../../models/projectModel");
 
 async function deleteGear(req, res) {
 	try {
 		const { gearId } = req.params;
 
-		// Delete Gear with the chosen gearId
-		await Gear.findByIdAndDelete(gearId);
+		const gear = await Gear.findByIdAndDelete(gearId);
+		// Delete img file in uploads folder
+		const uploadDir = `./uploads/${gear.img}`;
+		fs.unlinkSync(uploadDir);
 
 		// No gear found with given gearId
 		if (!gearId) {
