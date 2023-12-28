@@ -2,15 +2,20 @@ import { BsQrCode } from "react-icons/bs";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import useModal from "../../components/modals/hooks/useModal";
 import { useQuery } from "react-query";
+import { useGearStore } from "../../zustand-store/gearStore";
 import { fetchAllGear } from "../../api/services/gear-services/fetchAllGear";
 import { IMAGE_UPLOAD_URL } from "../../config/IMAGE_UPLOAD_URL";
 import { GearStatuses, GearType } from "../../types/GearType";
-import { useGearStore } from "../../zustand-store/gearStore";
 import { updateGearDetails } from "../../api/services/gear-services/updateGearDetails";
+import GearCardQRCodeModal from "../../components/modals/GearCardQRCodeModal";
+import Modal from "../../components/common/Modal";
 
 function SelectedGearPage() {
 	const { id } = useParams();
+
+	const modals = useModal(["GearQRCodeModal"]);
 
 	// Zustand store
 	const getGearList = useGearStore(state => state.getAllGear);
@@ -23,7 +28,7 @@ function SelectedGearPage() {
 	});
 
 	const selectedGear = gearFetch?.data?.find((gear: GearType) => gear._id === id);
-	const { _id, name, img, status, QRCode } = selectedGear ?? {};
+	const { _id, name, img, status, qrcode } = selectedGear ?? {};
 
 	const [gearFormData, setGearFormData] = useState<GearType>({
 		name: name,
@@ -33,6 +38,7 @@ function SelectedGearPage() {
 		model: "",
 		status: status,
 		description: "",
+		QRCode: qrcode,
 	});
 
 	// update gearFormData if selectedGear gets updated
@@ -132,7 +138,6 @@ function SelectedGearPage() {
 						</div>
 						{/* QRCode / gear status || description */}
 						<div>
-							{/* gear QR code icon */}
 							<div className="mt-10 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
 								{/* gear status drop down */}
 								<div className="flex gap-2 items-center">
@@ -149,9 +154,14 @@ function SelectedGearPage() {
 							{/* gear description */}
 							<div className="mt-10 flex gap-4 flex-col">
 								{/* QR Code icon */}
-								<div className="p-4 border-2 w-fit rounded-full border-black cursor-pointer hover:bg-accent  duration-300">
+								<button
+									onClick={e => {
+										e.preventDefault();
+										modals.openModal("GearQRCodeModal");
+									}}
+									className="p-4 border-2 w-fit rounded-full border-black cursor-pointer hover:bg-accent duration-300">
 									<BsQrCode size={"2.4rem"} />
-								</div>
+								</button>
 								<label htmlFor="description" className="font-bold">
 									Description:
 								</label>
@@ -173,6 +183,10 @@ function SelectedGearPage() {
 					</form>
 				</div>
 			</div>
+			{/* QR CODE POPUP WINDOW */}
+			<Modal isOpen={modals.modals.GearQRCodeModal} modalType={"GearQRCodeModal"} styling={"fixed"}>
+				<GearCardQRCodeModal modalClose={() => modals.closeModal("GearQRCodeModal")} QRCode={gearFormData?.QRCode} />
+			</Modal>
 		</>
 	);
 }
