@@ -1,12 +1,12 @@
 import { IoChevronBackOutline } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { fetchAllGear } from "../../api/services/gear-services/fetchAllGear";
-import { formatDateToISOString } from "../../util/formatDateToISOString";
 import { IMAGE_UPLOAD_URL } from "../../config/IMAGE_UPLOAD_URL";
 import { GearStatuses, GearType } from "../../types/GearType";
 import { useGearStore } from "../../zustand-store/gearStore";
+import { updateGearDetails } from "../../api/services/gear-services/updateGearDetails";
 
 function SelectedGearPage() {
 	const { id } = useParams();
@@ -34,6 +34,18 @@ function SelectedGearPage() {
 		description: "",
 	});
 
+	// update gearFormData if selectedGear gets updated
+	useEffect(() => {
+		setGearFormData(selectedGear);
+	}, [selectedGear]);
+
+	async function handleEditGearSubmit() {
+		await updateGearDetails(_id, gearFormData);
+	}
+
+	// Format purchase date
+	const purchaseDateFormat = gearFormData?.purchaseDate && gearFormData?.purchaseDate?.slice(0, 10);
+
 	return (
 		<>
 			<Link to={"/gear"} className="w-full mx-4 mt-6 flex items-center gap-2">
@@ -41,7 +53,7 @@ function SelectedGearPage() {
 			</Link>
 			<div className="mb-10 mt-10 mx-4 flex justify-center">
 				<div className="w-full md:w-fit">
-					<form action="">
+					<form onSubmit={handleEditGearSubmit}>
 						{/* img || name / purchase date / manufacturer / model */}
 						<div className="md:flex gap-4">
 							{/* image of gear */}
@@ -53,7 +65,7 @@ function SelectedGearPage() {
 									<label htmlFor="name" className="flex-2 font-bold">
 										Name:
 									</label>
-									<input onChange={e => setGearFormData(prevFormData => ({ ...prevFormData, name: e.target.value }))} value={gearFormData.name} name="name" id="name" className="flex-1 bg-transparent outline-none" placeholder="gear name?" maxLength={20} />
+									<input onChange={e => setGearFormData(prevFormData => ({ ...prevFormData, name: e.target.value }))} value={gearFormData?.name} name="name" id="name" className="flex-1 bg-transparent outline-none" placeholder="gear name?" maxLength={20} />
 								</div>
 								{/* gear cost */}
 								<div className="flex gap-2 items-center">
@@ -64,7 +76,7 @@ function SelectedGearPage() {
 										onChange={e => {
 											setGearFormData(prevFormData => ({ ...prevFormData, cost: e.target.value }));
 										}}
-										value={gearFormData.cost ?? 0}
+										value={gearFormData?.cost ?? 0}
 										type="number"
 										step={0.01}
 										inputMode="decimal"
@@ -81,8 +93,10 @@ function SelectedGearPage() {
 										Purchase Date:
 									</label>
 									<input
-										onChange={e => setGearFormData(prevFormData => ({ ...prevFormData, purchaseDate: e.target.value }))}
-										value={gearFormData.purchaseDate?.toLocaleString()}
+										onChange={e => {
+											setGearFormData(prevFormData => ({ ...prevFormData, purchaseDate: new Date(e.target.value).toISOString() }));
+										}}
+										value={purchaseDateFormat}
 										type="date"
 										name="purchaseDate"
 										id="purchaseDate"
@@ -97,7 +111,7 @@ function SelectedGearPage() {
 									</label>
 									<input
 										onChange={e => setGearFormData(prevFormData => ({ ...prevFormData, manufacturer: e.target.value }))}
-										value={gearFormData.manufacturer}
+										value={gearFormData?.manufacturer}
 										type="text"
 										name="manufacturer"
 										id="manufacturer"
@@ -111,7 +125,7 @@ function SelectedGearPage() {
 									<label htmlFor="model" className="flex-2 font-bold">
 										Model:
 									</label>
-									<input onChange={e => setGearFormData(prevFormData => ({ ...prevFormData, model: e.target.value }))} value={gearFormData.model} type="text" name="model" id="model" placeholder="gear model?" className="flex-1 outline-none bg-transparent" maxLength={12} />
+									<input onChange={e => setGearFormData(prevFormData => ({ ...prevFormData, model: e.target.value }))} value={gearFormData?.model} type="text" name="model" id="model" placeholder="gear model?" className="flex-1 outline-none bg-transparent" maxLength={12} />
 								</div>
 							</div>
 						</div>
@@ -125,7 +139,7 @@ function SelectedGearPage() {
 									<label htmlFor="gearStatus" className="font-bold">
 										Gear Status:
 									</label>
-									<select onChange={e => setGearFormData(prevFormData => ({ ...prevFormData, status: e.target.value as GearStatuses }))} value={gearFormData.status} name="gearStatus" id="gearStatus" className="p-2 outline-none rounded-full">
+									<select onChange={e => setGearFormData(prevFormData => ({ ...prevFormData, status: e.target.value as GearStatuses }))} value={gearFormData?.status} name="gearStatus" id="gearStatus" className="p-2 outline-none rounded-full">
 										<option value={GearStatuses.isAvailable}>is Available</option>
 										<option value={GearStatuses.isInUse}>in Use</option>
 										<option value={GearStatuses.isDamaged}>is Damaged</option>
@@ -139,7 +153,7 @@ function SelectedGearPage() {
 								</label>
 								<textarea
 									onChange={e => setGearFormData(prevFormData => ({ ...prevFormData, description: e.target.value }))}
-									value={gearFormData.description}
+									value={gearFormData?.description}
 									name="description"
 									id="description"
 									placeholder="Add a description"
@@ -149,7 +163,9 @@ function SelectedGearPage() {
 									className="mt-2 p-2 resize-none outline-none rounded-sm"></textarea>
 							</div>
 						</div>
-						<button className="mt-4 px-4 py-2 btn-primary text-white">Update Gear</button>
+						<button type="submit" className="mt-4 px-4 py-2 btn-primary text-white">
+							Update Gear
+						</button>
 					</form>
 				</div>
 			</div>
