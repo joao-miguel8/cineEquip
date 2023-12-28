@@ -1,3 +1,4 @@
+import { BsQrCode } from "react-icons/bs";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -133,7 +134,6 @@ function SelectedGearPage() {
 						<div>
 							{/* gear QR code icon */}
 							<div className="mt-10 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-								<span>QR code Icon</span>
 								{/* gear status drop down */}
 								<div className="flex gap-2 items-center">
 									<label htmlFor="gearStatus" className="font-bold">
@@ -147,7 +147,11 @@ function SelectedGearPage() {
 								</div>
 							</div>
 							{/* gear description */}
-							<div className="mt-10 flex flex-col">
+							<div className="mt-10 flex gap-4 flex-col">
+								{/* QR Code icon */}
+								<div className="p-4 border-2 w-fit rounded-full border-black cursor-pointer hover:bg-accent  duration-300">
+									<BsQrCode size={"2.4rem"} />
+								</div>
 								<label htmlFor="description" className="font-bold">
 									Description:
 								</label>
