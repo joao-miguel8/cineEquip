@@ -8,9 +8,9 @@ import { IMAGE_UPLOAD_URL } from "../../config/IMAGE_UPLOAD_URL";
 function GearCard({ gearData, isSelectModeActive }: { gearData: GearType; isSelectModeActive: boolean }) {
 	// change gear status text color if it matches the correct status
 	const gearStatusColorsClass = {
-		"text-lime-500": GearStatuses.isAvailable === gearData.status,
-		"text-red-500": GearStatuses.isDamaged === gearData.status,
-		"text-orange-500": GearStatuses.isInUse === gearData.status,
+		"text-lime-500": GearStatuses.isAvailable === gearData?.status,
+		"text-red-500": GearStatuses.isDamaged === gearData?.status,
+		"text-orange-500": GearStatuses.isInUse === gearData?.status,
 	};
 
 	return (
