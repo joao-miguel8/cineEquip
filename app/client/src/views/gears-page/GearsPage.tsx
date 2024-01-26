@@ -11,9 +11,10 @@ import useModal from "../../components/modals/hooks/useModal";
 import { useGearStore } from "../../zustand-store/gearStore";
 import { useQuery } from "react-query";
 import { useState } from "react";
+import AddGearToProjectModal from "../../components/modals/AddGearToProjectModal";
 
 function GearsPage() {
-	const modals = useModal(["createGear", "deleteGear"]);
+	const modals = useModal(["createGear", "deleteGear", "addGearToProject"]);
 
 	const getGearList = useGearStore(state => state.getAllGear);
 	const gearList = useGearStore(state => state.gear);
@@ -31,11 +32,9 @@ function GearsPage() {
 	const gearPopUpActions = [
 		{
 			label: "Create Gear",
-			onClick: () => {
-				modals.openModal("createGear");
-			},
+			onClick: () => modals.openModal("createGear"),
 		},
-		{ label: "Add Gear to project", onClick: () => console.log("Add Gear to Project") },
+		{ label: "Add Gear to project", onClick: () => modals.openModal("addGearToProject") },
 		{ label: "Add Gear to kit", onClick: () => console.log("Add Gear to Kit") },
 	];
 
@@ -65,11 +64,17 @@ function GearsPage() {
 					</button>
 				))}
 			</section>
+			{/* Create Gear Modal */}
 			<Modal isOpen={modals.modals.createGear} modalType={"createGear"}>
 				<CreateGearModal modalClose={() => modals.closeModal("createGear")} />
 			</Modal>
+			{/* Delete Gear Modal */}
 			<Modal isOpen={modals.modals["deleteGear"]} modalType={"deleteGear"}>
 				<DeleteGearModal closeModal={() => modals.closeModal("deleteGear")} selectedGearData={selectedGearCard} />
+			</Modal>
+			{/* Add Gear to project Modal */}
+			<Modal isOpen={modals.modals["addGearToProject"]} modalType={"addGearToProject"}>
+				<AddGearToProjectModal closeModal={() => modals.closeModal("addGearToProject")} gearData={data} />
 			</Modal>
 		</>
 	);
